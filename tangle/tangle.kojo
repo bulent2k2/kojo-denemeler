@@ -2,7 +2,7 @@ import Staging._ // şu komutlar gelsin bakalım: line, circle, square
 import Staging.{ circle, clear } // bu komut adları çatışıyor
 import math.pow, math.random
 
-val KNS = 6 // Karenin bir kenarında kaç tane nokta olsun? KNS arttıkça oyun zorlaşır.
+val KNS = 2 // Karenin bir kenarında kaç tane nokta olsun? KNS arttıkça oyun zorlaşır.
 val BNS = KNS * KNS // başlangıçtaki nokta sayısı. kare grid çizgesi kuracağız. düzlemseldir.
 val YÇ = 20 // bu da noktanın yarıçapı
 var çizgiler = Vector[Çizgi]() // boş küme olarak başlarız
@@ -57,14 +57,14 @@ def kareDüğmeler() = {
     val b2 = square(kx, ky, 20) // mavi kare yeni bir nokta ekler
     b2.setPenColor(mavi)
     b2.setFillColor(mavi)
-    var yeniNokta = 0 //
-    val foo2 = foo(KNS)
-    println(foo2.size + " nokta ekleyebilirsin")
-    b2.onMouseClick { (x, y) =>
-        if (yeniNokta < foo2.size) {
+    var yeniNokta = 0 // kk'nin kaçıncı kümesine bağlanacak bu yeni nokta?
+    val kk = kümeler(KNS)
+    println(kk.size + " nokta ekleyebilirsin")
+    b2.onMouseClick { (x, y) =>  // bu kareye her basışımızda yeni bir nokta ekleyelim
+        if (yeniNokta < kk.size) {
             val yn = Nokta(kx + 40, ky + 40)
             noktalar = noktalar :+ yn
-            çizgiler = çizgiler ++ (for (i <- foo2(yeniNokta)) yield (Çizgi(yn, noktalar(i))))
+            çizgiler = çizgiler ++ (for (i <- kk(yeniNokta)) yield (Çizgi(yn, noktalar(i))))
             yeniNokta += 1
             println(kaçTane())
             çizelim(çizgiler)
@@ -76,29 +76,14 @@ def kareDüğmeler() = {
         }
     }
 }
-/* b2 karesine her basışımızda yeni bir nokta ekleriz ve onu düzlemsel kare grid çizgesinin
- * dört kenarından birindeki noktalara bağlarız. Karenin dört kenarı olduğu için, dört yeni
- * nokta ekleyebiliriz en çok.
- * Bu dört kenarı nasıl belirleriz. Bir üçlüyle:
- *    (a,b,c) a: ilk nokta, b: son noktadan bir sonraki, c: iki nokta arasındaki adım boyu
- * İlk KNS noktanın olduğu kenara üst kenar diyelim. Ondan başlayıp saat yönünde gidelim:
- *   üst(0)/sağ(1)/alt(2)/sol(3)
- *  2x2     c: +1/+2/-1/-2                        4x4        c: +1/+4/-1/-4
- *     0 1                                           0 1 2 3
- *     2 3   => sides: 0 1/1 3/3 2/2 0               4 5 6 7
- *  3x3      c: +1/+3/-1/-3                          8 9 a b
- *     0 1 2                                         c d e f   => sides: 0-3/3-f/f-c/c-0
- *     3 4 5
- *     6 7 8 => sides: 0 1 2/2 5 8/8 7 6/6 3 0
- */
-def foo(d: Int) = {
-    def inner() = {
+def kümeler(d: Int) = {
+    def iç4Kenar() = {  // ilk kare çizitin kenarları
         val r1 = Vector((0, 1), (d - 1, d), (d * d - 1, -1), (d * (d - 1), -d))
         val l0 = (for ((a, c) <- (for (i <- 0 to 3) yield r1(i))) yield (a, (a + c * d), c)).toList
         for ((a, b, c) <- l0) yield (Range(a, b, c).toList)
     }
-    // iki dörtlüyü nasıl parmakları kenetler gibi birleştiriyoruz:
-    def out(i1: List[Int], i2: List[Int]) = {
+    // dış kenarı iki listeyi fermuar gibi bir araya getirerek buluyoruz
+    def dış(i1: List[Int], i2: List[Int]) = {
         val l3 = i2.zip(i1.tail ::: List(i1.head)).flatMap(p => List(p._1, p._2))
         val l4 = l3 ::: List(l3.head)
         for (i <- 0 to 7 by 2) yield (l4.drop(i).take(3))
@@ -109,7 +94,7 @@ def foo(d: Int) = {
     val l3 = l2.map(_ + 4)
     val l4 = l3.map(_ + 4)
     val l5 = l4.map(_ + 4)
-    List(inner, out(l1, l2), out(l2, l3), out(l3, l4), out(l4, l5), out(l5, l5.map(_ + 4))).flatMap(_.toList)
+    List(iç4Kenar, dış(l1, l2), dış(l2, l3), dış(l3, l4), dış(l4, l5), dış(l5, l5.map(_ + 4))).flatMap(_.toList)
 }
 clear()
 toggleFullScreenCanvas()
