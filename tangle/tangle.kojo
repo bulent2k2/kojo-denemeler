@@ -2,7 +2,7 @@ import Staging._ // şu komutlar gelsin bakalım: line, circle, square
 import Staging.{ circle, clear } // bu komut adları çatışıyor
 import math.pow, math.random
 
-val KNS = 2 // Karenin bir kenarında kaç tane nokta olsun? KNS arttıkça oyun zorlaşır.
+val KNS = 3 // Karenin bir kenarında kaç tane nokta olsun? KNS arttıkça oyun zorlaşır.
 val BNS = KNS * KNS // başlangıçtaki nokta sayısı. kare grid çizgesi kuracağız. düzlemseldir.
 val YÇ = 20 // bu da noktanın yarıçapı
 var çizgiler = Vector[Çizgi]() // boş küme olarak başlarız
@@ -12,41 +12,39 @@ case class Çizgi(n1: Nokta, n2: Nokta) { // her çizgi iki noktayı bağlar
     n1.komşu(n2)
     n2.komşu(n1)
 }
-var nsD = doğru  // nokta seçme durumu açık mı?
 var selection = Set[Nokta]()
 case class Nokta(var x: Kesir, var y: Kesir) {
     var komşular = Set[Nokta]()
     def komşu(n: Nokta) = komşular += n
     def kim() = komşular
     val n = circle(x, y, YÇ) // verilen x ve y coordinatı merkezimiz. yarıçap belli.
-    n.setFillColor(mavi) // rengi mavi olsun
+    def sel(s: Boolean) = { 
+        n.setPenThickness(if (s) 4 else 0)
+        n.setPenColor(if (s) yeşil else (mavi))
+    }
+    sel(yanlış)
+    n.setFillColor(mavi)
     def yeniKonum(yeniX: Kesir, yeniY: Kesir) {
         x = yeniX; y = yeniY
         n.setPosition(yeniX, yeniY)
     }
     override def toString = s"N(${round(x, 2)},${round(y, 2)})"
+
     n.onMouseClick { (mx, my) =>
-        {
-            if (nsD)
-                if (selection.contains(this)) {
-                    selection -= this
-                    n.setPenColor(kırmızı)
-                }
-                else {
-                    // println(s"seçtiğimiz nokta: $this")
-                    selection += this
-                    n.setPenColor(yeşil)
-                }
-            else {
-                n.setPenColor(kırmızı)
-            }
+        if (selection.contains(this)) {
+            selection -= this
+            sel(yanlış)
+        }
+        else {
+            selection += this
+            sel(doğru)
         }
     }
     // çekince bu çalışacak. Yeri değişince ona bağlı çizgileri tekrar çizmemiz gerek
     n.onMouseDrag { (mx, my) => { yeniKonum(mx, my); çizelim(çizgiler) } }
     def merkezeGit() = {
         val s = komşular.size
-        if (s == 0) println("Komşum yok!") else if (s == 1) println("Tek komşu var!") else {
+        if (s == 0) println("Komşum yok!") else {
             val nx = komşular.foldLeft(0.0)((d, n) => d + n.x) / s.toDouble
             val ny = komşular.foldLeft(0.0)((d, n) => d + n.y) / s.toDouble
             yeniKonum(nx, ny); çizelim(çizgiler)
@@ -94,7 +92,6 @@ def kareDüğmeler() = {
     d3c(kx, ky)
     d4(kx, ky)
 }
-def hilite(b: net.kogics.kojo.staging.Rectangle) = b.setPenColor(if (nsD) kırmızı else yeşil)
 def d2(kx: Double, ky: Double) = {
     val b2 = square(kx, ky, 20) // mavi kare yeni bir nokta ekler
     b2.setPenColor(mavi)
@@ -104,7 +101,9 @@ def d2(kx: Double, ky: Double) = {
     println(kk.size + " nokta ekleyebilirsin")
     b2.onMouseClick { (x, y) => // bu kareye her basışımızda yeni bir nokta ekleyelim
         if (yeniNokta < kk.size) {
-            val yn = Nokta(kx + 40, ky + 40)
+            val yn = Nokta(kx + 60, ky)
+            selection += yn
+            yn.sel(true)
             noktalar = noktalar :+ yn
             çizgiler = çizgiler ++ (for (i <- kk(yeniNokta)) yield (Çizgi(yn, noktalar(i))))
             yeniNokta += 1
@@ -118,33 +117,26 @@ def d2(kx: Double, ky: Double) = {
         }
     }
 }
-def d3(kx: Double, ky: Double) = { // seçim kümesini sil, ya da seçmeyi etkinleştir
+def d3(kx: Double, ky: Double) = { // seçim kümesini sil, ya da hepsini seç
     val b = square(kx, ky + 40, 20)
     b.setFillColor(yeşil)
     b.setPenThickness(4)
-    b.onMouseClick { (x, y) => noktaSeçmeDurumu(b) }
-}
-def noktaSeçmeDurumu(b: net.kogics.kojo.staging.Rectangle) = {
-    if (nsD) {
-        println("nokta seçmeyi kapattık")
-        nsD = yanlış
-        selection.map(n => n.n.setPenColor(kırmızı))
-        selection = selection.empty
+    b.onMouseClick { (x, y) =>
+        if (!selection.isEmpty) {
+            selection.map(n => n.sel(yanlış))
+            selection = selection.empty
+        }
+        else noktalar.map(n => { n.sel(doğru); selection += n })
     }
-    else {
-        println("nokta seçebilirsin")
-        nsD = doğru
-    }
-    hilite(b)
 }
 def d3b(kx: Double, ky: Double) = {
     val b = square(kx + 40, ky + 40, 20)
     b.setFillColor(yeşil)
     b.setPenThickness(4)
     b.setPenColor(mavi)
-    b.onMouseClick { (x, y) => 
+    b.onMouseClick { (x, y) =>
         val s = selection.size
-        if (s > 0) { println(s"${selection.size} nokta seçildi: ${selection}") } 
+        if (s > 0) { println(s"${selection.size} nokta seçildi: ${selection}") }
         else println("Seçilmiş nokta yok")
     }
 }
