@@ -9,16 +9,49 @@ var çizgiler = Vector[Çizgi]() // boş küme olarak başlarız
 var noktalar = Vector[Nokta]()
 case class Çizgi(n1: Nokta, n2: Nokta) { // her çizgi iki noktayı bağlar
     var çizgi = line(n1.x, n1.y, n2.x, n2.y) // bir doğru çizer
+    n1.komşu(n2)
+    n2.komşu(n1)
 }
+var nsD = doğru  // nokta seçme durumu açık mı?
+var selection = Set[Nokta]()
 case class Nokta(var x: Kesir, var y: Kesir) {
+    var komşular = Set[Nokta]()
+    def komşu(n: Nokta) = komşular += n
+    def kim() = komşular
     val n = circle(x, y, YÇ) // verilen x ve y coordinatı merkezimiz. yarıçap belli.
     n.setFillColor(mavi) // rengi mavi olsun
     def yeniKonum(yeniX: Kesir, yeniY: Kesir) {
         x = yeniX; y = yeniY
         n.setPosition(yeniX, yeniY)
     }
+    override def toString = s"N(${round(x, 2)},${round(y, 2)})"
+    n.onMouseClick { (mx, my) =>
+        {
+            if (nsD)
+                if (selection.contains(this)) {
+                    selection -= this
+                    n.setPenColor(kırmızı)
+                }
+                else {
+                    // println(s"seçtiğimiz nokta: $this")
+                    selection += this
+                    n.setPenColor(yeşil)
+                }
+            else {
+                n.setPenColor(kırmızı)
+            }
+        }
+    }
     // çekince bu çalışacak. Yeri değişince ona bağlı çizgileri tekrar çizmemiz gerek
-    n.onMouseDrag { (mx, my) => { n.setPosition(mx, my); x = mx; y = my; çizelim(çizgiler) } }
+    n.onMouseDrag { (mx, my) => { yeniKonum(mx, my); çizelim(çizgiler) } }
+    def merkezeGit() = {
+        val s = komşular.size
+        if (s == 0) println("Komşum yok!") else if (s == 1) println("Tek komşu var!") else {
+            val nx = komşular.foldLeft(0.0)((d, n) => d + n.x) / s.toDouble
+            val ny = komşular.foldLeft(0.0)((d, n) => d + n.y) / s.toDouble
+            yeniKonum(nx, ny); çizelim(çizgiler)
+        }
+    }
 }
 def serpiştir(hepsi: Vector[Nokta]) { // her noktayı rasgele yerleştir
     val boy = 1.8 * canvasBounds.getMaxY // KNS * YÇ * 6 // serpme alanının kenar boyu
@@ -36,7 +69,8 @@ def çizelim(hepsi: Vector[Çizgi]) { // Her çizgi iki noktasının çemberine 
     })
 }
 def baştan() = { // Her nokta (0,0) yani orijine konuyor başta. Merak etme birazdan dağıtacağız
-    noktalar = (0 until BNS).foldLeft(Vector[Nokta]())((v, i) => { v :+ Nokta(0, 0) })
+    var s = 0 // yoksa komşu seti yanlış çalışıyor!
+    noktalar = (0 until BNS).foldLeft(Vector[Nokta]())((v, i) => { s += 1; v :+ Nokta(s, 0); })
     // çizgileri tanımlar ve iki noktasına bağlarız. Bir balık ağı gibi. KNS * KNS düğümlü
     çizgiler = (0 until BNS).foldLeft(Vector[Çizgi]())(
         (çv, i) => {
@@ -54,13 +88,21 @@ def kareDüğmeler() = {
     val b = square(kx, ky - 40, 20)
     b.setFillColor(kırmızı) // kırmızı kareye tıkla: yeni bir düğümle baştan başlat
     b.onMouseClick { (x, y) => serpiştir(noktalar) }
+    d2(kx, ky)
+    d3(kx, ky)
+    d3b(kx, ky)
+    d3c(kx, ky)
+    d4(kx, ky)
+}
+def hilite(b: net.kogics.kojo.staging.Rectangle) = b.setPenColor(if (nsD) kırmızı else yeşil)
+def d2(kx: Double, ky: Double) = {
     val b2 = square(kx, ky, 20) // mavi kare yeni bir nokta ekler
     b2.setPenColor(mavi)
     b2.setFillColor(mavi)
     var yeniNokta = 0 // kk'nin kaçıncı kümesine bağlanacak bu yeni nokta?
     val kk = kümeler(KNS)
     println(kk.size + " nokta ekleyebilirsin")
-    b2.onMouseClick { (x, y) =>  // bu kareye her basışımızda yeni bir nokta ekleyelim
+    b2.onMouseClick { (x, y) => // bu kareye her basışımızda yeni bir nokta ekleyelim
         if (yeniNokta < kk.size) {
             val yn = Nokta(kx + 40, ky + 40)
             noktalar = noktalar :+ yn
@@ -76,8 +118,55 @@ def kareDüğmeler() = {
         }
     }
 }
+def d3(kx: Double, ky: Double) = { // seçim kümesini sil, ya da seçmeyi etkinleştir
+    val b = square(kx, ky + 40, 20)
+    b.setFillColor(yeşil)
+    b.setPenThickness(4)
+    b.onMouseClick { (x, y) => noktaSeçmeDurumu(b) }
+}
+def noktaSeçmeDurumu(b: net.kogics.kojo.staging.Rectangle) = {
+    if (nsD) {
+        println("nokta seçmeyi kapattık")
+        nsD = yanlış
+        selection.map(n => n.n.setPenColor(kırmızı))
+        selection = selection.empty
+    }
+    else {
+        println("nokta seçebilirsin")
+        nsD = doğru
+    }
+    hilite(b)
+}
+def d3b(kx: Double, ky: Double) = {
+    val b = square(kx + 40, ky + 40, 20)
+    b.setFillColor(yeşil)
+    b.setPenThickness(4)
+    b.setPenColor(mavi)
+    b.onMouseClick { (x, y) => 
+        val s = selection.size
+        if (s > 0) { println(s"${selection.size} nokta seçildi: ${selection}") } 
+        else println("Seçilmiş nokta yok")
+    }
+}
+def d3c(kx: Double, ky: Double) = {
+    val b = square(kx + 80, ky + 40, 20)
+    b.setFillColor(mor)
+    b.onMouseClick { (x, y) =>
+        if (selection.isEmpty) { println("Önce nokta seçmelisin") } else {
+            selection.map(n => println(s"$n: ${n.kim.size} komşusu var: ${n.kim}"))
+        }
+    }
+}
+def d4(kx: Double, ky: Double) = {
+    val b = square(kx, ky + 80, 20)
+    b.setFillColor(gri)
+    b.onMouseClick { (x, y) =>
+        if (selection.size == 0) println("Nokta seç ki merkezini bulalım")
+        else selection.map(_.merkezeGit())
+    }
+}
 def kümeler(d: Int) = {
-    def iç4Kenar() = {  // ilk kare çizitin kenarları
+    def iç4Kenar() = { // ilk kare çizitin kenarları
         val r1 = Vector((0, 1), (d - 1, d), (d * d - 1, -1), (d * (d - 1), -d))
         val l0 = (for ((a, c) <- (for (i <- 0 to 3) yield r1(i))) yield (a, (a + c * d), c)).toList
         for ((a, b, c) <- l0) yield (Range(a, b, c).toList)
@@ -96,6 +185,7 @@ def kümeler(d: Int) = {
     val l5 = l4.map(_ + 4)
     List(iç4Kenar, dış(l1, l2), dış(l2, l3), dış(l3, l4), dış(l4, l5), dış(l5, l5.map(_ + 4))).flatMap(_.toList)
 }
+clearOutput()
 clear()
 toggleFullScreenCanvas()
 baştan()
