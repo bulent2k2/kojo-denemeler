@@ -1,3 +1,4 @@
+// don't edit here. See ./tangle
 import Staging._ // şu komutlar gelsin bakalım: line, circle, square
 import Staging.{ circle, clear } // bu komut adları çatışıyor
 import math.pow, math.random
