@@ -101,7 +101,7 @@ def d2(kx: Double, ky: Double) = {
     println(kk.size + " nokta ekleyebilirsin")
     b2.onMouseClick { (x, y) => // bu kareye her basışımızda yeni bir nokta ekleyelim
         if (yeniNokta < kk.size) {
-            val yn = Nokta(kx + 60, ky)
+            val yn = Nokta(kx + 60, ky+random) // random for selection set equality check
             selection += yn
             yn.sel(true)
             noktalar = noktalar :+ yn
