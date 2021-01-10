@@ -1,4 +1,12 @@
 // ./rasgeleResim.kojo bunu kullanıyor!
+// tr/scala-tutorial.kojo da kullanacak
+
+val kaplumbağa0 = TurkishAPI.kaplumbağa
+// kaplumbağa0.geri
+
+def yeniKaplumbağa(x: Kesir, y: Kesir) = new TurkishAPI.Kaplumbağa(x, y)
+/*  val k1 = yeniKaplumbağa(100, 100)
+    k1.geri */
 
 def tümEkran = toggleFullScreenCanvas
 def rastgeleSeçim = randomBoolean

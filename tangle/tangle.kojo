@@ -2,24 +2,33 @@ import Staging._ // şu komutlar gelsin bakalım: line, circle, square
 import Staging.{ circle, clear } // bu komut adları çatışıyor
 import math.pow, math.random
 
-clear(); clearOutput()
+clear(); çıktıyıSil()
 val KNS = 1 // Karenin bir kenarında kaç tane nokta olsun? KNS arttıkça oyun zorlaşır.
 val BNS = KNS * KNS // başlangıçtaki nokta sayısı. kare grid çizgesi kuracağız. düzlemseldir.
 val YÇ = 20 // bu da noktanın yarıçapı
 var çizgiler = Vector[Çizgi]() // boş küme olarak başlarız
 var noktalar = Vector[Nokta]()
 
-case class Çizgi(n1: Nokta, n2: Nokta) { // her çizgi iki noktayı bağlar
+case class Çizgi(n1: Nokta, n2: Nokta) { // iki noktayı bağla
     require(n1 != n2, s"YANLIŞ! döngü ${n1.yaz}")
-    satıryaz(s"${n1.yaz} ve ${n2.yaz} bağlanıyor")
     require(!n1.komşuMu(n2), s"YANLIŞ! ${n1.yaz} ve ${n2.yaz} zaten bağlı")
+    satıryaz(s"${n1.yaz} ve ${n2.yaz} bağlanıyor")
     var çizgi = line(n1.x, n1.y, n2.x, n2.y) // bir doğru çizer
     n1.komşu(n2)
     n2.komşu(n1)
 }
 
 var selection = Set[Nokta]()
-def seçiliKümeyiYaz() = s"${selection.size} nokta seçili: " + selection.map(n => n.ne).mkString("{", " ", "}")
+def seç(n: Nokta) = {
+    selection += n
+    n.sel(doğru)
+}
+def seçme(n: Nokta) = {
+    selection -= n
+    n.sel(yanlış)
+}
+def seçiliKümeyiYaz() = s"${selection.size} nokta seçili: " +
+    selection.toList.map(n => n.ne).mkString("{", " ", "}")
 
 case class Nokta(var x: Kesir, var y: Kesir) {
     val bu = this
@@ -47,14 +56,7 @@ case class Nokta(var x: Kesir, var y: Kesir) {
 
     // bbx todo double click?
     n.onMouseClick { (mx, my) =>
-        if (selection.contains(bu)) {
-            selection -= bu
-            sel(yanlış)
-        }
-        else {
-            selection += bu
-            sel(doğru)
-        }
+        if (selection.contains(bu)) seçme(bu) else seç(bu)
         satıryaz(s"$yaz. $seçiliKümeyiYaz")
     }
     // çekince bu çalışacak. Yeri değişince ona bağlı çizgileri tekrar çizmemiz gerek
@@ -147,12 +149,12 @@ def düğmeler() = {
     // place the buttons in rows and columns
     val (row1, row2, row3, row4) = (ky, ky + dGrid, ky + 2 * dGrid, ky + 3 * dGrid)
     val (col1, col2, col3, col4) = (kx, kx + dGrid, kx + 2 * dGrid, kx + 3 * dGrid)
-    def ynkx = kx + 3 * dGrid // yeni nokta konumu
+    def ynkx = kx + 3 * dGrid - random // yeni nokta konumu
     def ynky = ky + 4 * dGrid - random // random for selection set equality check
     var yardım = Picture.widget(Label("Yardım"))
     def yardımEt(x: Kesir, y: Kesir, m: Yazı) = {
         yardım = Picture.widget(Label(m))
-        yardım.setPosition(kx - 10, 10)
+        yardım.setPosition(col1 - 10, row4 + dGrid)
         if (!yardım.drawn) draw(yardım)
         else yardım.erase()
     }
@@ -186,7 +188,7 @@ def düğmeler() = {
         b.onMouseClick { (x, y) => // bu kareye her basışımızda yeni bir nokta ekleyelim
             if (yeniNokta < kk.size) {
                 val yn = Nokta(ynkx, ynky)
-                selection += yn; yn.sel(doğru) // todo
+                seç(yn)
                 noktalar = noktalar :+ yn
                 çizgiler = çizgiler ++ (for (i <- kk(yeniNokta)) yield (Çizgi(yn, noktalar(i))))
                 yeniNokta += 1
@@ -209,7 +211,7 @@ def düğmeler() = {
             val yn = Nokta(ynkx, ynky)
             noktalar = noktalar :+ yn
             çizgiler = çizgiler ++ (for (en <- selection) yield (Çizgi(yn, en)))
-            selection += yn; yn.sel(doğru) // todo
+            seç(yn)
             satıryaz(kaçTane())
             çizelim(çizgiler)
         }
@@ -240,21 +242,24 @@ def düğmeler() = {
         b.setPenThickness(4)
         b.onMouseClick { (x, y) =>
             if (!selection.isEmpty) {
-                selection.map(n => n.sel(yanlış))
+                selection.map(_.sel(yanlış)) // seçme(n)
                 selection = selection.empty
             }
-            else noktalar.map(n => { n.sel(doğru); selection += n })
+            else noktalar.map(seç(_))
         }
     }
     def d3b() = { // seçili noktaları göster
         val b = square(col2, row3, dBoyu)
-        b.onMouseEnter { (x, y) => {
-            val s = selection.size
-            val mesaj = if (s == 1) { 
-                val k = selection.head.komşular.size; 
-                s"$s nokta şeçili. $k komşusu var"
-            } else s"$s nokta seçili"
-            yardımEt(x, y, mesaj) }
+        b.onMouseEnter { (x, y) =>
+            {
+                val s = selection.size
+                val mesaj = if (s == 1) {
+                    val k = selection.head.komşular.size;
+                    s"$s nokta şeçili. $k komşusu var"
+                }
+                else s"$s nokta seçili"
+                yardımEt(x, y, mesaj)
+            }
         }
         b.onMouseExit { (_, _) => yardımıKapat }
         b.setFillColor(yeşil)
