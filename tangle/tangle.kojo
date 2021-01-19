@@ -3,7 +3,7 @@ import Staging.{ circle, clear } // bu komut adları çatışıyor
 import math.pow, math.random
 
 clear(); çıktıyıSil()
-val KNS = 1 // Karenin bir kenarında kaç tane nokta olsun? KNS arttıkça oyun zorlaşır.
+val KNS = 3 // Karenin bir kenarında kaç tane nokta olsun? KNS arttıkça oyun zorlaşır.
 val BNS = KNS * KNS // başlangıçtaki nokta sayısı. kare grid çizgesi kuracağız. düzlemseldir.
 val YÇ = 20 // bu da noktanın yarıçapı
 var çizgiler = Vector[Çizgi]() // boş küme olarak başlarız
@@ -131,8 +131,7 @@ def baştan() = { // Her nokta (0,0) yani orijine konuyor başta. Merak etme bir
             if (x < KNS - 1) { çzg :+ Çizgi(noktalar(i), noktalar(i + KNS)) } else çzg
         })
     serpiştir(noktalar) // rasgele dağıt ve çizgileri çiz
-    axesOn
-    gridOn
+    //axesOn; gridOn
     düğmeler
 }
 def kaçTane() = f"${noktalar.size}%2d nokta ve ${çizgiler.size}%2d çizgi var"
@@ -155,6 +154,7 @@ def düğmeler() = {
     def yardımEt(x: Kesir, y: Kesir, m: Yazı) = {
         yardım = Picture.widget(Label(m))
         yardım.setPosition(col1 - 10, row4 + dGrid)
+        yardım.setScale(2.0) // yazıyı büyütelim
         if (!yardım.drawn) draw(yardım)
         else yardım.erase()
     }
