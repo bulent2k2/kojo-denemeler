@@ -3,16 +3,17 @@ import Staging.{ circle, clear } // bu komut adları çatışıyor
 import math.pow, math.random
 
 clear(); çıktıyıSil()
-val KNS = 3 // Karenin bir kenarında kaç tane nokta olsun? KNS arttıkça oyun zorlaşır.
-val BNS = KNS * KNS // başlangıçtaki nokta sayısı. kare grid çizgesi kuracağız. düzlemseldir.
-val YÇ = 20 // bu da noktanın yarıçapı
+// Kare grid çizgesi kuracağız. düzlemseldir.
+val KNS = 4 // Karenin bir kenarında kaç tane nokta olsun? kns arttıkça oyun zorlaşır.
+// başlangıçtaki nokta sayısı = kns*kns. 
+val YÇ = 10 // bu da noktanın yarıçapı
 var çizgiler = Vector[Çizgi]() // boş küme olarak başlarız
 var noktalar = Vector[Nokta]()
 
 case class Çizgi(n1: Nokta, n2: Nokta) { // iki noktayı bağla
     require(n1 != n2, s"YANLIŞ! döngü ${n1.yaz}")
     require(!n1.komşuMu(n2), s"YANLIŞ! ${n1.yaz} ve ${n2.yaz} zaten bağlı")
-    satıryaz(s"${n1.yaz} ve ${n2.yaz} bağlanıyor")
+    //satıryaz(s"${n1.yaz} ve ${n2.yaz} bağlanıyor")
     var çizgi = line(n1.x, n1.y, n2.x, n2.y) // bir doğru çizer
     n1.komşu(n2)
     n2.komşu(n1)
@@ -69,7 +70,7 @@ case class Nokta(var x: Kesir, var y: Kesir) {
             yeniKonum(nx, ny); çizelim(çizgiler)
         }
     }
-    def merkezeGetir() = { // komşumuzu olan her noktayı yörüngeye sokalım.
+    def merkezeGetir() = { // komşumuz olan her noktayı yörüngeye sokalım.
         val k = komşular
         val (s, g) = (komşular.size, 2 * YÇ)
         val tg = 2 * g
@@ -120,19 +121,20 @@ def çizelim(hepsi: Vector[Çizgi]) { // Her çizgi iki noktasının çemberine 
         çzg.çizgi = line(x1 + xr, y1 + yr, x2 - xr, y2 - yr)
     })
 }
-def baştan() = { // Her nokta (0,0) yani orijine konuyor başta. Merak etme birazdan dağıtacağız
+def baştan(kns: Sayı) = { // Her nokta (0,0) yani orijine konuyor başta. Merak etme birazdan dağıtacağız
     var s = 0 // yoksa komşu seti yanlış çalışıyor!
-    noktalar = (0 until BNS).foldLeft(Vector[Nokta]())((v, i) => { s += 1; v :+ Nokta(s, 0); })
-    // çizgileri tanımlar ve iki noktasına bağlarız. Bir balık ağı gibi. KNS * KNS düğümlü
-    çizgiler = (0 until BNS).foldLeft(Vector[Çizgi]())(
+    val bns = kns * kns // başlangıçtaki nokta sayısı
+    noktalar = (0 until bns).foldLeft(Vector[Nokta]())((v, i) => { s += 1; v :+ Nokta(s, 0); })
+    // çizgileri tanımlar ve iki noktasına bağlarız. Bir balık ağı gibi. kns * kns düğümlü
+    çizgiler = (0 until bns).foldLeft(Vector[Çizgi]())(
         (çv, i) => {
-            val (x, y) = (i / KNS, i % KNS)
-            val çzg = if (y < KNS - 1) { çv :+ Çizgi(noktalar(i), noktalar(i + 1)) } else çv
-            if (x < KNS - 1) { çzg :+ Çizgi(noktalar(i), noktalar(i + KNS)) } else çzg
+            val (x, y) = (i / kns, i % kns)
+            val çzg = if (y < kns - 1) { çv :+ Çizgi(noktalar(i), noktalar(i + 1)) } else çv
+            if (x < kns - 1) { çzg :+ Çizgi(noktalar(i), noktalar(i + kns)) } else çzg
         })
     serpiştir(noktalar) // rasgele dağıt ve çizgileri çiz
     //axesOn; gridOn
-    düğmeler
+    düğmeler(kns)
 }
 def kaçTane() = f"${noktalar.size}%2d nokta ve ${çizgiler.size}%2d çizgi var"
 val dGrid = 40
@@ -144,7 +146,7 @@ def düğmelereDeğdiMi(x: Kesir, y: Kesir) = {
     val (urx, ury) = (kx + 3 * dGrid + YÇ, ky + 4 * dGrid + YÇ)
     llx < x && x < urx && lly < y && y < ury
 }
-def düğmeler() = {
+def düğmeler(kns: Sayı) = {
     // place the buttons in rows and columns
     val (row1, row2, row3, row4) = (ky, ky + dGrid, ky + 2 * dGrid, ky + 3 * dGrid)
     val (col1, col2, col3, col4) = (kx, kx + dGrid, kx + 2 * dGrid, kx + 3 * dGrid)
@@ -153,7 +155,7 @@ def düğmeler() = {
     var yardım = Picture.widget(Label("Yardım"))
     def yardımEt(x: Kesir, y: Kesir, m: Yazı) = {
         yardım = Picture.widget(Label(m))
-        yardım.setPosition(col1 - 10, row4 + dGrid)
+        yardım.setPosition(col1, row4 + dGrid)
         yardım.setScale(2.0) // yazıyı büyütelim
         if (!yardım.drawn) draw(yardım)
         else yardım.erase()
@@ -183,7 +185,7 @@ def düğmeler() = {
         b.setPenColor(mavi)
         b.setFillColor(mavi)
         var yeniNokta = 0 // kk'nin kaçıncı kümesine bağlanacak bu yeni nokta?
-        val kk = kümeler(KNS)
+        val kk = kümeler(kns)
         satıryaz(kk.size + " dışsal nokta ekleyebilirsin")
         b.onMouseClick { (x, y) => // bu kareye her basışımızda yeni bir nokta ekleyelim
             if (yeniNokta < kk.size) {
@@ -325,4 +327,4 @@ def düğmeler() = {
     }
     çiz()
 }
-baştan()
+baştan(KNS)
