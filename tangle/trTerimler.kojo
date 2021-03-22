@@ -1,3 +1,5 @@
+// artık şunda: trInit.scala
+// ~/src/kojo/git/kojo/src/main/scala/net/kogics/kojo/lite/i18n/trInit.scala
 // ./rasgeleResim.kojo bunu kullanıyor!
 // tr/scala-tutorial.kojo da kullanacak
 
@@ -39,6 +41,7 @@ object Resim {
     def dikey(boy: Kesir) = Resim(Picture.vline(boy))
     def dikdörtgen(en: Kesir, boy: Kesir) = Resim(Picture.rect(en, boy))
     def yazı(içerik: Her, yazıBoyu: Sayı) = Resim(Picture.text(içerik, yazıBoyu))
+    def imge(dosyaAdı: Yazı) = Resim(Picture.image(dosyaAdı))
     // Resim.düğme("Merhaba")(println(kg.x))
     def düğme(ad: Yazı)(işlev: => Birim) = Resim(Picture.button(ad)(işlev))
     // Resim.arayüz(Label("Merhaba"))
@@ -47,3 +50,8 @@ object Resim {
     // todo: more..
 }
 def çiz(r: Resim) = Resim.çiz(r)
+
+def gridiGöster() = gridOn()
+def gridiGizle() = gridOff()
+def eksenleriGöster() = axesOn()
+def eksenleriGizle() = axesOff()

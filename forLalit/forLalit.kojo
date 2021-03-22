@@ -1,4 +1,3 @@
-// #include trLeftOvers.kojo
 tümEkran
 val ta = tuvalAlanı
 val (satırSayısı, sütunSayısı) = (20, 30)
