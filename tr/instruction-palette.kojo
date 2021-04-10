@@ -1,1 +1,0 @@
-tr/instruction-palette.kojo
