@@ -4,6 +4,9 @@ case object Beyaz extends Taş { override def toString() = "B" }
 case object Siyah extends Taş { override def toString() = "S" }
 case object Boş extends Taş { override def toString() = "." }
 
+case class Hane(str: Sayı, stn: Sayı)
+case class Hamle(oyuncu: Taş, hane: Hane)
+
 val tahta = Dizim.doldur[Taş](8, 8)(Boş)
 tahta(3)(3) = Beyaz
 tahta(4)(4) = Beyaz
@@ -14,17 +17,15 @@ val kare2taş = Eşlem.boş[Resim, Taş]
 val kare2hane = Eşlem.boş[Resim, Hane]
 val hane2kare = Eşlem.boş[Hane, Resim]
 
-var oyuncu: Taş = Beyaz // hep beyaz başlasın
+var oyuncu: Taş = Beyaz // Beyaz başlasın
 
 var hamleSayısı = 0
 def tahtayıYaz = {
     hamleSayısı += 1
-    satıryaz(s"\nHamle: $hamleSayısı. Sıra $oyuncu'de")
+    satıryaz(s"\nHamle: $hamleSayısı. Sıra $oyuncu'nin")
     for (y <- 7 to 0 by -1)
         satıryaz(tahta(y).mkString(" "))
 }
-// x ya da y koordinatlardan tahta indeksine 0..7
-def fare2tahta(z: Kesir) = sayıya((z - offset) / boy)
 
 def taş2renk(t: Taş) = t match {
     case Boş   => koyuYeşil
@@ -34,31 +35,54 @@ def taş2renk(t: Taş) = t match {
 val koyuYeşil = Renk(10, 111, 23)
 
 val boy = 64
-val offset = -256
 def kare = Resim.dikdörtgen(boy, boy)
+
 def kareyiTanımla(k: Resim) = {
+    def sırayıÖbürOyuncuyaGeçir = {
+        oyuncu = oyuncu match {
+            case Beyaz => Siyah
+            case Siyah => Beyaz
+        }
+    }
+    def hamleYoksa = {
+        val boşlar = for (x <- 0 to 7; y <- 0 to 7; if tahta(y)(x) == Boş) yield Hane(y, x)
+        boşlar.size == 0 || (boşlar.filter { hane =>
+            hamleyiYapmayıDene(Hamle(oyuncu, hane)).size > 0
+        }).size == 0
+    }
+    def kaçKaç = {
+        def say(t: Taş) = (for (x <- 0 to 7; y <- 0 to 7; if tahta(y)(x) == t) yield 1).size
+        satıryaz(s"beyazlar: ${say(Beyaz)}")
+        satıryaz(s"siyahlar: ${say(Siyah)}")
+    }
     k.fareyeTıklayınca { (_, _) =>
         var oynadıMı = yanlış
         val hane = kare2hane(k)
         val (str, stn) = (hane.str, hane.stn)
         tahta(str)(stn) match {
             case Boş =>
-                k.boyamaRenginiKur(taş2renk(oyuncu))
                 val hamle = Hamle(oyuncu, hane)
                 val yasal = hamleyiYapmayıDene(hamle)
                 if (yasal.size > 0) {
-                    kare2taş += (k -> oyuncu)
                     oynadıMı = doğru
+                    kare2taş += (k -> oyuncu)
                     hamleyiYap(hamle, yasal)
                     tahta(str)(stn) = oyuncu
                 }
+            case _ =>
         }
         if (oynadıMı) {
-            oyuncu = oyuncu match {
-                case Beyaz => Siyah
-                case Siyah => Beyaz
+            sırayıÖbürOyuncuyaGeçir
+            if (hamleYoksa) {
+                satıryaz("Hamle kalmadı!")
+                sırayıÖbürOyuncuyaGeçir
+                if (hamleYoksa) {
+                    satıryaz("İki oyuncu için de hamle kalmadı!")
+                    kaçKaç
+                }
+                else tahtayıYaz
             }
-            tahtayıYaz
+            else tahtayıYaz
         }
     }
     k.fareGirince { (_, _) =>
@@ -85,6 +109,7 @@ def taşıAltÜstYap(h: Hane): Birim = {
 }
 
 def tahtayıKur = {
+    val offset = -256
     val ipucu = EsnekDizim.boş[Resim]
     val gözeBatanRenk = turuncu
     for (x <- 0 to 7; y <- 0 to 7) {
@@ -105,10 +130,12 @@ def tahtayıKur = {
         }
         kareyiTanımla(r)
     }
-    ipucu.dizi.map(_.öneAl()) // üste çıkarki sonra çizilen komşu kareler sağ ve üst kenarları mor yapmasın
+    ipucu.dizi.map(_.öneAl()) // üste çıkar ki sonra çizilen komşu kareler sağ ve üst kenarları mor yapmasın
 }
 
-trait Doğrultu
+case class Komşu(d: Doğrultu, hane: Hane)
+
+trait Doğrultu // toString needed for debugging only
 case object D extends Doğrultu { override def toString = "->>-" }
 case object B extends Doğrultu { override def toString = "-<<-" }
 case object K extends Doğrultu { override def toString = "-^^-" }
@@ -117,15 +144,6 @@ case object KD extends Doğrultu { override def toString = "-^>-" }
 case object KB extends Doğrultu { override def toString = "-^<-" }
 case object GD extends Doğrultu { override def toString = "-v>-" }
 case object GB extends Doğrultu { override def toString = "-v<-" }
-
-trait Sıra
-case object Yatay extends Sıra
-case object Dikey extends Sıra
-case object Çapraz extends Sıra
-
-case class Hane(str: Sayı, stn: Sayı)
-case class Hamle(oyuncu: Taş, hane: Hane)
-case class Komşu(d: Doğrultu, hane: Hane)
 
 def hamleyiYapmayıDene(h: Hamle) = {
     val kml = komşularıBul(h.hane)
@@ -176,7 +194,7 @@ def sonuDaYasalMı(k: Komşu, oyuncu: Taş): İkil = {
 
 def gerisi(k: Komşu): Dizi[Hane] = {
     val sıra = EsnekDizim.boş[Hane]
-    val h = k.hane; val (x, y) = (h.stn, h.str)
+    val (x, y) = (k.hane.stn, k.hane.str)
     k.d match {
         case D => for (i <- x + 1 to 7) /* */ sıra += Hane(y, i)
         case B => for (i <- x - 1 to 0 by -1) sıra += Hane(y, i)
@@ -198,10 +216,7 @@ def gerisi(k: Komşu): Dizi[Hane] = {
     sıra.dizi
 }
 
-def başla() {
-    silVeSakla
-    çıktıyıSil
-    tahtayıKur
-    tahtayıYaz
-}
-başla
+silVeSakla
+çıktıyıSil
+tahtayıKur
+tahtayıYaz
