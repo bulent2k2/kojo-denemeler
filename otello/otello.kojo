@@ -18,7 +18,7 @@ val kare2taş = Eşlem.boş[Resim, Taş]
 val kare2hane = Eşlem.boş[Resim, Hane]
 val hane2kare = Eşlem.boş[Hane, Resim]
 
-var oyuncu: Taş = Beyaz // Beyaz başlasın oyuna
+var oyuncu: Taş = Beyaz // Beyaz ya da Siyah başlayabilir. Seç :-)
 
 var hamleSayısı = 0
 def tahtayıYaz = {
@@ -112,16 +112,13 @@ def kareyiTanımla(k: Resim) = {
     def bittiKaçKaç = satıryaz(s"Oyun bitti.\nbeyazlar: ${say(Beyaz)}\nsiyahlar: ${say(Siyah)}")
 }
 
-trait Doğrultu // toString needed for debugging only
-case object D extends Doğrultu { override def toString = "->>-" }
-case object B extends Doğrultu { override def toString = "-<<-" }
-case object K extends Doğrultu { override def toString = "-^^-" }
-case object G extends Doğrultu { override def toString = "-vv-" }
-case object KD extends Doğrultu { override def toString = "-^>-" }
-case object KB extends Doğrultu { override def toString = "-^<-" }
-case object GD extends Doğrultu { override def toString = "-v>-" }
-case object GB extends Doğrultu { override def toString = "-v<-" }
-case class Komşu(d: Doğrultu, hane: Hane)
+trait Yön
+case object K extends Yön; case object KD extends Yön
+case object D extends Yön; case object GD extends Yön
+case object G extends Yön; case object GB extends Yön
+case object B extends Yön; case object KB extends Yön
+
+case class Komşu(yön: Yön, hane: Hane)
 
 def hamleyiYapmayıDene(h: Hamle) = komşularıBul(h.hane) filter { komşu =>
     val komşuTaş = tahta(komşu.hane.str)(komşu.hane.stn)
@@ -152,7 +149,7 @@ def sonuDaYasalMı(k: Komşu, oyuncu: Taş): İkil = {
 def gerisi(k: Komşu): Dizi[Hane] = {
     val sıra = EsnekDizim.boş[Hane]
     val (x, y) = (k.hane.stn, k.hane.str)
-    k.d match {
+    k.yön match {
         case D => for (i <- x + 1 to 7) /* */ sıra += Hane(y, i)
         case B => for (i <- x - 1 to 0 by -1) sıra += Hane(y, i)
         case K => for (i <- y + 1 to 7) /* */ sıra += Hane(i, x)
