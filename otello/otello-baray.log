@@ -1,3 +1,558 @@
+* baba v baba (after refactoring and improving the output)
+Wed Apr 14 10:04:02 EDT 2021
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . S B . . .
+. . . B S . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+Hamle: 1. Sıra B'nin
+. . . . . . . .
+. . . . . . . .
+. . . B . . . .
+. . . B B . . .
+. . . B S . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+Hamle: 2. Sıra S'nin
+. . . . . . . .
+. . . . . . . .
+. . . B S . . .
+. . . B S . . .
+. . . B S . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+Hamle: 3. Sıra B'nin
+. . . . . . . .
+. . . . . . . .
+. . . B B B . .
+. . . B B . . .
+. . . B S . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+Hamle: 4. Sıra S'nin
+. . . . . . . .
+. . . . . . . .
+. . S B B B . .
+. . . S B . . .
+. . . B S . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+Hamle: 5. Sıra B'nin
+. . . . . . . .
+. . . . . . . .
+. B B B B B . .
+. . . S B . . .
+. . . B S . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+Hamle: 6. Sıra S'nin
+. . . . . . . .
+. . . . . . . .
+. B B B B B . .
+. . . S B . . .
+. . . S S . . .
+. . . S . . . .
+. . . . . . . .
+. . . . . . . .
+Hamle: 7. Sıra B'nin
+. . . . . . . .
+. . . . . . . .
+. B B B B B . .
+. . . B B . . .
+. . . B S . . .
+. . . B . . . .
+. . . B . . . .
+. . . . . . . .
+Hamle: 8. Sıra S'nin
+. . . . . . . .
+. . . . . . . .
+. B B B B B . .
+. . . B B . . .
+. . S S S . . .
+. . . B . . . .
+. . . B . . . .
+. . . . . . . .
+Hamle: 9. Sıra B'nin
+. . . . . . . .
+. . . . . . . .
+. B B B B B . .
+. . . B B . . .
+. . S B S . . .
+. . B B . . . .
+. . . B . . . .
+. . . . . . . .
+Hamle: 10. Sıra S'nin
+. . . . . . . .
+. . . . . . . .
+. B B B B B . .
+. . . B B . . .
+. . S B S . . .
+. . S S . . . .
+. . S B . . . .
+. . . . . . . .
+Hamle: 11. Sıra B'nin
+. . . . . . . .
+. . . . . . . .
+. B B B B B . .
+. . . B B . . .
+. B B B S . . .
+. . B S . . . .
+. . S B . . . .
+. . . . . . . .
+Hamle: 12. Sıra S'nin
+. . . . . . . .
+. . . . . . . .
+. B B B B B . .
+. . . B B . . .
+. B B B S . . .
+. . B S . . . .
+. . S S . . . .
+. . . S . . . .
+Hamle: 13. Sıra B'nin
+. . . . . . . .
+. . . . . . . .
+. B B B B B . .
+. . . B B . . .
+. B B B B B . .
+. . B S . . . .
+. . S S . . . .
+. . . S . . . .
+Hamle: 14. Sıra S'nin
+. . . . . . . .
+. . . S . . . .
+. B B S B B . .
+. . . S B . . .
+. B B S B B . .
+. . B S . . . .
+. . S S . . . .
+. . . S . . . .
+Hamle: 15. Sıra B'nin
+. . . . . . . .
+. . . S . . . .
+. B B S B B . .
+. . . S B . . .
+. B B S B B . .
+. . B B . . . .
+. . S S B . . .
+. . . S . . . .
+Hamle: 16. Sıra S'nin
+. . . . . . . .
+. . . S . . . .
+. B B S B B . .
+. . . S B . . .
+. B B S S B . .
+. . B B . S . .
+. . S S S . . .
+. . . S . . . .
+Hamle: 17. Sıra B'nin
+. . . B . . . .
+. . . B . . . .
+. B B B B B . .
+. . . B B . . .
+. B B B S B . .
+. . B B . S . .
+. . S S S . . .
+. . . S . . . .
+Hamle: 18. Sıra S'nin
+. . . B . . . .
+. . . B . . . .
+. B B B B B . .
+. . S B B . . .
+. B S B S B . .
+. . S B . S . .
+. . S S S . . .
+. . . S . . . .
+Hamle: 19. Sıra B'nin
+. . . B . . . .
+. . . B . . . .
+. B B B B B . .
+. . S B B B . .
+. B S B B B . .
+. . S B . S . .
+. . S S S . . .
+. . . S . . . .
+Hamle: 20. Sıra S'nin
+. . . B . . . .
+. . . B . . . .
+. B B B B B . .
+. . S B B B . .
+. B S S B B . .
+. . S S S S . .
+. . S S S . . .
+. . . S . . . .
+Hamle: 21. Sıra B'nin
+. . . B . . . .
+. . . B . . . .
+. B B B B B . .
+. . B B B B . .
+. B S B B B . .
+. . S S B B . .
+. . S S S B . .
+. . . S . . . .
+Hamle: 22. Sıra S'nin
+. . . B . . . .
+. . . B . . . .
+. B B B B B . .
+. . B B B B . .
+S S S B B B . .
+. . S S B B . .
+. . S S S B . .
+. . . S . . . .
+Hamle: 23. Sıra B'nin
+. . . B . . . .
+. . . B . . . .
+. B B B B B . .
+. . B B B B . .
+S S B B B B . .
+. . B S B B . .
+. . B B S B . .
+. . B S . . . .
+Hamle: 24. Sıra S'nin
+. . . B . . . .
+. . . B . . . .
+. B B B B B . .
+. . B B B B . .
+S S B B B B . .
+. . B S B B . .
+. . S B S B . .
+. S S S . . . .
+Hamle: 25. Sıra B'nin
+. . . B . . . .
+. . . B . . . .
+. B B B B B . .
+. . B B B B . .
+S S B B B B . .
+. . B B B B . .
+. . S B B B . .
+. S S S . B . .
+Hamle: 26. Sıra S'nin
+. . . B . . . .
+. . S B . . . .
+. B S B B B . .
+. . S B B B . .
+S S S B B B . .
+. . S B B B . .
+. . S B B B . .
+. S S S . B . .
+Hamle: 27. Sıra B'nin
+. . . B . . . .
+. . S B . . . .
+. B S B B B . .
+. . S B B B . .
+S S B B B B . .
+. B B B B B . .
+. . S B B B . .
+. S S S . B . .
+Hamle: 28. Sıra S'nin
+. . . B . . . .
+. . S B . . . .
+. B S B B B . .
+. . S B B B . .
+S S S S S S S .
+. B B B B S . .
+. . S B S B . .
+. S S S . B . .
+Hamle: 29. Sıra B'nin
+. . B B . . . .
+. . B B . . . .
+. B B B B B . .
+. . B B B B . .
+S S B S S S S .
+. B B B B S . .
+. . S B S B . .
+. S S S . B . .
+Hamle: 30. Sıra S'nin
+. . B B . . . .
+. . B B . S . .
+. B B B B S . .
+. . B B B S . .
+S S B S S S S .
+. B B B B S . .
+. . S B S B . .
+. S S S . B . .
+Hamle: 31. Sıra B'nin
+. . B B . . . .
+. . B B . S . .
+. B B B B B B .
+. . B B B B . .
+S S B S B S S .
+. B B B B S . .
+. . S B S B . .
+. S S S . B . .
+Hamle: 32. Sıra S'nin
+. . B B . . . .
+. . B B S S . .
+. B B S S B B .
+. . S B S B . .
+S S B S S S S .
+. B B B S S . .
+. . S B S B . .
+. S S S . B . .
+Hamle: 33. Sıra B'nin
+. . B B . . . .
+. . B B S S . .
+. B B S S B B .
+. . S B S B . .
+S S B B B B B B
+. B B B S S . .
+. . S B S B . .
+. S S S . B . .
+Hamle: 34. Sıra S'nin
+. . B B . . . .
+. . B B S S . .
+. B B S S S S S
+. . S B S B . .
+S S B B B B B B
+. B B B S S . .
+. . S B S B . .
+. S S S . B . .
+Hamle: 35. Sıra B'nin
+. . B B B . . .
+. . B B B S . .
+. B B S B S S S
+. . S B B B . .
+S S B B B B B B
+. B B B S S . .
+. . S B S B . .
+. S S S . B . .
+Hamle: 36. Sıra S'nin
+. . B B B . . .
+. . B B B S . .
+S S S S B S S S
+. . S B B B . .
+S S B B B B B B
+. B B B S S . .
+. . S B S B . .
+. S S S . B . .
+Hamle: 37. Sıra B'nin
+. . B B B B . .
+. . B B B B . .
+S S S S B B S S
+. . S B B B . .
+S S B B B B B B
+. B B B S S . .
+. . S B S B . .
+. S S S . B . .
+Hamle: 38. Sıra S'nin
+. . B B B B . .
+. . B B B B . .
+S S S S B B S S
+. . S B B B . .
+S S B B B B B B
+S S S S S S . .
+. . S B S B . .
+. S S S . B . .
+Hamle: 39. Sıra B'nin
+. . B B B B . .
+. . B B B B . .
+S S S S B B S S
+. . S B B B . .
+S S B B B B B B
+S S S S B S . .
+. . S B B B . .
+. S S S B B . .
+Hamle: 40. Sıra S'nin
+. . B B B B . .
+. . B B B B . .
+S S S S B B S S
+. . S B B B . .
+S S B S B B B B
+S S S S S S . .
+. . S B B S . .
+. S S S S S S .
+Hamle: 41. Sıra B'nin
+. . B B B B . .
+. . B B B B . .
+S B S S B B S S
+B . S B B B . .
+S B B S B B B B
+S S B S S S . .
+. . S B B S . .
+. S S S S S S .
+Hamle: 42. Sıra S'nin
+. . B B B B . .
+. . B B B B . .
+S B S S B B S S
+B . S S S S S .
+S B B S B S B B
+S S B S S S . .
+. . S B B S . .
+. S S S S S S .
+Hamle: 43. Sıra B'nin
+. . B B B B . .
+. . B B B B . .
+S B B S B B S S
+B B S S S S S .
+S B B S B S B B
+S S B S S S . .
+. . S B B S . .
+. S S S S S S .
+Hamle: 44. Sıra S'nin
+. . B B B B . .
+. . B B B B . .
+S B B S B B S S
+B B S S S S S .
+S B B S B S S B
+S S B S S S S .
+. . S B B S . .
+. S S S S S S .
+Hamle: 45. Sıra B'nin
+. . B B B B . .
+. . B B B B . .
+S B B S B B S S
+B B S S S B S .
+S B B S B S B B
+S S B B B B B B
+. . S B B S . .
+. S S S S S S .
+Hamle: 46. Sıra S'nin
+. . B B B B . .
+. . B B B B . .
+S B B S B B S S
+B B S S S B S S
+S B B S B S S B
+S S B B B S B B
+. . S B S S . .
+. S S S S S S .
+Hamle: 47. Sıra B'nin
+. . B B B B . .
+. . B B B B . B
+S B B S B B B B
+B B S S S B S B
+S B B S B S S B
+S S B B B S B B
+. . S B S S . .
+. S S S S S S .
+Hamle: 48. Sıra S'nin
+. . B B B B . .
+S . B B B B . B
+S S B S B B B B
+B B S S S B S B
+S B B S B S S B
+S S B B B S B B
+. . S B S S . .
+. S S S S S S .
+Hamle: 49. Sıra B'nin
+B . B B B B . .
+B . B B B B . B
+B S B S B B B B
+B B S S S B S B
+S B B S B S S B
+S S B B B S B B
+. . S B S S . .
+. S S S S S S .
+Hamle: 50. Sıra S'nin
+B S B B B B . .
+B . S B B B . B
+B S B S B B B B
+B B S S S B S B
+S B B S B S S B
+S S B B B S B B
+. . S B S S . .
+. S S S S S S .
+Hamle: 51. Sıra B'nin
+B S B B B B . .
+B B B B B B . B
+B B B S B B B B
+B B S S S B S B
+S B B S B S S B
+S S B B B S B B
+. . S B S S . .
+. S S S S S S .
+Hamle: 52. Sıra S'nin
+B S B B B B . .
+B B B B B B . B
+B B B S B B B B
+B B S S S B S B
+S B B S B S S B
+S S B B B S S B
+. . S B S S . S
+. S S S S S S .
+Hamle: 53. Sıra B'nin
+B S B B B B . .
+B B B B B B . B
+B B B S B B B B
+B B S S S B S B
+S B B S B S S B
+S S B B B S S B
+. . S B S S . B
+. S S S S S S B
+Hamle: 54. Sıra S'nin
+B S B B B B . .
+B B B B B B . B
+B B B S B B B B
+B B S S S B S B
+S B B S B S S B
+S S S B B S S B
+. S S B S S . B
+. S S S S S S B
+Hamle: 55. Sıra B'nin
+B S B B B B . .
+B B B B B B . B
+B B B S B B B B
+B B S S S B B B
+S B B S B S B B
+S S S B B B B B
+. S S B B B B B
+. S S S S S S B
+Hamle: 56. Sıra S'nin
+B S B B B B . .
+B B B B B B S B
+B B B S B S S B
+B B S S S B S B
+S B B S B S S B
+S S S B B B S B
+. S S B B B S B
+. S S S S S S B
+Hamle: 57. Sıra B'nin
+B S B B B B . .
+B B B B B B S B
+B B B S B S S B
+B B S S S B S B
+B B B S B S S B
+B B S B B B S B
+B B B B B B S B
+. S S S S S S B
+Hamle: 58. Sıra S'nin
+B S B B B B . .
+B B B B B B S B
+B B B S B S S B
+B B S S S B S B
+B B B S B S S B
+B B S B B B S B
+B S B B B B S B
+S S S S S S S B
+Hamle: 59. Sıra B'nin
+Yasal hamle yok. Sıra yine S'nin
+B S S S S S S .
+B B B B B S S B
+B B B S S S S B
+B B S S S B S B
+B B B S B S S B
+B B S B B B S B
+B S B B B B S B
+S S S S S S S B
+Hamle: 60. Sıra B'nin
+B B B B B B B B
+B B B B B S S B
+B B B S S S S B
+B B S S S B S B
+B B B S B S S B
+B B S B B B S B
+B S B B B B S B
+S S S S S S S B
+Hamle: 61. Sıra S'nin
+Oyun bitti.
+beyazlar: 40
+siyahlar: 24
 * üçüncü oyun. Baray perişan etti babasını. Tue Apr 13 20:51:11 EDT 2021
 Hamle: 1. Sıra B'nin
 . . . . . . . .
