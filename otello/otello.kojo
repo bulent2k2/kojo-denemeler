@@ -7,35 +7,11 @@ case object Boş extends Taş { override def toString() = "." }
 case class Oda(str: Sayı, stn: Sayı)
 case class Oyun(oyuncu: Taş, oda: Oda)
 
-val odaSayısı = 19 // bir satır ya da sütundaki oda sayısı
-val sonStr = odaSayısı - 1
+val odaSayısı = 8 // bir satır ya da sütundaki oda sayısı
 val tahta = Dizim.doldur[Taş](odaSayısı, odaSayısı)(Boş)
-if (odaSayısı % 2 == 0) {
-    val (a, b) = (odaSayısı / 2 - 1, odaSayısı / 2)
-    tahta(a)(a) = Beyaz //todo
-    tahta(b)(b) = Beyaz
-    tahta(a)(b) = Siyah
-    tahta(b)(a) = Siyah
-}
-else {
-    val orta = sayıya(odaSayısı / 2)
-    val (a, b) = (orta - 1, orta + 1)
-    tahta(a)(a) = Beyaz
-    tahta(b)(b) = Beyaz
-    tahta(a)(b) = Siyah
-    tahta(b)(a) = Siyah
-    tahta(a+1)(a) = Beyaz
-    tahta(a+1)(b) = Beyaz
-    tahta(b)(a+1) = Siyah
-    tahta(a)(a+1) = Siyah
-    tahta(b+1)(b-1) = Beyaz
-    tahta(a-1)(b-1) = Beyaz
-    tahta(a+1)(a-1) = Siyah
-    tahta(a+1)(b+1) = Siyah
-}
-
-val strArtı = 0 to odaSayısı - 1
-val strEksi = odaSayısı - 1 to 0 by -1
+val sonStr = odaSayısı - 1
+val strArtı = 0 to sonStr
+val strEksi = sonStr to 0 by -1
 
 var oyuncu: Taş = Beyaz // Beyaz ya da Siyah başlayabilir. Seç :-)
 
@@ -216,6 +192,31 @@ def taşıAltÜstYap(oda: Oda): Birim = {
     kare2taş += (k, oyuncu)
 }
 
+def başlangıçTaşlarınıKur =
+    if (odaSayısı % 2 == 0) {
+        val (a, b) = (odaSayısı / 2 - 1, odaSayısı / 2)
+        tahta(a)(a) = Beyaz //todo
+        tahta(b)(b) = Beyaz
+        tahta(a)(b) = Siyah
+        tahta(b)(a) = Siyah
+    }
+    else {
+        val orta = sayıya(odaSayısı / 2)
+        val (a, b) = (orta - 1, orta + 1)
+        tahta(a)(a) = Beyaz
+        tahta(b)(b) = Beyaz
+        tahta(a)(b) = Siyah
+        tahta(b)(a) = Siyah
+        tahta(a + 1)(a) = Beyaz
+        tahta(a + 1)(b) = Beyaz
+        tahta(b)(a + 1) = Siyah
+        tahta(a)(a + 1) = Siyah
+        tahta(b + 1)(b - 1) = Beyaz
+        tahta(a - 1)(b - 1) = Beyaz
+        tahta(a + 1)(a - 1) = Siyah
+        tahta(a + 1)(b + 1) = Siyah
+    }
+
 def rastgeleOyun(duraklamaSüresi: Kesir = 1.0 /*saniye*/ ) = {
     var oyna = doğru; val dallanma = EsnekDizim.boş[Sayı]
     while (oyna) {
@@ -246,8 +247,9 @@ def rastgeleOyun(duraklamaSüresi: Kesir = 1.0 /*saniye*/ ) = {
     }
 }
 silVeSakla
-//tümEkranTuval()
+tümEkranTuval()
 çıktıyıSil
+başlangıçTaşlarınıKur
 tahtayıKur
 tahtayıYaz
-rastgeleOyun(0.01)
+//rastgeleOyun(0.01)
