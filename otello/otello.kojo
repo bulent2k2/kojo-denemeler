@@ -296,7 +296,7 @@ def enİriGetirililerArasındanRastgele(yasallar: Dizi[Oda]): Oda = {
 def enGetirililer(): Dizi[Oda] = {
     def bütünEnİriler[A, B: Ordering](d: Dizin[A])(iş: A => B): Dizin[A] = {
         d.sortBy(iş).reverse match {
-            case boş           => boş
+            case Dizin()       => Dizin()
             case baş :: kuyruk => baş :: kuyruk.takeWhile { oda => iş(oda) == iş(baş) }
         }
     }
