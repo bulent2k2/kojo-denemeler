@@ -92,6 +92,7 @@ def kareyiTanımla(k: Resim) = {
             case _ => ipucu = ipucunuKur(s"$oda")
         }
         çiz(ipucu)
+        ipucu.girdiyiAktar(k)
     }
     k.fareÇıkınca { (_, _) =>
         k.boyamaRenginiKur(odaRengi)
