@@ -3,8 +3,8 @@ trait Taş
 case object Beyaz extends Taş { override def toString() = "B" }
 case object Siyah extends Taş { override def toString() = "S" }
 case object Yok extends Taş { override def toString() = "." }
-
-case class Oda(str: Sayı, stn: Sayı) { override def toString() = s"(${str + 1},${stn + 1})" }
+// satır ve sütün sırası yazılımda ters!
+case class Oda(str: Sayı, stn: Sayı) { override def toString() = s"(${stn + 1},${str + 1})" }
 
 val odaSayısı = 8 // satır ve sütunların oda sayısı
 gerekli(3 < odaSayısı, "En küçük tahtamız 4x4lük. odaSayısı değerini artırın") // başlangıç taşları sığmıyor
@@ -16,7 +16,8 @@ val tahta = Dizim.doldur[Taş](odaSayısı, odaSayısı)(Yok)
 val kare2oda = Eşlem.boş[Resim, Oda]
 val oda2kare = Eşlem.boş[Oda, Resim]
 
-def tahtayıKur = {
+def tahtayıKur(boy: Sayı) = {
+    başlangıçTaşlarınıKur
     val içKöşeler = EsnekDizim.boş[Resim]
     val içKöşeKalemRengi = Renk(255, 215, 85, 101) // soluk sarımsı bir renk
     for (x <- strArtı; y <- strArtı) {
@@ -28,7 +29,7 @@ def tahtayıKur = {
         val kRenk = if ((x == 2 && (y == 2 || y == sonStr - 2)) ||
             (x == sonStr - 2 && (y == 2 || y == sonStr - 2))) içKöşeKalemRengi else mor
         val oda = Oda(y, x)
-        val r = kalemRengi(kRenk) * boyaRengi(renk) * götür(oda2nokta(oda)) -> kare
+        val r = kalemRengi(kRenk) * boyaRengi(renk) * götür(oda2nokta(oda)) -> Resim.dikdörtgen(boy, boy)
         kare2oda += (r -> oda)
         oda2kare += (oda -> r)
         r.çiz()
@@ -49,7 +50,6 @@ def oda2nokta(oda: Oda, solaltKöşe: İkil = doğru) =
 
 val boy = 64
 val (b2, b4, b2p5) = (boy / 2, boy / 4, boy / 2.5)
-def kare = Resim.dikdörtgen(boy, boy)
 def kareyiTanımla(k: Resim) = {
     val oda = kare2oda(k)
     k.fareyeTıklayınca { (_, _) =>
@@ -397,8 +397,7 @@ def düğmeleriKur = {
 }
 silVeSakla
 çıktıyıSil
-başlangıçTaşlarınıKur
-tahtayıKur
+tahtayıKur(boy)
 düğmeleriKur
 tahtayıYaz
 zamanTut("Oyun") { özdevinimliOyun(enİriGetirililerArasındanRastgele, 0.02) }("sürdü")
