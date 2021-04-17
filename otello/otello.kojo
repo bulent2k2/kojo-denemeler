@@ -347,7 +347,7 @@ def seçenekleriAçKapa(d: Resim) = {
     else seçenekleriKapa(d)
 }
 def seçenekleriKapa(d: Resim) = {
-    seçeneklerAçık = yanlış
+    seçenekResimleriniSil
     d.fareGirince { (_, _) => d.kalemRenginiKur(siyah) }
     d.fareÇıkınca { (_, _) => d.kalemRenginiKur(renksiz) }
     d.kalemRenginiKur(renksiz)
