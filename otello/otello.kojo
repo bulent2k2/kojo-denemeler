@@ -4,7 +4,7 @@ case object Beyaz extends Taş { override def toString() = "B" }
 case object Siyah extends Taş { override def toString() = "S" }
 case object Yok extends Taş { override def toString() = "." }
 // satır ve sütün sırası yazılımda ters!
-case class Oda(str: Sayı, stn: Sayı) { override def toString() = s"(${stn + 1},${str + 1})" }
+case class Oda(str: Sayı, stn: Sayı) { override def toString() = s"${stn + 1}x${str + 1}" }
 
 val odaSayısı = 8 // satır ve sütunların oda sayısı
 gerekli(3 < odaSayısı, "En küçük tahtamız 4x4lük. odaSayısı değerini artırın") // başlangıç taşları sığmıyor
@@ -20,14 +20,14 @@ def tahtayıKur(boy: Sayı) = {
     başlangıçTaşlarınıKur
     val içKöşeler = EsnekDizim.boş[Resim]
     val içKöşeKalemRengi = Renk(255, 215, 85, 101) // soluk sarımsı bir renk
-    for (x <- strArtı; y <- strArtı) {
+    for (x <- satırAralığı; y <- satırAralığı) {
         val renk = tahta(y)(x) match {
             case Yok   => boşOdaRengi
             case Siyah => siyah
             case Beyaz => beyaz
         }
-        val kRenk = if ((x == 2 && (y == 2 || y == sonStr - 2)) ||
-            (x == sonStr - 2 && (y == 2 || y == sonStr - 2))) içKöşeKalemRengi else mor
+        val kRenk = if ((x == 2 && (y == 2 || y == sonOda - 2)) ||
+            (x == sonOda - 2 && (y == 2 || y == sonOda - 2))) içKöşeKalemRengi else mor
         val oda = Oda(y, x)
         val r = kalemRengi(kRenk) * boyaRengi(renk) * götür(oda2nokta(oda)) -> Resim.dikdörtgen(boy, boy)
         kare2oda += (r -> oda)
@@ -39,15 +39,14 @@ def tahtayıKur(boy: Sayı) = {
     içKöşeler.dizi.map(_.öneAl())
 }
 val boşOdaRengi = Renk(10, 111, 23) // koyuYeşil
-val sonStr = odaSayısı - 1
-val strArtı = 0 to sonStr
-val strEksi = sonStr to 0 by -1
+val sonOda = odaSayısı - 1
+val satırAralığı = 0 to sonOda
+val satırAralığıSondan = sonOda to 0 by -1
 
 val (xoffset, yoffset) = (-320, -256)
 def oda2nokta(oda: Oda, solaltKöşe: İkil = doğru) =
     if (solaltKöşe) Nokta(xoffset + oda.stn * boy, yoffset + oda.str * boy)
     else Nokta(xoffset + oda.stn * boy + b2, yoffset + oda.str * boy + b2)
-
 val boy = 64
 val (b2, b4, b2p5) = (boy / 2, boy / 4, boy / 2.5)
 def kareyiTanımla(k: Resim) = {
@@ -102,25 +101,15 @@ def kareyiTanımla(k: Resim) = {
 }
 
 def tahtayıYaz = {
-    for (y <- strEksi) satıryaz(tahta(y).mkString(" "))
+    for (y <- satırAralığıSondan) satıryaz(tahta(y).mkString(" "))
     hamleSayısı += 1
-    val enİriler = enGetirililer()
-    val getiri = if (enİriler.isEmpty) 0 else hamleGetirisi(enİriler.head)
-    val odaYazı = if (enİriler.size > 1) "Odalar" else "Oda"
     val yasal = bütünYasalHamleler()
-    satıryaz(s"Oyun: $hamleSayısı." +
-        s" Sıra ${adı(oyuncu)}ın" +
-        (if (seçeneklerAçık && yasal.size > 0 && enİriler.size != yasal.size)
-            s". ${yasal.size} seçenek var" +
-            s". En iri getiri $getiri" +
-            (if (getiri <= 1) "" else s". $odaYazı: ${enİriler.mkString(", ")}")
-        else "")
-    )
+    satıryaz(s"Oyun: $hamleSayısı. Sıra ${adı(oyuncu)}ın")
 }
 var hamleSayısı = 0
 def adı(o: Taş) = if (o == Siyah) "siyah" else "beyaz"
 def hamleYoksa = bütünYasalHamleler().size == 0
-def say(t: Taş) = (for (x <- strArtı; y <- strArtı; if tahta(y)(x) == t) yield 1).size
+def say(t: Taş) = (for (x <- satırAralığı; y <- satırAralığı; if tahta(y)(x) == t) yield 1).size
 def bittiKaçKaç = satıryaz(s"Oyun bitti.\nbeyazlar: ${say(Beyaz)}\nsiyahlar: ${say(Siyah)}")
 def taş2renk(t: Taş) = t match {
     case Yok   => boşOdaRengi
@@ -143,7 +132,7 @@ case object B extends Yön; case object KB extends Yön
 
 case class Komşu(yön: Yön, oda: Oda)
 
-def bütünYasalHamleler() = (for (x <- strArtı; y <- strArtı; if tahta(y)(x) == Yok) yield Oda(y, x)).
+def bütünYasalHamleler() = (for (x <- satırAralığı; y <- satırAralığı; if tahta(y)(x) == Yok) yield Oda(y, x)).
     filter { hamleyiDene(_).size > 0 }
 
 def hamleyiDene(oda: Oda): Dizi[Komşu] = komşularıBul(oda) filter { komşu =>
@@ -177,7 +166,6 @@ def sonuDaYasalMı(k: Komşu, oyuncu: Taş): (İkil, Sayı) = {
     }
     if (sıraTaşlar.isEmpty) (yanlış, 0) else {
         val oda = sıraTaşlar.head
-
         (tahta(oda.str)(oda.stn) == oyuncu, 1 + diziTaşlar.size - sıraTaşlar.size)
     }
 }
@@ -186,21 +174,21 @@ def gerisi(k: Komşu): Dizi[Oda] = {
     val sıra = EsnekDizim.boş[Oda]
     val (x, y) = (k.oda.stn, k.oda.str)
     k.yön match {
-        case D => for (i <- x + 1 to sonStr) /* */ sıra += Oda(y, i)
+        case D => for (i <- x + 1 to sonOda) /* */ sıra += Oda(y, i)
         case B => for (i <- x - 1 to 0 by -1) /**/ sıra += Oda(y, i)
-        case K => for (i <- y + 1 to sonStr) /* */ sıra += Oda(i, x)
+        case K => for (i <- y + 1 to sonOda) /* */ sıra += Oda(i, x)
         case G => for (i <- y - 1 to 0 by -1) /**/ sıra += Oda(i, x)
         case KD => // hem str hem stn artacak
-            if (x >= y) for (i <- x + 1 to sonStr) /*         */ sıra += Oda(y + i - x, i)
-            else for (i <- y + 1 to sonStr) /*                */ sıra += Oda(i, x + i - y)
+            if (x >= y) for (i <- x + 1 to sonOda) /*         */ sıra += Oda(y + i - x, i)
+            else for (i <- y + 1 to sonOda) /*                */ sıra += Oda(i, x + i - y)
         case GB => // hem str hem stn azalacak
             if (x >= y) for (i <- y - 1 to 0 by -1) /*        */ sıra += Oda(i, x - y + i)
             else for (i <- x - 1 to 0 by -1) /*               */ sıra += Oda(y - x + i, i)
         case KB => // str artacak stn azalacak
-            if (x + y >= sonStr) for (i <- y + 1 to sonStr) /**/ sıra += Oda(i, x + y - i)
+            if (x + y >= sonOda) for (i <- y + 1 to sonOda) /**/ sıra += Oda(i, x + y - i)
             else for (i <- x - 1 to 0 by -1) /*               */ sıra += Oda(y + x - i, i)
         case GD => // str azalacak stn artacak
-            if (x + y >= sonStr) for (i <- x + 1 to sonStr) /**/ sıra += Oda(y + x - i, i)
+            if (x + y >= sonOda) for (i <- x + 1 to sonOda) /**/ sıra += Oda(y + x - i, i)
             else for (i <- y - 1 to 0 by -1) /*               */ sıra += Oda(i, x + y - i)
     }
     sıra.dizi
@@ -225,9 +213,9 @@ def taşıAltÜstYap(oda: Oda): Birim = {
 }
 
 def yeniOyun = {
-    for (x <- strArtı; y <- strArtı) boşalt(Oda(y, x))
+    for (x <- satırAralığı; y <- satırAralığı) boşalt(Oda(y, x))
     başlangıçTaşlarınıKur
-    for (x <- strArtı; y <- strArtı) {
+    for (x <- satırAralığı; y <- satırAralığı) {
         val taş = tahta(y)(x)
         if (taş != Yok)
             oda2kare(Oda(y, x)).boyamaRenginiKur(taş2renk(taş))
@@ -296,7 +284,7 @@ def özdevinimliOyun(
     }
 }
 def rastgeleHamle(yasallar: Dizi[Oda]): Oda =
-    yasallar.drop(rastgele(yasallar.size)).head
+    yasallar.drop(rastgele(yasallar.size)).head // çağıran metod yasalların boş olmadığını biliyor
 def enİriGetiriliHamle(yasallar: Dizi[Oda]): Oda =
     yasallar maxBy { oda => hamleGetirisi(oda) }
 def enİriGetirililerArasındanRastgele(yasallar: Dizi[Oda]): Oda = {
@@ -317,16 +305,17 @@ def seçenekleriGöster = {
     if (seçeneklerAçık) {
         seçenekResimleri.foreach { r => r.sil() }
         val sıralı = bütünYasalHamleler.map { oda => (oda, hamleGetirisi(oda)) }.sortBy { p => p._2 }.reverse
-        val enİriGetiri = sıralı.head._2
-        satıryaz(s"${sıralı.size} seçenek var: ${sıralı.mkString(' '.toString)}")
-        seçenekResimleri = sıralı map {
-            case (oda, getirisi) =>
-                val renk = if (getirisi == enİriGetiri) sarı else turuncu
-                val göster = götür(oda2nokta(oda, yanlış)) * kalemRengi(renk) * kalemBoyu(3) *
-                    boyaRengi(renksiz) -> Resim.daire(b4)
-                göster.girdiyiAktar(oda2kare(oda))
-                göster.çiz()
-                göster
+        if (sıralı.size > 0) {
+            val enİriGetiri = sıralı.head._2
+            seçenekResimleri = sıralı map {
+                case (oda, getirisi) =>
+                    val renk = if (getirisi == enİriGetiri) sarı else turuncu
+                    val göster = götür(oda2nokta(oda, yanlış)) * kalemRengi(renk) * kalemBoyu(3) *
+                        boyaRengi(renksiz) -> Resim.daire(b4)
+                    göster.girdiyiAktar(oda2kare(oda))
+                    göster.çiz()
+                    göster
+            }
         }
     }
     else {
