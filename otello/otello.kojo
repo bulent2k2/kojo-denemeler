@@ -316,10 +316,12 @@ def seçenekleriGöster = {
     if (seçeneklerAçık) {
         seçenekResimleri.foreach { r => r.sil() }
         val sıralı = bütünYasalHamleler.map { oda => (oda, hamleGetirisi(oda)) }.sortBy { p => p._2 }.reverse
+        val enİriGetiri = sıralı.head._2
         satıryaz(s"${sıralı.size} seçenek var: ${sıralı.mkString(' '.toString)}")
         seçenekResimleri = sıralı map {
             case (oda, getirisi) =>
-                val göster = götür(oda2nokta(oda, yanlış)) * kalemRengi(sarı) * kalemBoyu(3) *
+                val renk = if (getirisi == enİriGetiri) sarı else turuncu
+                val göster = götür(oda2nokta(oda, yanlış)) * kalemRengi(renk) * kalemBoyu(3) *
                     boyaRengi(renksiz) -> Resim.daire(b4)
                 göster.girdiyiAktar(oda2kare(oda))
                 göster.çiz()
