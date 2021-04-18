@@ -21,15 +21,10 @@ def tahtayıKur(boy: Sayı) = {
     val içKöşeler = EsnekDizim.boş[Resim]
     val içKöşeKalemRengi = Renk(255, 215, 85, 101) // soluk sarımsı bir renk
     for (x <- satırAralığı; y <- satırAralığı) {
-        val renk = tahta(y)(x) match {
-            case Yok   => boşOdaRengi
-            case Siyah => siyah
-            case Beyaz => beyaz
-        }
         val kRenk = if ((x == 2 && (y == 2 || y == sonOda - 2)) ||
             (x == sonOda - 2 && (y == 2 || y == sonOda - 2))) içKöşeKalemRengi else mor
         val oda = Oda(y, x)
-        val r = kalemRengi(kRenk) * boyaRengi(renk) * götür(oda2nokta(oda)) -> Resim.dikdörtgen(boy, boy)
+        val r = kalemRengi(kRenk) * boyaRengi(taş2renk(tahta(y)(x))) * götür(oda2nokta(oda)) -> Resim.dikdörtgen(boy, boy)
         kare2oda += (r -> oda)
         oda2kare += (oda -> r)
         r.çiz()
@@ -37,6 +32,8 @@ def tahtayıKur(boy: Sayı) = {
         kareyiTanımla(r)
     }
     içKöşeler.dizi.map(_.öneAl())
+    hamleSayısı = 1
+    tahtayıYaz("TAHTAYI KUR")
 }
 val boşOdaRengi = Renk(10, 111, 23) // koyuYeşil
 val sonOda = odaSayısı - 1
@@ -78,7 +75,7 @@ def kareyiTanımla(k: Resim) = {
     var ipucu: Resim = Resim.yazıRenkli("?", 10, kırmızı)
     def renk = taş2renk(oyuncu)
     k.fareGirince { (x, y) =>
-        val n = oda2nokta(oda, yanlış) - Nokta(b4, -b4)
+        val n = oda2nokta(oda, yanlış) - Nokta(b2, -b2)
         def ipucunuKur(yazı: Yazı) = götür(n) -> Resim.yazıRenkli(yazı, 20, kırmızı)
         tahta(oda.str)(oda.stn) match {
             case Yok => if (hamleyiDene(oda).size > 0) {
@@ -331,12 +328,10 @@ var seçeneklerAçık = yanlış
 def seçenekleriAçKapa(d: Resim) = {
     seçeneklerAçık = if (seçeneklerAçık) yanlış else doğru
     seçenekleriGöster
-    if (seçeneklerAçık) {
-        d.fareGirince { (_, _) => d.kalemRenginiKur(siyah) }
-        d.fareÇıkınca { (_, _) => d.kalemRenginiKur(siyah) }
-        d.kalemRenginiKur(siyah)
-    }
-    else seçenekleriKapa(d)
+    val renk = if (seçeneklerAçık) siyah else beyaz
+        d.fareGirince { (_, _) => d.kalemRenginiKur(renk) }
+        d.fareÇıkınca { (_, _) => d.kalemRenginiKur(renk) }
+    if (!seçeneklerAçık) seçenekleriKapa(d)
 }
 def seçenekleriKapa(d: Resim) = {
     seçenekResimleriniSil
@@ -354,7 +349,7 @@ def düğmeleriKur = {
         d
     }
     def tepkili(d: Resim) = {
-        d.fareGirince { (_, _) => d.kalemRenginiKur(siyah) }
+        d.fareGirince { (_, _) => d.kalemRenginiKur(beyaz) }
         d.fareÇıkınca { (_, _) => d.kalemRenginiKur(renksiz) }
     }
     val (dx, dy) = ((0.5 + odaSayısı) * boy + xoffset, yoffset + b2)
