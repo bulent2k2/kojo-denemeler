@@ -12,7 +12,7 @@ gerekli(20 > odaSayısı, "En büyük tahtamız 19x19luk. odaSayısı değerini 
 
 var oyuncu: Taş = Beyaz // Beyaz ya da Siyah başlayabilir. Seç :-)
 
-var tahta = Dizim.doldur[Taş](odaSayısı, odaSayısı)(Yok)
+val tahta = Dizim.doldur[Taş](odaSayısı, odaSayısı)(Yok)
 val kare2oda = Eşlem.boş[Resim, Oda]
 val oda2kare = Eşlem.boş[Oda, Resim]
 
