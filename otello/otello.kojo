@@ -12,11 +12,12 @@ gerekli(20 > odaSayısı, "En büyük tahtamız 19x19luk. odaSayısı değerini 
 
 var oyuncu: Taş = Beyaz // Beyaz ya da Siyah başlayabilir. Seç :-)
 
-val tahta = Dizim.doldur[Taş](odaSayısı, odaSayısı)(Yok)
+var tahta = Dizim.doldur[Taş](odaSayısı, odaSayısı)(Yok)
 val kare2oda = Eşlem.boş[Resim, Oda]
 val oda2kare = Eşlem.boş[Oda, Resim]
 
 def tahtayıKur(boy: Sayı) = {
+    artalanıKur(koyuGri)
     başlangıçTaşlarınıKur
     val içKöşeler = EsnekDizim.boş[Resim]
     val içKöşeKalemRengi = Renk(255, 215, 85, 101) // soluk sarımsı bir renk
@@ -33,7 +34,7 @@ def tahtayıKur(boy: Sayı) = {
     }
     içKöşeler.dizi.map(_.öneAl())
     hamleSayısı = 1
-    tahtayıYaz("TAHTAYI KUR")
+    tahtayıYaz
 }
 val boşOdaRengi = Renk(10, 111, 23) // koyuYeşil
 val sonOda = odaSayısı - 1
@@ -45,30 +46,23 @@ def oda2nokta(oda: Oda, solaltKöşe: İkil = doğru) =
     if (solaltKöşe) Nokta(xoffset + oda.stn * boy, yoffset + oda.str * boy)
     else Nokta(xoffset + oda.stn * boy + b2, yoffset + oda.str * boy + b2)
 val boy = 64
-val (b2, b4, b2p5) = (boy / 2, boy / 4, boy / 2.5)
+val (b2, b4, b2p5, b9o20) = (boy / 2, boy / 4, boy / 2.5, boy * 9 / 20)
 def kareyiTanımla(k: Resim) = {
     val oda = kare2oda(k)
     k.fareyeTıklayınca { (_, _) =>
         var oynadıMı = yanlış
-        val (str, stn) = (oda.str, oda.stn)
-        tahta(str)(stn) match {
+        tahta(oda.str)(oda.stn) match {
             case Yok =>
                 val yasal = hamleyiDene(oda)
                 if (yasal.size > 0) {
                     oynadıMı = doğru
-                    hamleyiYap(yasal)
-                    tahta(str)(stn) = oyuncu
+                    hamleyiYap(yasal, oda)
                 }
             case _ =>
         }
-        if (oynadıMı) {
+        if (oynadıMı && hamleYoksa) {
             sırayıÖbürOyuncuyaGeçir
-            tahtayıYaz
-            if (hamleYoksa) {
-                sırayıÖbürOyuncuyaGeçir
-                if (hamleYoksa) bittiKaçKaç
-                else satıryaz(s"Yasal hamle yok. Sıra yine ${adı(oyuncu)}ın")
-            }
+            if (hamleYoksa) bittiKaçKaç else satıryaz(s"Yasal hamle yok. Sıra yine ${adı(oyuncu)}ın")
         }
     }
     def odaRengi = taş2renk(tahta(oda.str)(oda.stn))
@@ -99,11 +93,11 @@ def kareyiTanımla(k: Resim) = {
 
 def tahtayıYaz = {
     for (y <- satırAralığıSondan) satıryaz(tahta(y).mkString(" "))
-    hamleSayısı += 1
     val yasal = bütünYasalHamleler()
-    satıryaz(s"Oyun: $hamleSayısı. Sıra ${adı(oyuncu)}ın")
+    satıryaz(s"Hamle: $hamleSayısı. Sıra ${adı(oyuncu)}ın")
 }
-var hamleSayısı = 0
+
+var hamleSayısı = 0 // bir sonraki hamle kaçıncı hamle olacak? 1, 2, 3, ...
 def adı(o: Taş) = if (o == Siyah) "siyah" else "beyaz"
 def hamleYoksa = bütünYasalHamleler().size == 0
 def say(t: Taş) = (for (x <- satırAralığı; y <- satırAralığı; if tahta(y)(x) == t) yield 1).size
@@ -191,13 +185,23 @@ def gerisi(k: Komşu): Dizi[Oda] = {
     sıra.dizi
 }
 
-def hamleyiYap(yasal: Dizi[Komşu]): Birim = yasal.foreach { komşu =>
-    val komşuTaş = tahta(komşu.oda.str)(komşu.oda.stn)
-    gerisi(komşu).takeWhile { oda =>
-        val taş = tahta(oda.str)(oda.stn)
-        taş != Yok && taş != oyuncu
-    }.foreach(taşıAltÜstYap(_))
-    taşıAltÜstYap(komşu.oda)
+def hamleyiYap(yasal: Dizi[Komşu], hane: Oda): Birim = {
+    def bütünTuşlarıÇevir = yasal.foreach { komşu =>
+        val komşuTaş = tahta(komşu.oda.str)(komşu.oda.stn)
+        gerisi(komşu).takeWhile { oda =>
+            val taş = tahta(oda.str)(oda.stn)
+            taş != Yok && taş != oyuncu
+        }.foreach(taşıAltÜstYap(_))
+        taşıAltÜstYap(komşu.oda)
+    }
+    saklaTahtayı(doğru) // yeni hamle
+    bütünTuşlarıÇevir
+    tahta(hane.str)(hane.stn) = oyuncu
+    oda2kare(hane).boyamaRenginiKur(taş2renk(oyuncu))
+    sırayıÖbürOyuncuyaGeçir
+    hamleSayısı += 1
+    yeniHamleEnYeniGeriAlKomutundanDahaGüncel = doğru
+    tahtayıYaz
 }
 def taşıAltÜstYap(oda: Oda): Birim = {
     tahta(oda.str)(oda.stn) = oyuncu
@@ -218,7 +222,9 @@ def yeniOyun = {
             oda2kare(Oda(y, x)).boyamaRenginiKur(taş2renk(taş))
     }
     oyuncu = Beyaz
-    hamleSayısı = 0
+    hamleSayısı = 1
+    eskiTahtalar.a.clear() // todo
+    oyuncular.a.clear()
 }
 def boşalt(oda: Oda): Birim = {
     tahta(oda.str)(oda.stn) = Yok
@@ -271,10 +277,7 @@ def özdevinimliOyun(
             if (sıraAtla) satıryaz(s"Yasal hamle yok. Sıra yine ${adı(oyuncu)}ın")
             satıryaz(s"${yasallar.size} seçenek var."); dallanma += yasallar.size
             val oda = yaklaşım(yasallar)
-            hamleyiYap(hamleyiDene(oda))
-            tahta(oda.str)(oda.stn) = oyuncu
-            oda2kare(oda).boyamaRenginiKur(taş2renk(oyuncu))
-            sırayıÖbürOyuncuyaGeçir
+            hamleyiYap(hamleyiDene(oda), oda)
             tahtayıYaz
             durakla(duraklamaSüresi)
         }
@@ -329,8 +332,8 @@ def seçenekleriAçKapa(d: Resim) = {
     seçeneklerAçık = if (seçeneklerAçık) yanlış else doğru
     seçenekleriGöster
     val renk = if (seçeneklerAçık) siyah else beyaz
-        d.fareGirince { (_, _) => d.kalemRenginiKur(renk) }
-        d.fareÇıkınca { (_, _) => d.kalemRenginiKur(renk) }
+    d.fareGirince { (_, _) => d.kalemRenginiKur(renk) }
+    d.fareÇıkınca { (_, _) => d.kalemRenginiKur(renk) }
     if (!seçeneklerAçık) seçenekleriKapa(d)
 }
 def seçenekleriKapa(d: Resim) = {
@@ -340,37 +343,70 @@ def seçenekleriKapa(d: Resim) = {
     d.kalemRenginiKur(renksiz)
 }
 
+val eskiTahtalar = EsnekDizim.boş[Dizim[Array[Taş]]] // todo
+val oyuncular = EsnekDizim.boş[Taş]
+def saklaTahtayı(yeniHamleMi: İkil) = {
+    if (yeniHamleMi) while (hamleSayısı <= eskiTahtalar.sayı) {
+        eskiTahtalar.a.remove(eskiTahtalar.sayı - 1) // todo
+        oyuncular.a.remove(oyuncular.sayı - 1)
+    }
+    val yeni = Dizim.boş[Taş](odaSayısı, odaSayısı)
+    for (x <- satırAralığı; y <- satırAralığı)
+        yeni(y)(x) = tahta(y)(x)
+    eskiTahtalar += yeni
+    oyuncular += oyuncu
+}
+def verilenHamleTahtasınaGeç(hamle: Sayı) = {
+    val eski = eskiTahtalar(hamle)
+    for (x <- satırAralığı; y <- satırAralığı)
+        tahta(y)(x) = eski(y)(x)
+    oyuncu = oyuncular(hamle)
+    for (y <- satırAralığı; x <- satırAralığı)
+        oda2kare(Oda(y, x)).boyamaRenginiKur(taş2renk(tahta(y)(x)))
+}
+var yeniHamleEnYeniGeriAlKomutundanDahaGüncel = doğru // yeni bir hamleden önce geri/ileri çalışmaz ki
+def geriAl = if (hamleSayısı > 1) {
+    if (yeniHamleEnYeniGeriAlKomutundanDahaGüncel) {
+        yeniHamleEnYeniGeriAlKomutundanDahaGüncel = yanlış
+        saklaTahtayı(yanlış)
+    }
+    hamleSayısı -= 1
+    verilenHamleTahtasınaGeç(hamleSayısı - 1)
+}
+def ileriGit = if (hamleSayısı < eskiTahtalar.sayı) {
+    verilenHamleTahtasınaGeç(hamleSayısı)
+    hamleSayısı += 1
+}
+
 def düğmeleriKur = {
     def düğme(x: Kesir, y: Kesir, yarıçap: Kesir, mesaj: Yazı = "") = {
         val d = götür(x, y) * kalemRengi(renksiz) -> Resim.dizi(
             götür(b2p5, b2p5) -> Resim.yazıRenkli(mesaj, 10, siyah),
             kalemBoyu(3) -> Resim.daire(yarıçap))
-        d.çiz()
-        d
+        d.çiz(); d
     }
     def tepkili(d: Resim) = {
         d.fareGirince { (_, _) => d.kalemRenginiKur(beyaz) }
         d.fareÇıkınca { (_, _) => d.kalemRenginiKur(renksiz) }
     }
     val (dx, dy) = ((0.5 + odaSayısı) * boy + xoffset, yoffset + b2)
-    val d3 = {
-        val d = düğme(dx, dy + 2 * boy, b2 * 9 / 10, "seçenekler")
+    val d3a = {
+        val d = düğme(dx, dy + 2 * boy, b9o20, "seçenekler")
         d.boyamaRenginiKur(sarı)
         d.fareyeTıklayınca { (_, _) => seçenekleriAçKapa(d) }
-        tepkili(d)
-        d
+        tepkili(d); d
     }
-    val d2 = {
-        val d = düğme(dx, dy + boy, b2 * 9 / 10, "yeni oyun")
-        d.boyamaRenginiKur(mavi)
-        d.fareyeTıklayınca { (_, _) => seçenekleriKapa(d3); yeniOyun }
+    val d3b = {
+        val d = düğme(dx + boy, dy + 2 * boy, b9o20, "tüm ekran aç/kapa")
+        d.boyamaRenginiKur(turuncu)
+        d.fareyeTıklayınca { (_, _) => tümEkranTuval() }
         tepkili(d)
     }
     val d1 = {
-        val d = düğme(dx, dy, b2 * 9 / 10, "özdevin")
+        val d = düğme(dx, dy, b9o20, "özdevin")
         d.boyamaRenginiKur(kırmızı)
         d.fareyeTıklayınca { (_, _) =>
-            seçenekleriKapa(d3)
+            seçenekleriKapa(d3a)
             zamanTut("Özdevinimli oyun") {
                 // öbür yaklaşımlar: rastgeleHamle, enİriGetiriliHamle
                 özdevinimliOyun(enİriGetirililerArasındanRastgele)
@@ -378,10 +414,27 @@ def düğmeleriKur = {
         }
         tepkili(d)
     }
+    val d2 = {
+        val d = düğme(dx, dy + boy, b9o20, "yeni oyun")
+        d.boyamaRenginiKur(mavi)
+        d.fareyeTıklayınca { (_, _) => seçenekleriKapa(d3a); yeniOyun }
+        tepkili(d)
+    }
+    val d4a = {
+        val d = düğme(dx, dy + 3 * boy, b2 * 9 / 10, "geri")
+        d.boyamaRenginiKur(açıkGri)
+        d.fareyeTıklayınca { (_, _) => geriAl; seçenekleriGöster }
+        tepkili(d)
+    }
+    val d4b = {
+        val d = düğme(dx + boy, dy + 3 * boy, b2 * 9 / 10, "ileri")
+        d.boyamaRenginiKur(renkler.blanchedAlmond)
+        d.fareyeTıklayınca { (_, _) => ileriGit; seçenekleriGöster }
+        tepkili(d)
+    }
 }
 silVeSakla
 çıktıyıSil
 tahtayıKur(boy)
 düğmeleriKur
-tahtayıYaz
 zamanTut("Oyun") { özdevinimliOyun(enİriGetirililerArasındanRastgele, 0.02) }("sürdü")
