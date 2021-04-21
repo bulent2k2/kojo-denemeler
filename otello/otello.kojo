@@ -180,9 +180,12 @@ def başlangıçTaşlarınıKur = {
     }
 }
 
+def özdevin(süre: Kesir = 0.0) = zamanTut("Özdevinimli oyun") {
+    özdevinimliOyun(köşeYaklaşımı, süre)
+}("sürdü")
 def özdevinimliOyun( // özdevinim ve bir kaç hamle seçme yöntemi/yaklaşımı (heuristic)
     yaklaşım:        İşlev1[Dizi[Oda], Belki[Oda]],
-    duraklamaSüresi: Kesir                         = 0.0 /*saniye*/
+    duraklamaSüresi: Kesir /*saniye*/
 ) = {
     val dallanma = EsnekDizim.boş[Sayı]
     var oyna = doğru
@@ -468,18 +471,11 @@ class arayüz() { // tahtayı ve taşları çizelim ve canlandıralım
         d.fareyeTıklayınca { (_, _) => seçenekleriAçKapa(d) }
         d
     }
-    düğme(dx + boy, dy + 2 * boy, turuncu, "tüm ekran aç/kapa").
-        fareyeTıklayınca { (_, _) => tümEkranTuval() }
-    düğme(dx, dy, kırmızı, "özdevin").fareyeTıklayınca { (_, _) =>
-        seçenekleriKapa(d1)
-        zamanTut("Özdevinimli oyun") { özdevinimliOyun(köşeYaklaşımı) }("sürdü")
-    }
-    düğme(dx, dy + boy, mavi, "yeni oyun").
-        fareyeTıklayınca { (_, _) => seçenekleriKapa(d1); yeniOyun }
-    düğme(dx, dy + 3 * boy, açıkGri, "geri").
-        fareyeTıklayınca { (_, _) => geriAl; seçenekleriGöster }
-    düğme(dx + boy, dy + 3 * boy, renkler.blanchedAlmond, "ileri").
-        fareyeTıklayınca { (_, _) => ileriGit; seçenekleriGöster }
+    düğme(dx + boy, dy + 2 * boy, turuncu, "tüm ekran aç/kapa").fareyeTıklayınca { (_, _) => tümEkranTuval() }
+    düğme(dx, dy, kırmızı, "özdevin").fareyeTıklayınca { (_, _) => özdevin() }
+    düğme(dx, dy + boy, mavi, "yeni oyun").fareyeTıklayınca { (_, _) => yeniOyun; seçenekleriGöster }
+    düğme(dx, dy + 3 * boy, açıkGri, "geri").fareyeTıklayınca { (_, _) => geriAl; seçenekleriGöster }
+    düğme(dx + boy, dy + 3 * boy, renkler.blanchedAlmond, "ileri").fareyeTıklayınca { (_, _) => ileriGit; seçenekleriGöster }
     private val skorYazısı = {
         val y = {
             val tahtaTavanı = dy + (odaSayısı - 0.75) * boy
@@ -508,4 +504,4 @@ class arayüz() { // tahtayı ve taşları çizelim ve canlandıralım
     }
 }
 val araYüz = new arayüz()
-zamanTut("Oyun") { özdevinimliOyun(köşeYaklaşımı, 0.02) }("sürdü")
+özdevin(0.02)
