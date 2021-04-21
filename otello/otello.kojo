@@ -425,7 +425,7 @@ class arayüz() { // tahtayı ve taşları çizelim ve canlandıralım
     private var hamleResmiAçık = yanlış
     def hamleyiAçKapa(d: Resim) = {
         hamleResmiAçık = !hamleResmiAçık
-        düğmeSeçili(d, if (hamleResmiAçık) renksiz else beyaz, if (hamleResmiAçık) beyaz else renksiz)
+        if (hamleResmiAçık) düğmeSeçili(d) else düğmeTepkisi(d)
         sonHamle match {
             case Biri(hane) => hamleyiGöster(hane)
             case _          =>
@@ -455,28 +455,30 @@ class arayüz() { // tahtayı ve taşları çizelim ve canlandıralım
     private def seçenekleriAçKapa(d: Resim) = {
         seçeneklerAçık = !seçeneklerAçık
         seçenekleriGöster
-        düğmeSeçili(d, if (seçeneklerAçık) renksiz else beyaz, if (seçeneklerAçık) beyaz else renksiz)
+        if(seçeneklerAçık) düğmeSeçili(d) else düğmeTepkisi(d)
         if (!seçeneklerAçık) seçenekleriKapa(d)
     }
     private def seçenekleriKapa(d: Resim) = {
         seçeneklerAçık = yanlış
         seçenekResimleri.foreach { r => r.sil() }
-        düğmeSeçili(d)
+        düğmeTepkisi(d)
         d.kalemRenginiKur(renksiz)
     }
 
-    private def düğmeSeçili(d: Resim, rFareGirince: Renk = beyaz, rFareÇıkınca: Renk = renksiz) = {
-        d.fareGirince { (_, _) => d.kalemRenginiKur(rFareGirince) }
-        d.fareÇıkınca { (_, _) => d.kalemRenginiKur(rFareÇıkınca) }
-    }
     private def düğme(x: Kesir, y: Kesir, boya: Renk, mesaj: Yazı) = {
         val d = götür(x, y) * kalemRengi(renksiz) * boyaRengi(boya) -> Resim.dizi(
             götür(boy / 5, b2 + b4 / 3) -> Resim.yazıRenkli(mesaj, 10, beyaz),
             kalemBoyu(3) -> Resim.daire(boy * 9 / 20))
-        düğmeSeçili(d)
+        düğmeTepkisi(d)
         d.çiz()
         d
     }
+    private def düğmeTepkisi(d: Resim, rFareGirince: Renk = beyaz, rFareÇıkınca: Renk = renksiz) = {
+        d.fareGirince { (_, _) => d.kalemRenginiKur(rFareGirince) }
+        d.fareÇıkınca { (_, _) => d.kalemRenginiKur(rFareÇıkınca) }
+    }
+    private def düğmeSeçili(d: Resim) = düğmeTepkisi(d, renksiz, beyaz)
+    
     private val (dx, dy) = ((0.8 + odaSayısı) * boy + köşeX, köşeY + b2)
     private val d0 = { // alttan birinci sırada soldan ikinci
         val d = düğme(dx, dy + 2 * boy, pembe, "öneri")
