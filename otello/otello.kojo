@@ -109,6 +109,7 @@ def gerisi(k: Komşu): Dizi[Oda] = {
     sıra.dizi
 }
 
+var sonHamle: Belki[Oda] = Hiçbiri // tuvalde göstermek için gerekli sadece
 def hamleyiYap(yasal: Dizi[Komşu], hane: Oda): Birim = {
     def bütünTuşlarıÇevir = yasal.foreach { komşu =>
         val komşuTaş = tahta(komşu.oda.str)(komşu.oda.stn)
@@ -118,7 +119,8 @@ def hamleyiYap(yasal: Dizi[Komşu], hane: Oda): Birim = {
         }.foreach(taşıAltÜstYap(_))
         taşıAltÜstYap(komşu.oda)
     }
-    saklaTahtayı(doğru) // yeni hamle
+    saklaTahtayı(doğru, sonHamle)
+    sonHamle = Biri(hane)
     bütünTuşlarıÇevir
     tahta(hane.str)(hane.stn) = oyuncu
     araYüz.boya(hane, oyuncu)
@@ -126,7 +128,8 @@ def hamleyiYap(yasal: Dizi[Komşu], hane: Oda): Birim = {
     hamleSayısı += 1
     yeniHamleEnYeniGeriAlKomutundanDahaGüncel = doğru
     tahtayıYaz
-    araYüz.yaz
+    araYüz.skoruGüncelle
+    araYüz.hamleyiGöster(hane)
 }
 def taşıAltÜstYap(oda: Oda): Birim = {
     tahta(oda.str)(oda.stn) = oyuncu
@@ -147,7 +150,10 @@ def yeniOyun = {
     hamleSayısı = 1
     eskiTahtalar.sil()
     oyuncular.sil()
-    araYüz.yaz
+    hamleler.sil()
+    sonHamle = Hiçbiri
+    araYüz.skoruGüncelle
+    araYüz.hamleResminiSil
 }
 def boşalt(oda: Oda): Birim = {
     tahta(oda.str)(oda.stn) = Yok
@@ -173,8 +179,7 @@ def başlangıçTaşlarınıKur = {
     }
 }
 
-// özdevinim ve bir kaç hamle seçme yöntemi/yaklaşımı (heuristic)
-def özdevinimliOyun(
+def özdevinimliOyun( // özdevinim ve bir kaç hamle seçme yöntemi/yaklaşımı (heuristic)
     yaklaşım:        İşlev1[Dizi[Oda], Oda],
     duraklamaSüresi: Kesir                  = 0.0 /*saniye*/
 ) = {
@@ -207,34 +212,57 @@ def özdevinimliOyun(
         }
     }
 }
+def öneri = if (!bütünYasalHamleler.isEmpty) {
+    val oda = köşeYaklaşımı(bütünYasalHamleler)
+    hamleyiYap(hamleyiDene(oda), oda)
+    if (bütünYasalHamleler.isEmpty) {
+        sırayıÖbürOyuncuyaGeçir
+        if (bütünYasalHamleler.isEmpty) bittiKaçKaç
+    }
+}
 def rastgeleHamle(yasallar: Dizi[Oda]): Oda =
     yasallar.drop(rastgele(yasallar.size)).head // çağıran metod yasalların boş olmadığını biliyor
 def enİriGetiriliHamle(yasallar: Dizi[Oda]): Oda =
     yasallar maxBy { oda => hamleGetirisi(oda) }
 def enİriGetirililerArasındanRastgele(yasallar: Dizi[Oda]): Oda = {
-    val seçenekler = enGetirililer()
+    val seçenekler = enGetirililer(yasallar)
     seçenekler.drop(rastgele(seçenekler.size)).head
 }
-def enGetirililer(): Dizi[Oda] = {
+def enGetirililer(yasallar: Dizi[Oda]): Dizi[Oda] = {
     def bütünEnİriler[A, B: Ordering](d: Dizin[A])(iş: A => B): Dizin[A] = {
         d.sortBy(iş).reverse match {
             case Dizin()       => Dizin()
             case baş :: kuyruk => baş :: kuyruk.takeWhile { oda => iş(oda) == iş(baş) }
         }
     }
-    bütünEnİriler(bütünYasalHamleler.toList) { hamleGetirisi(_) }
+    bütünEnİriler(yasallar.toList) { hamleGetirisi(_) }
 }
 def köşeYaklaşımı(yasallar: Dizi[Oda]): Oda = {
-    var köşeler = yasallar.filter(köşeMi(_))
+    val köşeler = yasallar.filter(köşeMi(_))
     if (köşeler.size > 0) köşeler.drop(rastgele(köşeler.size)).head // todo duplicates
     else {
-        köşeler = yasallar.filter(içKöşeMi(_))
+        val köşeler = yasallar.filter(içKöşeMi(_))
         if (köşeler.size > 0) köşeler.drop(rastgele(köşeler.size)).head
-        else
-            enİriGetirililerArasındanRastgele(yasallar)
+        else {
+            val tuzakKenarOlmayanlar = yasallar.filterNot(tuzakKenarMı(_))
+            enİriGetirililerArasındanRastgele(
+                if (tuzakKenarOlmayanlar.isEmpty) {
+                    val tuzakKöşeOlmayanlar = yasallar.filterNot(tuzakKöşeMi(_))
+                    if (tuzakKöşeOlmayanlar.isEmpty) yasallar else tuzakKöşeOlmayanlar
+                }
+                else tuzakKenarOlmayanlar
+            )
+        }
     }
 }
 
+def tuzakKenarMı: Oda => İkil = {
+    case Oda(str, stn) => str == 1 || stn == 1 || str == sonOda - 1 || stn == sonOda - 1
+}
+def tuzakKöşeMi: Oda => İkil = {
+    case Oda(y, x) => (x == 1 && (y == 1 || y == sonOda - 1)) ||
+        (x == sonOda - 1 && (y == 1 || y == sonOda - 1))
+}
 def köşeMi: Oda => İkil = {
     case Oda(str, stn) => if (str == 0) stn == 0 || stn == sonOda else
         str == sonOda && (stn == 0 || stn == sonOda)
@@ -247,46 +275,53 @@ def içKöşeMi: Oda => İkil = {
 // ileri geri gidiş için gerekli bellek
 val eskiTahtalar = EsnekDizim.boş[Dizim[Array[Taş]]] // todo
 val oyuncular = EsnekDizim.boş[Taş]
-def saklaTahtayı(yeniHamleMi: İkil) = {
+val hamleler = EsnekDizim.boş[Belki[Oda]]
+def saklaTahtayı(yeniHamleMi: İkil, hane: Belki[Oda]) = {
     if (yeniHamleMi) while (hamleSayısı <= eskiTahtalar.sayı) {
         eskiTahtalar.çıkar(eskiTahtalar.sayı - 1)
         oyuncular.çıkar(oyuncular.sayı - 1)
+        hamleler.çıkar(hamleler.sayı - 1)
     }
     val yeni = Dizim.boş[Taş](odaSayısı, odaSayısı)
     for (x <- satırAralığı; y <- satırAralığı)
         yeni(y)(x) = tahta(y)(x)
     eskiTahtalar += yeni
     oyuncular += oyuncu
+    hamleler += hane
 }
 def verilenHamleTahtasınaGeç(hamle: Sayı) = {
     val eski = eskiTahtalar(hamle)
     for (x <- satırAralığı; y <- satırAralığı)
         tahta(y)(x) = eski(y)(x)
-    oyuncu = oyuncular(hamle)
     for (y <- satırAralığı; x <- satırAralığı)
         araYüz.boya(Oda(y, x), tahta(y)(x))
+    oyuncu = oyuncular(hamle)
+    sonHamle = hamleler(hamle)
+    sonHamle match {
+        case Biri(hane) => araYüz.hamleyiGöster(hane)
+        case _          => araYüz.hamleResminiSil
+    }
 }
 var yeniHamleEnYeniGeriAlKomutundanDahaGüncel = doğru // yeni bir hamleden önce geri/ileri çalışmaz ki
 def geriAl = if (hamleSayısı > 1) {
     if (yeniHamleEnYeniGeriAlKomutundanDahaGüncel) {
         yeniHamleEnYeniGeriAlKomutundanDahaGüncel = yanlış
-        saklaTahtayı(yanlış)
+        saklaTahtayı(yanlış, sonHamle)
     }
     hamleSayısı -= 1
     verilenHamleTahtasınaGeç(hamleSayısı - 1)
-    araYüz.yaz
+    araYüz.skoruGüncelle
 }
 def ileriGit = if (hamleSayısı < eskiTahtalar.sayı) {
     verilenHamleTahtasınaGeç(hamleSayısı)
     hamleSayısı += 1
-    araYüz.yaz
+    araYüz.skoruGüncelle
 }
 
 class arayüz() { // tahtayı ve taşları çizelim ve canlandıralım
-    val boy = 64 // karelerin boyu inç başına nokta sayısı. 64 => 1cm'de yaklaşık 25 nokta var (/ 64 2.54)
+    val boy = 60 // karelerin boyu inç başına nokta sayısı. 64 => 1cm'de yaklaşık 25 nokta var (/ 64 2.54)
     val (xoffset, yoffset) = (-5 * boy, -4 * boy) // tahtanın sol alt köşesini bu noktaya koyalım
-    val (b2, b3, b4, b9o20) = (boy / 2, boy / 3, boy / 4, boy * 9 / 20)
-
+    val (b2, b3, b4) = (boy / 2, boy / 3, boy / 4)
     val kare2oda = Eşlem.boş[Resim, Oda]
 
     def tahtayıKur = {
@@ -362,10 +397,22 @@ class arayüz() { // tahtayı ve taşları çizelim ve canlandıralım
         case Siyah => siyah
     }
 
-    // seçenek hamlelerin resimlerini aç kapa
+    def hamleyiGöster(oda: Oda) = {
+        hamleResminiSil
+        if (hamleResmiAçık) {
+            hamleResmi = götür(oda2nokta(oda, yanlış)) * kalemRengi(mavi) * kalemBoyu(3) *
+                boyaRengi(renksiz) -> Resim.daire(b4)
+            hamleResmi.girdiyiAktar(oda2kare(oda))
+            hamleResmi.çiz()
+        }
+    }
+    def hamleResminiSil = hamleResmi.sil()
+    var hamleResmi: Resim = Resim.daire(b4)
+    val hamleResmiAçık = doğru
+
     def seçenekleriGöster = {
+        seçenekResimleri.foreach { r => r.sil() }
         if (seçeneklerAçık) {
-            seçenekResimleri.foreach { r => r.sil() }
             val sıralı = bütünYasalHamleler.map { oda => (oda, hamleGetirisi(oda)) }.sortBy { p => p._2 }.reverse
             if (sıralı.size > 0) {
                 val enİriGetiri = sıralı.head._2
@@ -380,15 +427,8 @@ class arayüz() { // tahtayı ve taşları çizelim ve canlandıralım
                 }
             }
         }
-        else {
-            seçenekResimleriniSil
-        }
     }
     var seçenekResimleri: Dizi[Resim] = Dizi()
-    def seçenekResimleriniSil = {
-        seçenekResimleri.foreach { r => r.sil() }
-        seçeneklerAçık = yanlış
-    }
     var seçeneklerAçık = yanlış
     def seçenekleriAçKapa(d: Resim) = {
         seçeneklerAçık = if (seçeneklerAçık) yanlış else doğru
@@ -400,7 +440,8 @@ class arayüz() { // tahtayı ve taşları çizelim ve canlandıralım
         if (!seçeneklerAçık) seçenekleriKapa(d)
     }
     def seçenekleriKapa(d: Resim) = {
-        seçenekResimleriniSil
+        seçeneklerAçık = yanlış
+        seçenekResimleri.foreach { r => r.sil() }
         d.fareGirince { (_, _) => d.kalemRenginiKur(beyaz) }
         d.fareÇıkınca { (_, _) => d.kalemRenginiKur(renksiz) }
         d.kalemRenginiKur(renksiz)
@@ -412,7 +453,7 @@ class arayüz() { // tahtayı ve taşları çizelim ve canlandıralım
     private def düğme(x: Kesir, y: Kesir, boya: Renk, mesaj: Yazı) = {
         val d = götür(x, y) * kalemRengi(renksiz) * boyaRengi(boya) -> Resim.dizi(
             götür(boy / 5, b2 + b4 / 3) -> Resim.yazıRenkli(mesaj, 10, beyaz),
-            kalemBoyu(3) -> Resim.daire(b9o20))
+            kalemBoyu(3) -> Resim.daire(boy * 9 / 20))
         d.fareGirince { (_, _) => d.kalemRenginiKur(beyaz) }
         d.fareÇıkınca { (_, _) => d.kalemRenginiKur(renksiz) }
         d.çiz()
@@ -448,12 +489,7 @@ class arayüz() { // tahtayı ve taşları çizelim ve canlandıralım
         d.fareGirince { (_, _) =>
             d.kalemRenginiKur(if (bütünYasalHamleler.isEmpty) kırmızı else beyaz)
         }
-        d.fareyeTıklayınca { (_, _) =>
-            if (!bütünYasalHamleler.isEmpty) {
-                val oda = köşeYaklaşımı(bütünYasalHamleler)
-                hamleyiYap(hamleyiDene(oda), oda)
-            }
-        }
+        d.fareyeTıklayınca { (_, _) => öneri }
     }
     private val d2 = {
         val d = düğme(dx, dy + boy, mavi, "yeni oyun")
@@ -476,8 +512,8 @@ class arayüz() { // tahtayı ve taşları çizelim ve canlandıralım
         val yazı = götür(dx - b3, y) -> Resim.yazıRenkli("", 20, sarı)
         yazı.çiz(); yazı
     }
-    def yaz = skorYazısı.güncelle(s"${hamleSayısı}\n${kaçkaç(doğru)}")
-    val ipucu = Resim.yazıRenkli("", 20, kırmızı)
+    def skoruGüncelle = skorYazısı.güncelle(s"${hamleSayısı}\n${kaçkaç(doğru)}")
+    private val ipucu = Resim.yazıRenkli("", 20, kırmızı)
     ipucu.çiz()
 
     tuşaBasınca { t =>
@@ -486,6 +522,8 @@ class arayüz() { // tahtayı ve taşları çizelim ve canlandıralım
                 ileriGit; seçenekleriGöster
             case tuşlar.VK_LEFT =>
                 geriAl; seçenekleriGöster
+            case tuşlar.VK_Q =>
+                öneri; seçenekleriGöster
             case _ =>
         }
     }
