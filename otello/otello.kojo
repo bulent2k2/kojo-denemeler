@@ -19,10 +19,7 @@ val sonOda = odaSayısı - 1
 val satırAralığı = 0 to sonOda
 val satırAralığıSondan = sonOda to 0 by -1
 
-def tahtayıYaz = {
-    for (y <- satırAralığıSondan) satıryaz(tahta(y).mkString(" "))
-    satıryaz(s"Hamle: $hamleSayısı. Sıra ${adı(oyuncu)}ın")
-}
+def tahtayıYaz = for (y <- satırAralığıSondan) satıryaz(tahta(y).mkString(" "))
 
 var hamleSayısı = 0 // bir sonraki hamle kaçıncı hamle olacak? 1, 2, 3, ...
 def adı(o: Taş) = if (o == Siyah) "siyah" else "beyaz"
@@ -109,8 +106,8 @@ def gerisi(k: Komşu): Dizi[Oda] = {
     sıra.dizi
 }
 
-var sonHamle: Belki[Oda] = Hiçbiri // tuvalde göstermek için gerekli sadece
-def hamleyiYap(yasal: Dizi[Komşu], hane: Oda): Birim = {
+var sonHamle: Belki[Oda] = Hiçbiri // sadece son hamleyi tuvalde göstermek için gerekli
+def hamleyiYap(yasal: Dizi[Komşu], hane: Oda, duraklamaSüresi: Kesir = 0.0): Birim = {
     def bütünTuşlarıÇevir = yasal.foreach { komşu =>
         val komşuTaş = tahta(komşu.oda.str)(komşu.oda.stn)
         gerisi(komşu).takeWhile { oda =>
@@ -124,12 +121,14 @@ def hamleyiYap(yasal: Dizi[Komşu], hane: Oda): Birim = {
     bütünTuşlarıÇevir
     tahta(hane.str)(hane.stn) = oyuncu
     araYüz.boya(hane, oyuncu)
+    satıryaz(s"Hamle $hamleSayısı $oyuncu $hane:")
+    tahtayıYaz
     sırayıÖbürOyuncuyaGeçir
     hamleSayısı += 1
     yeniHamleEnYeniGeriAlKomutundanDahaGüncel = doğru
-    tahtayıYaz
     araYüz.skoruGüncelle
     araYüz.hamleyiGöster(hane)
+    if (duraklamaSüresi > 0) durakla(duraklamaSüresi)
 }
 def taşıAltÜstYap(oda: Oda): Birim = {
     tahta(oda.str)(oda.stn) = oyuncu
@@ -180,54 +179,51 @@ def başlangıçTaşlarınıKur = {
 }
 
 def özdevinimliOyun( // özdevinim ve bir kaç hamle seçme yöntemi/yaklaşımı (heuristic)
-    yaklaşım:        İşlev1[Dizi[Oda], Oda],
-    duraklamaSüresi: Kesir                  = 0.0 /*saniye*/
+    yaklaşım:        İşlev1[Dizi[Oda], Belki[Oda]],
+    duraklamaSüresi: Kesir                         = 0.0 /*saniye*/
 ) = {
-    var oyna = doğru; val dallanma = EsnekDizim.boş[Sayı]
-    while (oyna) {
-        val yasallar1 = bütünYasalHamleler
-        var sıraAtla = yanlış
-        val yasallar = if (yasallar1.size > 0) yasallar1 else {
+    val dallanma = EsnekDizim.boş[Sayı]
+    var oyna = doğru
+    while (oyna) yaklaşım(bütünYasalHamleler) match {
+        case Biri(oda) =>
+            dallanma += bütünYasalHamleler.size
+            hamleyiYap(hamleyiDene(oda), oda, duraklamaSüresi)
+        case _ =>
             sırayıÖbürOyuncuyaGeçir
-            sıraAtla = doğru
-            bütünYasalHamleler
-        }
-        if (yasallar.size == 0) {
-            bittiKaçKaç
-            if (dallanma.sayı > 0) {
-                val d = dallanma.dizi
-                satıryaz(s"${d.size} dallanma oldu. Dal sayıları: ${d.mkString(",")}")
-                satıryaz(s"Ortalama dal sayısı: ${yuvarla(d.sum / (1.0 * d.size), 1)}")
-                satıryaz(s"En iri dal sayısı: ${d.max}")
+            yaklaşım(bütünYasalHamleler) match {
+                case Biri(oda) =>
+                    satıryaz(s"Yasal hamle yok. Sıra yine ${adı(oyuncu)}ın")
+                    dallanma += bütünYasalHamleler.size
+                    hamleyiYap(hamleyiDene(oda), oda, duraklamaSüresi)
+                case _ =>
+                    bittiKaçKaç
+                    if (dallanma.sayı > 0) {
+                        val d = dallanma.dizi
+                        satıryaz(s"${d.size} dallanma oldu. Dal sayıları: ${d.mkString(",")}")
+                        satıryaz(s"Ortalama dal sayısı: ${yuvarla(d.sum / (1.0 * d.size), 1)}")
+                        satıryaz(s"En iri dal sayısı: ${d.max}")
+                    }
+                    oyna = yanlış
             }
-            oyna = yanlış
-        }
-        else {
-            if (sıraAtla) satıryaz(s"Yasal hamle yok. Sıra yine ${adı(oyuncu)}ın")
-            satıryaz(s"${yasallar.size} seçenek var."); dallanma += yasallar.size
-            val oda = yaklaşım(yasallar)
-            hamleyiYap(hamleyiDene(oda), oda)
-            tahtayıYaz
-            durakla(duraklamaSüresi)
-        }
     }
 }
-def öneri = if (!bütünYasalHamleler.isEmpty) {
-    val oda = köşeYaklaşımı(bütünYasalHamleler)
-    hamleyiYap(hamleyiDene(oda), oda)
-    if (bütünYasalHamleler.isEmpty) {
+def öneri: Birim = köşeYaklaşımı(bütünYasalHamleler) match {
+    case Biri(oda) => hamleyiYap(hamleyiDene(oda), oda)
+    case _ =>
         sırayıÖbürOyuncuyaGeçir
-        if (bütünYasalHamleler.isEmpty) bittiKaçKaç
-    }
+        köşeYaklaşımı(bütünYasalHamleler) match {
+            case Biri(oda) => hamleyiYap(hamleyiDene(oda), oda)
+            case _         => bittiKaçKaç
+        }
 }
-def rastgeleHamle(yasallar: Dizi[Oda]): Oda =
-    yasallar.drop(rastgele(yasallar.size)).head // çağıran metod yasalların boş olmadığını biliyor
-def enİriGetiriliHamle(yasallar: Dizi[Oda]): Oda =
-    yasallar maxBy { oda => hamleGetirisi(oda) }
-def enİriGetirililerArasındanRastgele(yasallar: Dizi[Oda]): Oda = {
-    val seçenekler = enGetirililer(yasallar)
-    seçenekler.drop(rastgele(seçenekler.size)).head
-}
+def rastgeleSeç[T](dizi: Dizi[T]): Belki[T] = if (dizi.isEmpty) Hiçbiri else
+    Biri(dizi.drop(rastgele(dizi.size)).head)
+def rastgeleHamle(yasallar: Dizi[Oda]): Belki[Oda] = rastgeleSeç(yasallar)
+def enİriGetiriliHamle(yasallar: Dizi[Oda]): Belki[Oda] = if (yasallar.isEmpty) Hiçbiri else
+    Biri(yasallar maxBy { oda => hamleGetirisi(oda) })
+def enİriGetirililerArasındanRastgele(yasallar: Dizi[Oda]): Belki[Oda] =
+    rastgeleSeç(enGetirililer(yasallar))
+
 def enGetirililer(yasallar: Dizi[Oda]): Dizi[Oda] = {
     def bütünEnİriler[A, B: Ordering](d: Dizin[A])(iş: A => B): Dizin[A] = {
         d.sortBy(iş).reverse match {
@@ -237,20 +233,18 @@ def enGetirililer(yasallar: Dizi[Oda]): Dizi[Oda] = {
     }
     bütünEnİriler(yasallar.toList) { hamleGetirisi(_) }
 }
-def köşeYaklaşımı(yasallar: Dizi[Oda]): Oda = {
-    val köşeler = yasallar.filter(köşeMi(_))
-    if (köşeler.size > 0) köşeler.drop(rastgele(köşeler.size)).head // todo duplicates
-    else {
-        val köşeler = yasallar.filter(içKöşeMi(_))
-        if (köşeler.size > 0) köşeler.drop(rastgele(köşeler.size)).head
-        else {
+def köşeYaklaşımı(yasallar: Dizi[Oda]): Belki[Oda] = rastgeleSeç(yasallar.filter(köşeMi(_))) match {
+    case Biri(oda) => Biri(oda) // köşe bulduk!
+    case _ => rastgeleSeç(yasallar.filter(içKöşeMi(_))) match {
+        case Biri(oda) => Biri(oda)
+        case _ => { // tuzakKenarlar tuzakKöşeleri içeriyor
             val tuzakKenarOlmayanlar = yasallar.filterNot(tuzakKenarMı(_))
             enİriGetirililerArasındanRastgele(
-                if (tuzakKenarOlmayanlar.isEmpty) {
+                if (!tuzakKenarOlmayanlar.isEmpty) tuzakKenarOlmayanlar
+                else { // tuzak kenarlardan getirisi en iri olanlardan seçiyoruz
                     val tuzakKöşeOlmayanlar = yasallar.filterNot(tuzakKöşeMi(_))
                     if (tuzakKöşeOlmayanlar.isEmpty) yasallar else tuzakKöşeOlmayanlar
                 }
-                else tuzakKenarOlmayanlar
             )
         }
     }
