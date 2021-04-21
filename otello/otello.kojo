@@ -322,7 +322,7 @@ class arayüz() { // tahtayı ve taşları çizelim ve canlandıralım
        boya(hane, oyuncu), hamleyiGöster(hane), hamleResminiSil
        seçenekleriGöster, skoruGüncelle */
     private val boy = 60 // karelerin boyu inç başına nokta sayısı. 64 => 1cm'de yaklaşık 25 nokta var (/ 64 2.54)
-    private val (xKöşe, yKöşe) = (-odaSayısı / 2 * boy, -odaSayısı / 2 * boy) // tahtayı ortalamak için sol alt köşesini belirle
+    private val (köşeX, köşeY) = (-odaSayısı / 2 * boy, -odaSayısı / 2 * boy) // tahtayı ortalamak için sol alt köşesini belirle
     private val (b2, b3, b4) = (boy / 2, boy / 3, boy / 4)
     private val kareninOdası = Eşlem.boş[Resim, Oda]
 
@@ -335,7 +335,7 @@ class arayüz() { // tahtayı ve taşları çizelim ve canlandıralım
             val oda = Oda(y, x)
             val kRenk = if (içKöşeMi(oda)) içKöşeKalemRengi else mor
             val r = kalemRengi(kRenk) * boyaRengi(taşınRengi(tahta(y)(x))) *
-                götür(oda2nokta(oda)) -> Resim.dikdörtgen(boy, boy)
+                götür(odanınNoktası(oda)) -> Resim.dikdörtgen(boy, boy)
             r.çiz()
             kareninOdası += (r -> oda)
             odanınKaresi += (oda -> r)
@@ -349,9 +349,9 @@ class arayüz() { // tahtayı ve taşları çizelim ve canlandıralım
     def boya(hane: Oda, oyuncu: Taş) =
         odanınKaresi(hane).boyamaRenginiKur(taşınRengi(oyuncu))
 
-    private def oda2nokta(oda: Oda, solaltKöşe: İkil = doğru) =
-        if (solaltKöşe) Nokta(xKöşe + oda.stn * boy, yKöşe + oda.str * boy)
-        else Nokta(xKöşe + oda.stn * boy + b2, yKöşe + oda.str * boy + b2)
+    private def odanınNoktası(oda: Oda, solAltKöşe: İkil = doğru) =
+        if (solAltKöşe) Nokta(köşeX + oda.stn * boy, köşeY + oda.str * boy)
+        else Nokta(köşeX + oda.stn * boy + b2, köşeY + oda.str * boy + b2)
     private def kareyiTanımla(k: Resim) = {
         val oda = kareninOdası(k)
         k.fareyeTıklayınca { (_, _) =>
@@ -373,7 +373,7 @@ class arayüz() { // tahtayı ve taşları çizelim ve canlandıralım
         def odaRengi = taşınRengi(tahta(oda.str)(oda.stn))
         def renk = taşınRengi(oyuncu)
         k.fareGirince { (x, y) =>
-            ipucu.konumuKur(oda2nokta(oda, yanlış) - Nokta(b2, -b2))
+            ipucu.konumuKur(odanınNoktası(oda, yanlış) - Nokta(b2, -b2))
             tahta(oda.str)(oda.stn) match {
                 case Yok => if (hamleyiDene(oda).size > 0) {
                     k.boyamaRenginiKur(renk)
@@ -405,7 +405,7 @@ class arayüz() { // tahtayı ve taşları çizelim ve canlandıralım
     def hamleyiGöster(oda: Oda) = {
         hamleResminiSil
         if (hamleResmiAçık) {
-            hamleResmi = götür(oda2nokta(oda, yanlış)) * kalemRengi(mavi) * kalemBoyu(3) *
+            hamleResmi = götür(odanınNoktası(oda, yanlış)) * kalemRengi(mavi) * kalemBoyu(3) *
                 boyaRengi(renksiz) -> Resim.daire(b4)
             hamleResmi.girdiyiAktar(odanınKaresi(oda))
             hamleResmi.çiz()
@@ -413,7 +413,15 @@ class arayüz() { // tahtayı ve taşları çizelim ve canlandıralım
     }
     def hamleResminiSil = hamleResmi.sil()
     private var hamleResmi: Resim = Resim.daire(b4)
-    private val hamleResmiAçık = doğru
+    private var hamleResmiAçık = doğru
+    def hamleyiAçKapa(d: Resim) = {
+        hamleResmiAçık = !hamleResmiAçık
+        düğmeSeçili(d, if (hamleResmiAçık) renksiz else beyaz, if (hamleResmiAçık) beyaz else renksiz)
+        sonHamle match {
+            case Biri(hane) => hamleyiGöster(hane)
+            case _ => 
+        }
+    }
 
     def seçenekleriGöster = {
         seçenekResimleri.foreach { r => r.sil() }
@@ -424,7 +432,7 @@ class arayüz() { // tahtayı ve taşları çizelim ve canlandıralım
                 seçenekResimleri = sıralı map {
                     case (oda, getirisi) =>
                         val renk = if (getirisi == enİriGetiri) sarı else turuncu
-                        val göster = götür(oda2nokta(oda, yanlış)) * kalemRengi(renk) * kalemBoyu(3) *
+                        val göster = götür(odanınNoktası(oda, yanlış)) * kalemRengi(renk) * kalemBoyu(3) *
                             boyaRengi(renksiz) -> Resim.daire(b4)
                         göster.girdiyiAktar(odanınKaresi(oda))
                         göster.çiz()
@@ -436,47 +444,53 @@ class arayüz() { // tahtayı ve taşları çizelim ve canlandıralım
     private var seçenekResimleri: Dizi[Resim] = Dizi()
     private var seçeneklerAçık = yanlış
     private def seçenekleriAçKapa(d: Resim) = {
-        seçeneklerAçık = if (seçeneklerAçık) yanlış else doğru
+        seçeneklerAçık = !seçeneklerAçık
         seçenekleriGöster
-        val renk1 = if (seçeneklerAçık) beyaz else renksiz
-        val renk2 = if (seçeneklerAçık) renksiz else beyaz
-        d.fareGirince { (_, _) => d.kalemRenginiKur(renk2) }
-        d.fareÇıkınca { (_, _) => d.kalemRenginiKur(renk1) }
+        düğmeSeçili(d, if (seçeneklerAçık) renksiz else beyaz, if (seçeneklerAçık) beyaz else renksiz)
         if (!seçeneklerAçık) seçenekleriKapa(d)
     }
     private def seçenekleriKapa(d: Resim) = {
         seçeneklerAçık = yanlış
         seçenekResimleri.foreach { r => r.sil() }
-        d.fareGirince { (_, _) => d.kalemRenginiKur(beyaz) }
-        d.fareÇıkınca { (_, _) => d.kalemRenginiKur(renksiz) }
+        düğmeSeçili(d)
         d.kalemRenginiKur(renksiz)
     }
 
+    private def düğmeSeçili(d: Resim, rFareGirince: Renk = beyaz, rFareÇıkınca: Renk = renksiz) = {
+        d.fareGirince { (_, _) => d.kalemRenginiKur(rFareGirince) }
+        d.fareÇıkınca { (_, _) => d.kalemRenginiKur(rFareÇıkınca) }
+    }
     private def düğme(x: Kesir, y: Kesir, boya: Renk, mesaj: Yazı) = {
         val d = götür(x, y) * kalemRengi(renksiz) * boyaRengi(boya) -> Resim.dizi(
             götür(boy / 5, b2 + b4 / 3) -> Resim.yazıRenkli(mesaj, 10, beyaz),
             kalemBoyu(3) -> Resim.daire(boy * 9 / 20))
-        d.fareGirince { (_, _) => d.kalemRenginiKur(beyaz) }
-        d.fareÇıkınca { (_, _) => d.kalemRenginiKur(renksiz) }
+            düğmeSeçili(d)
         d.çiz()
         d
     }
-    private val (dx, dy) = ((0.8 + odaSayısı) * boy + xKöşe, yKöşe + b2)
+    private val (dx, dy) = ((0.8 + odaSayısı) * boy + köşeX, köşeY + b2)
     private val d0 = { // alttan birinci sırada soldan ikinci
-        val d = düğme(dx + boy, dy, pembe, "öneri")
+        val d = düğme(dx, dy + 2 * boy, pembe, "öneri")
         d.fareGirince { (_, _) =>
             d.kalemRenginiKur(if (bütünYasalHamleler.isEmpty) kırmızı else beyaz)
         }
         d.fareyeTıklayınca { (_, _) => öneri }
     }
     private val d1 = {
-        val d = düğme(dx, dy + 2 * boy, sarı, "seçenekler")
+        val d = düğme(dx, dy + boy, sarı, "seçenekler")
         d.fareyeTıklayınca { (_, _) => seçenekleriAçKapa(d) }
         d
     }
+    private val d2 = {
+        val d = düğme(dx + boy, dy + boy, mavi, "son hamle aç/kapa")
+        d.kalemRenginiKur(beyaz) // başlangıçta son hamleyi gösterelim
+        d.fareyeTıklayınca { (_, _) => hamleyiAçKapa(d)
+        d
+        }
+    }
     düğme(dx + boy, dy + 2 * boy, turuncu, "tüm ekran aç/kapa").fareyeTıklayınca { (_, _) => tümEkranTuval() }
     düğme(dx, dy, kırmızı, "özdevin").fareyeTıklayınca { (_, _) => özdevin() }
-    düğme(dx, dy + boy, mavi, "yeni oyun").fareyeTıklayınca { (_, _) => yeniOyun; seçenekleriGöster }
+    düğme(dx + boy, dy, yeşil, "yeni oyun").fareyeTıklayınca { (_, _) => yeniOyun; seçenekleriGöster }
     düğme(dx, dy + 3 * boy, açıkGri, "geri").fareyeTıklayınca { (_, _) => geriAl; seçenekleriGöster }
     düğme(dx + boy, dy + 3 * boy, renkler.blanchedAlmond, "ileri").fareyeTıklayınca { (_, _) => ileriGit; seçenekleriGöster }
     private val skorYazısı = {
@@ -485,10 +499,9 @@ class arayüz() { // tahtayı ve taşları çizelim ve canlandıralım
             val düğmelerinTavanı = dy + 4.75 * boy
             enİrisi(tahtaTavanı, düğmelerinTavanı)
         }
-        val yazı = götür(dx - b3, y) -> Resim.yazıRenkli("", 20, sarı)
+        val yazı = götür(dx - b3, y) -> Resim.yazıRenkli(s"${adı(oyuncu).capitalize} başlasın", 20, sarı)
         yazı.çiz(); yazı
     }
-
     def skoruGüncelle = skorYazısı.güncelle(s"${hamleSayısı}\n${kaçkaç(doğru)}")
 
     private val ipucu = Resim.yazıRenkli("", 20, kırmızı)
@@ -507,4 +520,4 @@ class arayüz() { // tahtayı ve taşları çizelim ve canlandıralım
     }
 }
 val araYüz = new arayüz()
-özdevin(0.02)
+//özdevin(0.02)
