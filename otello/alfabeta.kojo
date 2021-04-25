@@ -1,18 +1,19 @@
-class Oyun() {
-    val t = yeniTahta(6)
+//#include types
+
+var i = 0
+class Oyun(tane: Sayı) {
+    val t = yeniTahta(tane)
     val durum = new Durum(t, Siyah)
 
     def oyna: Durum = döngü(durum)
 
     import scala.annotation.tailrec
-    var i = 0
     @tailrec
     private def döngü(durum: Durum): Durum = {
-        satıryaz(i)
-        durum.tahta.yaz
+        durum.tahta.yaz("döngü")
         i += 1
         if (durum.oyunBittiMi) return durum
-        if (i > 144) { satıryaz("çok uzadı!"); return durum }
+        if (i > tane*tane) { satıryaz("çok uzadı!"); return durum }
         val hamle = ABa.hamleYap(durum) match {
             case Biri(oda) => oda
             case _ => ABa.hamleYap(new Durum(durum.tahta, durum.karşıTaş)) match {
@@ -21,17 +22,18 @@ class Oyun() {
             }
         }
         val yeni = durum.oyna(hamle)
+        satıryaz(s"$i. hamle ${durum.sıra} $hamle:")
         döngü(yeni)
     }
 }
 
 object ABa { // alfa-beta arama
-
     private val aramaDerinliğiSınırı = 3
-    private val seçim = 3
+    private val seçim = 2
     def hamleYap(durum: Durum): Belki[Oda] = seçim match {
         case 1 => atmaca(durum)
-        case _ => enİyiHamleAB(durum)
+        case 2 => minimaxHamle(durum)
+        case _ => alfaBetaHamle(durum)
     }
 
     def atmaca(durum: Durum): Belki[Oda] = {
@@ -40,34 +42,144 @@ object ABa { // alfa-beta arama
         rastgeleSeç(durum.yasallar)
     }
 
-    def enİyiHamleAB(durum: Durum): Belki[Oda] = if (durum.seçenekler.isEmpty)
-        Hiçbiri
-    else // karşı oyuncunun skorunu azaltan birden çok hamle varsa rastgele seç
-        Biri((for (hamle <- durum.seçenekler) yield hamle -> alfaBeta(durum.oyna(hamle))).minBy(_._2)._1)
+    def minimaxHamle(durum: Durum): Belki[Oda] =
+        if (durum.seçenekler.isEmpty) Hiçbiri
+        else Biri({
+            satıryaz(durum.seçenekler.mkString(s"${durum.sıra} Top: ", " ", ""))
+            val dizi = for (hamle <- durum.seçenekler)
+                yield hamle -> minimax(durum.oyna(hamle), aramaDerinliğiSınırı)
+            satıryaz(dizi.mkString(s"${durum.sıra}: ", " ", ""))
+            dizi.minBy(_._2)._1
+        })
+
+    def minimax(durum: Durum, derinlik: Sayı): Sayı = {
+        minimize(durum, derinlik)
+        //optimize(Minimize)(durum, derinlik)
+        //optimize1(durum, derinlik)
+    }
+
+    trait Optimize {
+        val init: Sayı
+        val other: Optimize
+        val name: Yazı
+        def opt(s1: Sayı, s2: Sayı): Sayı
+    }
+    case object Minimize extends Optimize {
+        val init = Int.MaxValue
+        val other = Maximize
+        val name = "minimizing"
+        def opt(s1: Sayı, s2: Sayı) = enUfağı(s1, s2)
+    }
+    case object Maximize extends Optimize {
+        val init = Int.MinValue
+        val other = Minimize
+        val name = "maximizing"
+        def opt(s1: Sayı, s2: Sayı) = enİrisi(s1, s2)
+    }
+
+    def optimize(opt: Optimize)(durum: Durum, derinlik: Sayı): Sayı = {
+        val tab = s"$i: $derinlik" + "d----" * derinlik
+        durum.tahta.yaz(s"$tab ${durum.sıra} in $opt", tab)
+        if (durum.bitti || derinlik == 0) durum.skor
+        else if (durum.seçenekler.size == 0) {
+            satıryaz(s"$tab ${durum.sıra} seçenek yok!")
+            durum.skor
+        }
+        else {
+            var best = opt.init // beta
+            durum.seçenekler.foreach { hamle =>
+                satıryaz(s"$tab $hamle")
+                val yeniDurum = durum.oyna(hamle)
+                val optChild = optimize(opt.other)(yeniDurum, derinlik - 1)
+                best = opt.opt(best, optChild)
+                satıryaz(s"$tab ${opt.name} optChildren: $optChild")
+            }
+            satıryaz(s"$tab min: $best")
+            best
+        }
+    }
+
+    def optimize1(durum: Durum, derinlik: Sayı): Sayı =
+        if (durum.bitti || derinlik == 0 || durum.seçenekler.size == 0) durum.skor
+        else {
+            val opt = Minimize
+            var best = opt.init // beta
+            durum.seçenekler.foreach { hamle =>
+                val yeniDurum = durum.oyna(hamle)
+                val optChild = optimize2(yeniDurum, derinlik - 1)
+                best = opt.opt(best, optChild)
+            }
+            best
+        }
+    def optimize2(durum: Durum, derinlik: Sayı): Sayı =
+        if (durum.bitti || derinlik == 0 || durum.seçenekler.size == 0) durum.skor
+        else {
+            val opt = Maximize
+            var best = opt.init // alfa
+            durum.seçenekler.foreach { hamle =>
+                val yeniDurum = durum.oyna(hamle)
+                val optChild = optimize1(yeniDurum, derinlik - 1)
+                best = opt.opt(best, optChild)
+            }
+            best
+        }
+
+    
+    def minimize(durum: Durum, derinlik: Sayı): Sayı =
+        if (durum.bitti || derinlik == 0 || durum.seçenekler.size == 0) durum.skor
+        else {
+            var best = Int.MaxValue // beta
+            durum.seçenekler.foreach { hamle =>
+                val yeniDurum = durum.oyna(hamle)
+                val maxChild = maximize(yeniDurum, derinlik - 1)
+                best = enUfağı(best, maxChild)
+            }
+            best
+        }
+    def maximize(durum: Durum, derinlik: Sayı): Sayı =
+        if (durum.bitti || derinlik == 0 || durum.seçenekler.size == 0) durum.skor
+        else {
+            var best = Int.MinValue // alfa
+            durum.seçenekler.foreach { hamle =>
+                val yeniDurum = durum.oyna(hamle)
+                val minChild = minimize(yeniDurum, derinlik - 1)
+                best = enİrisi(best, minChild)
+            }
+            best
+        }
+
+    // alfa-beta buggy!
+    def alfaBetaHamle(durum: Durum): Belki[Oda] =
+        if (durum.seçenekler.isEmpty) Hiçbiri
+        else // todo: karşı oyuncunun skorunu azaltan birden çok hamle varsa rastgele seç
+            // benim hamleler, onun skorunu ençok azaltan hamleyi seç
+            Biri((for (hamle <- durum.seçenekler) yield hamle -> alfaBeta(durum.oyna(hamle), aramaDerinliğiSınırı)).minBy(_._2)._1)
 
     // karşı oyuncunun skorunu azaltmaya çalışalım
-    private def alfaBeta(durum: Durum): Sayı =
+    private def alfaBeta(durum: Durum, derinlik: Sayı): Sayı =
         if (durum.bitti) durum.skor // needed due to the recursive call to this when there are no moves
-        else if (durum.seçenekler.isEmpty) { //
+        else if (durum.seçenekler.isEmpty) { // onun hamlesi yok!
+            satıryaz(s"sıra değişti: ${durum.sıra} -> ${durum.karşıTaş}") // sıra bana döndü
             val yDurum = new Durum(durum.tahta, durum.karşıTaş)
-            val enİyiHamle = (for (hamle <- yDurum.seçenekler) yield hamle -> alfaBeta(yDurum.oyna(hamle))).minBy(_._2)._1
-            azalt(yDurum.oyna(enİyiHamle), aramaDerinliğiSınırı - 1, Int.MinValue, Int.MaxValue)
+            val (enİyiHamle, beta) = (for (hamle <- yDurum.seçenekler) yield hamle -> alfaBeta(yDurum.oyna(hamle), derinlik - 1)).maxBy(_._2)
+            azalt(yDurum.oyna(enİyiHamle), derinlik - 2, Int.MinValue, beta)
         }
-        else azalt(durum, aramaDerinliğiSınırı, Int.MinValue, Int.MaxValue)
+        else azalt(durum, derinlik, Int.MinValue, Int.MaxValue) // onun en iyi karşılık hamleleri arasından en zayıf olanı bulmak istiyoruz
 
     private def azalt(durum: Durum, derinlik: Sayı, alfa: Sayı, beta: Sayı): Sayı =
         if (durum.bitti || derinlik == 0) durum.skor
         else if (durum.seçenekler.isEmpty) {
+            satıryaz(s"sıra değişti: ${durum.sıra} -> ${durum.karşıTaş}")
             val yDurum = new Durum(durum.tahta, durum.karşıTaş)
-            val (enİyiHamle, yeniBeta) = (for (hamle <- yDurum.seçenekler) yield hamle -> alfaBeta(yDurum.oyna(hamle))).minBy(_._2)
-            artır(yDurum.oyna(enİyiHamle), aramaDerinliğiSınırı - 1, alfa, yeniBeta)
+            val (enİyiHamle, yeniAlfa) = (for (hamle <- yDurum.seçenekler) yield hamle -> alfaBeta(yDurum.oyna(hamle), derinlik - 1)).maxBy(_._2)
+            //artır(yDurum.oyna(enİyiHamle), derinlik - 2, yeniAlfa, beta)
+            yeniAlfa
         }
         else {
             var yeniBeta = beta
-            //if (durum.seçenekler.isEmpty) return artır(new Durum(durum.tahta, durum.karşıTaş), derinlik - 1, alfa, beta)
-            durum.seçenekler.foreach { hamle =>
+            durum.seçenekler.foreach { hamle => // onun hamleleri
                 val yeniDurum = durum.oyna(hamle)
-                yeniBeta = enUfağı(beta, artır(yeniDurum, derinlik - 1, alfa, yeniBeta))
+                yeniBeta = enUfağı(beta, artır(yeniDurum, derinlik - 1, alfa, yeniBeta)) // benim hamlelerim
                 if (alfa >= yeniBeta) return alfa
             }
             yeniBeta
@@ -75,13 +187,14 @@ object ABa { // alfa-beta arama
     private def artır(durum: Durum, derinlik: Sayı, alfa: Sayı, beta: Sayı): Sayı =
         if (durum.bitti || derinlik == 0) durum.skor
         else if (durum.seçenekler.isEmpty) {
+            satıryaz(s"sıra değişti: ${durum.sıra} -> ${durum.karşıTaş}")
             val yDurum = new Durum(durum.tahta, durum.karşıTaş)
-            val (enİyiHamle, yeniAlfa) = (for (hamle <- yDurum.seçenekler) yield hamle -> alfaBeta(yDurum.oyna(hamle))).minBy(_._2)
-            azalt(yDurum.oyna(enİyiHamle), aramaDerinliğiSınırı - 1, yeniAlfa, beta)
+            val (enİyiHamle, yeniBeta) = (for (hamle <- yDurum.seçenekler) yield hamle -> alfaBeta(yDurum.oyna(hamle), derinlik - 1)).minBy(_._2)
+            //azalt(yDurum.oyna(enİyiHamle), derinlik - 1, alfa, yeniBeta)
+            yeniBeta
         }
         else {
             var yeniAlfa = alfa
-            //if (durum.seçenekler.isEmpty) return azalt(new Durum(durum.tahta, durum.karşıTaş), derinlik - 1, alfa, beta)
             durum.seçenekler.foreach { hamle =>
                 val yeniDurum = durum.oyna(hamle)
                 yeniAlfa = enİrisi(yeniAlfa, azalt(yeniDurum, derinlik - 1, yeniAlfa, beta))
@@ -92,8 +205,8 @@ object ABa { // alfa-beta arama
 }
 
 class Durum(val tahta: Tahta, val sıra: Taş) {
-    def skor = tahta.durum(sıra)
     val karşıTaş = if (sıra == Beyaz) Siyah else Beyaz
+    def skor = tahta.durum(sıra) - tahta.durum(karşıTaş)
     def bitti = oyunBittiMi
     def oyunBittiMi = {
         if (yasallar.size > 0) yanlış else {
@@ -110,13 +223,20 @@ class Durum(val tahta: Tahta, val sıra: Taş) {
 }
 
 class Tahta(val tane: Sayı, val tahta: Sayılar) {
-    def yaz = {
+    def durum(t: Taş) = {
+        say(t) + 4 * isay(t)(köşeMi) + 2 * isay(t)(köşeyeİkiUzakMı)
+        // + isay(t)(içKöşeMi)
+        // - 2 * isay(t)(tuzakKöşeMi) - isay(t)(tuzakKenarMı)
+        //
+    }
+    def yaz(msj: Yazı = "", tab: Yazı = "") = {
         for (y <- satırAralığıSondan) {
             val satır = for (x <- satırAralığı) yield s2t(tahta(y * tane + x))
-            satıryaz(satır.mkString(" "))
+            satıryaz(satır.mkString(s"$tab", " ", ""))
         }
-        satıryaz(s"Beyazlar: ${say(Beyaz)} durum: ${durum(Beyaz)}")
-        satıryaz(s"Siyahlar: ${say(Siyah)} durum: ${durum(Siyah)}")
+        if (msj.size > 0) satıryaz(msj)
+        satıryaz(s"$tab Beyazlar: ${say(Beyaz)} durum: ${durum(Beyaz)}")
+        satıryaz(s"$tab Siyahlar: ${say(Siyah)} durum: ${durum(Siyah)}")
     }
     def koy(oda: Oda, taş: Taş) = {
         new Tahta(tane, tahta.updated(oda.y * tane + oda.x, t2s(taş)))
@@ -190,7 +310,7 @@ class Tahta(val tane: Sayı, val tahta: Sayılar) {
         sıra.dizi
     }
 
-    val sonOda = tane - 1
+    val sonOda = tane - 1; val son = sonOda
     val satırAralığı = 0 to sonOda
     val satırAralığıSondan = sonOda to 0 by -1
 
@@ -205,6 +325,12 @@ class Tahta(val tane: Sayı, val tahta: Sayılar) {
         case Oda(str, stn) => if (str == 0) stn == 0 || stn == sonOda else
             str == sonOda && (stn == 0 || stn == sonOda)
     }
+    def köşeyeİkiUzakMı: Oda => İkil = {
+        case Oda(y, x) =>
+            ((y == 0 || y == son) && (x == 2 || x == son - 2)) ||
+                ((y == 2 || y == son - 2) &&
+                    (x == 0 || x == 2 || x == son - 2 || x == son))
+    }
     def içKöşeMi: Oda => İkil = {
         case Oda(y, x) => (x == 2 && (y == 2 || y == sonOda - 2)) ||
             (x == sonOda - 2 && (y == 2 || y == sonOda - 2))
@@ -213,6 +339,7 @@ class Tahta(val tane: Sayı, val tahta: Sayılar) {
         case Oda(y, x) => 0 <= y && y < tane && 0 <= x && x < tane
     }
     def isay(t: Taş)(iş: Oda => İkil) = (for (x <- satırAralığı; y <- satırAralığı; if taş(Oda(y, x)) == t && iş(Oda(y, x))) yield 1).size
+    def say(t: Taş) = isay(t) { o => doğru }
 
     private def t2s(t: Taş) = t match {
         case Beyaz => 1
@@ -224,25 +351,7 @@ class Tahta(val tane: Sayı, val tahta: Sayılar) {
         case 2 => Siyah
         case _ => Yok
     }
-
-    def durum(t: Taş) = {
-        say(t) + 4 * isay(t)(köşeMi) + 2 * isay(t)(içKöşeMi) - 2 *
-            isay(t)(tuzakKöşeMi) - 2 * isay(t)(tuzakKenarMı)
-    }
-    def say(t: Taş) = isay(t) { o => doğru }
 }
-
-case class Oda(val y: Sayı, val x: Sayı)
-trait Taş
-case object Beyaz extends Taş { override def toString() = "B" }
-case object Siyah extends Taş { override def toString() = "S" }
-case object Yok extends Taş { override def toString() = "." }
-trait Yön
-case object K extends Yön; case object KD extends Yön
-case object D extends Yön; case object GD extends Yön
-case object G extends Yön; case object GB extends Yön
-case object B extends Yön; case object KB extends Yön
-case class Komşu(yön: Yön, oda: Oda)
 
 def yeniTahta(tane: Sayı, çeşni: Sayı = 0): Tahta = {
     var t = new Tahta(tane, Vector.fill(tane * tane)(0))
@@ -282,25 +391,27 @@ def yeniTahta(tane: Sayı, çeşni: Sayı = 0): Tahta = {
     t
 }
 
-def dene = {
-    val tane = 6
+def dene1 = {
+    val tane = 4
     var t = new Tahta(tane, Vector.fill(tane * tane)(0))
-    satıryaz("t"); t.yaz
+    satıryaz("t"); t.yaz()
     val foo = t.koy(Oda(1, 1), Beyaz)
     t = t.koy(Dizi(Oda(2, 2), Oda(3, 3)), Beyaz)
     t = t.koy(Dizi(Oda(2, 3), Oda(3, 2)), Siyah)
     val t2 = t.oyna(Siyah, Oda(1, 2))
-    satıryaz("t2"); t2.yaz
+    satıryaz("t2"); t2.yaz()
     val t3 = t2.oyna(Beyaz, Oda(1, 3))
-    satıryaz("t3"); t3.yaz
-    satıryaz("t"); t.yaz
-    foo.yaz
+    satıryaz("t3"); t3.yaz()
+    satıryaz("t"); t.yaz()
+    foo.yaz()
 }
 
-def main = {
+def dene2 = {
     çıktıyıSil
-    val o = new Oyun
+    val o = new Oyun(6)
     o.oyna
 }
-//dene
-//main
+//dene1
+// Bu yazılımcığı otello.kojo kullanıyor. Onun için denemeleri artık çalıştırmıyoruz
+//dene2
+satıryaz("arama motoru hazır")

@@ -4,6 +4,13 @@ val odaSayısı = 6
 val kimBaşlar = Siyah // Beyaz ya da Siyah başlayabilir. Seç :-)
 val çeşni = 0
 
+trait Taş
+case object Beyaz extends Taş { override def toString() = "B" }
+case object Siyah extends Taş { override def toString() = "S" }
+case object Yok extends Taş { override def toString() = "." }
+// satır ve sütün sırası yazılımda ters!
+case class Oda(str: Sayı, stn: Sayı) { override def toString() = s"${stn + 1}x${str + 1}" }
+
 class ETahta(
     val odaSayısı: Sayı, // satır ve sütunların oda sayısı
     val kimBaşlar: Taş) {
@@ -127,6 +134,14 @@ def sırayıÖbürOyuncuyaGeçir = {
     tahta.oyuncu.değiştir()
     araYüz.seçenekleriGöster
 }
+
+trait Yön
+case object K extends Yön; case object KD extends Yön
+case object D extends Yön; case object GD extends Yön
+case object G extends Yön; case object GB extends Yön
+case object B extends Yön; case object KB extends Yön
+
+case class Komşu(yön: Yön, oda: Oda)
 
 def bütünYasalHamleler = tahta.yasallar
 
@@ -260,7 +275,7 @@ val aba = doğru
 def öneri: Birim =
     if (aba) {
         val aTahta = tahtadanTahta
-        val durum = new Durum(aTahta, tahta.oyuncu())
+        val durum = new Durum(aTahta, tahta.oyuncu)
         if (durum.bitti) bittiKaçKaç
         else {
             val hamle = ABa.hamleYap(durum) match {
@@ -269,32 +284,24 @@ def öneri: Birim =
                     sırayıÖbürOyuncuyaGeçir
                     ABa.hamleYap(new Durum(durum.tahta, durum.karşıTaş)) match {
                         case Biri(oda) => oda
-                        case _         => throw new Exception("Burada olmamalı")
+                        case _         => "ABa burada olmamalı"
                     }
-
             }
             hamleyiYap(hamleyiDene(hamle), hamle)
         }
     }
-    else öneri2
-
-def tahtadanTahta: Tahta = {
-    val tane = odaSayısı
-    var t = new Tahta(tane, Vector.fill(tane * tane)(0))
-    def diziden(dizi: Dizi[(Sayı, Sayı)])(taş: Taş) = t = t.koy(dizi.map(p => Oda(p._1, p._2)), taş)
-    for (t <- Dizi(Beyaz, Siyah))
-        diziden(for (y <- 0 until tane; x <- 0 until tane; if (t == tahta.taş(y, x))) yield (y, x))(t)
-    t
-}
-def öneri2: Birim = köşeYaklaşımı(bütünYasalHamleler) match {
-    case Biri(oda) => hamleyiYap(hamleyiDene(oda), oda)
-    case _ =>
-        sırayıÖbürOyuncuyaGeçir
+    else {
         köşeYaklaşımı(bütünYasalHamleler) match {
             case Biri(oda) => hamleyiYap(hamleyiDene(oda), oda)
-            case _         => bittiKaçKaç
+            case _ =>
+                sırayıÖbürOyuncuyaGeçir
+                köşeYaklaşımı(bütünYasalHamleler) match {
+                    case Biri(oda) => hamleyiYap(hamleyiDene(oda), oda)
+                    case _         => bittiKaçKaç
+                }
         }
-}
+    }
+
 def rastgeleSeç[T](dizi: Dizi[T]): Belki[T] = if (dizi.isEmpty) Hiçbiri else
     Biri(dizi.drop(rastgele(dizi.size)).head)
 def rastgeleHamle(yasallar: Dizi[Oda]): Belki[Oda] = rastgeleSeç(yasallar)
