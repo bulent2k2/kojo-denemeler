@@ -13,7 +13,7 @@ class Oyun(tane: Sayı) {
         durum.tahta.yaz("döngü")
         i += 1
         if (durum.oyunBittiMi) return durum
-        if (i > tane*tane) { satıryaz("çok uzadı!"); return durum }
+        if (i > tane * tane) { satıryaz("çok uzadı!"); return durum }
         val hamle = ABa.hamleYap(durum) match {
             case Biri(oda) => oda
             case _ => ABa.hamleYap(new Durum(durum.tahta, durum.karşıTaş)) match {
@@ -27,10 +27,24 @@ class Oyun(tane: Sayı) {
     }
 }
 
+//
+
 object ABa { // alfa-beta arama
-    private val aramaDerinliğiSınırı = 3
-    private val seçim = 2
-    def hamleYap(durum: Durum): Belki[Oda] = seçim match {
+    private val aramaDerinliğiSınırı = 6 // for minimax and alfabeta only
+    private val seçim = 3
+    val mesaj = seçim match {
+        case 1 => "atmaca"
+        case 2 => "minimax" // epey yavas. d=5 => Hamle 5 ~20 saniye aldı
+        case _ => "alfaBeta"
+    }
+    def hamleYap(durum: Durum): Belki[Oda] = {
+        var çıktı: Belki[Oda] = Hiçbiri
+        zamanTut(mesaj) {
+            çıktı = hamleYap_(durum)
+        }("sürdü")
+        çıktı
+    }
+    def hamleYap_(durum: Durum): Belki[Oda] = seçim match {
         case 1 => atmaca(durum)
         case 2 => minimaxHamle(durum)
         case _ => alfaBetaHamle(durum)
@@ -53,10 +67,16 @@ object ABa { // alfa-beta arama
         })
 
     def minimax(durum: Durum, derinlik: Sayı): Sayı = {
-        minimize(durum, derinlik)
-        //optimize(Minimize)(durum, derinlik)
-        //optimize1(durum, derinlik)
+        //minimize(durum, derinlik) // minimax -- works
+        //optimize(Minimize)(durum, derinlik)  // minimax -- stack overflow
+        min2(durum, derinlik) // minimax -- works
     }
+    def min2(durum: Durum, derinlik: Sayı): Sayı =
+        if (durum.bitti || derinlik == 0 || durum.seçenekler.isEmpty) durum.skor
+        else durum.seçenekler.map { h => max2(durum.oyna(h), derinlik - 1) }.min
+    def max2(durum: Durum, derinlik: Sayı): Sayı =
+        if (durum.bitti || derinlik == 0 || durum.seçenekler.isEmpty) durum.skor
+        else durum.seçenekler.map { h => min2(durum.oyna(h), derinlik - 1) }.max
 
     trait Optimize {
         val init: Sayı
@@ -76,7 +96,7 @@ object ABa { // alfa-beta arama
         val name = "maximizing"
         def opt(s1: Sayı, s2: Sayı) = enİrisi(s1, s2)
     }
-
+    // todo: stack overflow!
     def optimize(opt: Optimize)(durum: Durum, derinlik: Sayı): Sayı = {
         val tab = s"$i: $derinlik" + "d----" * derinlik
         durum.tahta.yaz(s"$tab ${durum.sıra} in $opt", tab)
@@ -99,61 +119,43 @@ object ABa { // alfa-beta arama
         }
     }
 
-    def optimize1(durum: Durum, derinlik: Sayı): Sayı =
-        if (durum.bitti || derinlik == 0 || durum.seçenekler.size == 0) durum.skor
+    // alfa-beta search, works
+    def abHamle2(durum: Durum, derinlik: Sayı): Sayı =
+        if (durum.bitti || derinlik == 0 || durum.seçenekler.isEmpty) durum.skor
+        else azalt2(durum, derinlik, Int.MinValue, Int.MaxValue)
+
+    def azalt2(durum: Durum, derinlik: Sayı, alfa: Sayı, beta: Sayı): Sayı =
+        if (durum.bitti || derinlik == 0 || durum.seçenekler.isEmpty) durum.skor
         else {
-            val opt = Minimize
-            var best = opt.init // beta
-            durum.seçenekler.foreach { hamle =>
+            var yeniBeta = beta
+            durum.seçenekler.foreach { hamle => // onun hamleleri
                 val yeniDurum = durum.oyna(hamle)
-                val optChild = optimize2(yeniDurum, derinlik - 1)
-                best = opt.opt(best, optChild)
+                yeniBeta = enUfağı(beta, artır2(yeniDurum, derinlik - 1, alfa, yeniBeta))
+                if (alfa >= yeniBeta) return alfa
             }
-            best
+            yeniBeta
         }
-    def optimize2(durum: Durum, derinlik: Sayı): Sayı =
-        if (durum.bitti || derinlik == 0 || durum.seçenekler.size == 0) durum.skor
+    def artır2(durum: Durum, derinlik: Sayı, alfa: Sayı, beta: Sayı): Sayı =
+        if (durum.bitti || derinlik == 0 || durum.seçenekler.isEmpty) durum.skor
         else {
-            val opt = Maximize
-            var best = opt.init // alfa
+            var yeniAlfa = alfa
             durum.seçenekler.foreach { hamle =>
                 val yeniDurum = durum.oyna(hamle)
-                val optChild = optimize1(yeniDurum, derinlik - 1)
-                best = opt.opt(best, optChild)
+                yeniAlfa = enİrisi(yeniAlfa, azalt2(yeniDurum, derinlik - 1, yeniAlfa, beta))
+                if (yeniAlfa >= beta) return beta
             }
-            best
+            yeniAlfa
         }
 
-    
-    def minimize(durum: Durum, derinlik: Sayı): Sayı =
-        if (durum.bitti || derinlik == 0 || durum.seçenekler.size == 0) durum.skor
-        else {
-            var best = Int.MaxValue // beta
-            durum.seçenekler.foreach { hamle =>
-                val yeniDurum = durum.oyna(hamle)
-                val maxChild = maximize(yeniDurum, derinlik - 1)
-                best = enUfağı(best, maxChild)
-            }
-            best
-        }
-    def maximize(durum: Durum, derinlik: Sayı): Sayı =
-        if (durum.bitti || derinlik == 0 || durum.seçenekler.size == 0) durum.skor
-        else {
-            var best = Int.MinValue // alfa
-            durum.seçenekler.foreach { hamle =>
-                val yeniDurum = durum.oyna(hamle)
-                val minChild = minimize(yeniDurum, derinlik - 1)
-                best = enİrisi(best, minChild)
-            }
-            best
-        }
-
-    // alfa-beta buggy!
     def alfaBetaHamle(durum: Durum): Belki[Oda] =
         if (durum.seçenekler.isEmpty) Hiçbiri
         else // todo: karşı oyuncunun skorunu azaltan birden çok hamle varsa rastgele seç
             // benim hamleler, onun skorunu ençok azaltan hamleyi seç
-            Biri((for (hamle <- durum.seçenekler) yield hamle -> alfaBeta(durum.oyna(hamle), aramaDerinliğiSınırı)).minBy(_._2)._1)
+            Biri((for (hamle <- durum.seçenekler) yield hamle ->
+                abHamle2(durum.oyna(hamle), aramaDerinliğiSınırı)
+            // alfa-beta implementation below is buggy !
+            //  alfaBeta(durum.oyna(hamle), aramaDerinliğiSınırı)
+            ).minBy(_._2)._1)
 
     // karşı oyuncunun skorunu azaltmaya çalışalım
     private def alfaBeta(durum: Durum, derinlik: Sayı): Sayı =
@@ -224,7 +226,7 @@ class Durum(val tahta: Tahta, val sıra: Taş) {
 
 class Tahta(val tane: Sayı, val tahta: Sayılar) {
     def durum(t: Taş) = {
-        say(t) + 4 * isay(t)(köşeMi) + 2 * isay(t)(köşeyeİkiUzakMı)
+        say(t) // + 4 * isay(t)(köşeMi) + 2 * isay(t)(köşeyeİkiUzakMı)
         // + isay(t)(içKöşeMi)
         // - 2 * isay(t)(tuzakKöşeMi) - isay(t)(tuzakKenarMı)
         //
@@ -408,7 +410,7 @@ def dene1 = {
 
 def dene2 = {
     çıktıyıSil
-    val o = new Oyun(6)
+    val o = new Oyun(4)
     o.oyna
 }
 //dene1

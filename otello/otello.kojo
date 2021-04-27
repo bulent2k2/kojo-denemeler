@@ -1,6 +1,6 @@
 //#include alfabeta
 
-val odaSayısı = 6
+val odaSayısı = 8
 val kimBaşlar = Siyah // Beyaz ya da Siyah başlayabilir. Seç :-)
 val çeşni = 0
 
