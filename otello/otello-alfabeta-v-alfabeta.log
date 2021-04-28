@@ -1,3 +1,4165 @@
+* 8x8
+** 8 x 8 ustalık: Usta 259.452 saniye sürdü
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . S B . . .
+. . . B S . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+alfaBeta 0.400 saniye sürdü
+Hamle 1 S 4x3:
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . S B . . .
+. . . S S . . .
+. . . S . . . .
+. . . . . . . .
+. . . . . . . .
+alfaBeta 0.360 saniye sürdü
+Hamle 2 B 3x3:
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . S B . . .
+. . . B S . . .
+. . B S . . . .
+. . . . . . . .
+. . . . . . . .
+alfaBeta 0.604 saniye sürdü
+Hamle 3 S 2x3:
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . S B . . .
+. . . B S . . .
+. S S S . . . .
+. . . . . . . .
+. . . . . . . .
+alfaBeta 0.722 saniye sürdü
+Hamle 4 B 3x5:
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . B B B . . .
+. . . B S . . .
+. S S S . . . .
+. . . . . . . .
+. . . . . . . .
+alfaBeta 1.137 saniye sürdü
+Hamle 5 S 3x6:
+. . . . . . . .
+. . . . . . . .
+. . S . . . . .
+. . B S B . . .
+. . . B S . . .
+. S S S . . . .
+. . . . . . . .
+. . . . . . . .
+alfaBeta 1.269 saniye sürdü
+Hamle 6 B 3x7:
+. . . . . . . .
+. . B . . . . .
+. . B . . . . .
+. . B S B . . .
+. . . B S . . .
+. S S S . . . .
+. . . . . . . .
+. . . . . . . .
+alfaBeta 1.608 saniye sürdü
+Hamle 7 S 2x5:
+. . . . . . . .
+. . B . . . . .
+. . B . . . . .
+. S S S B . . .
+. . . B S . . .
+. S S S . . . .
+. . . . . . . .
+. . . . . . . .
+alfaBeta 3.937 saniye sürdü
+Hamle 8 B 1x5:
+. . . . . . . .
+. . B . . . . .
+. . B . . . . .
+B B B B B . . .
+. . . B S . . .
+. S S S . . . .
+. . . . . . . .
+. . . . . . . .
+alfaBeta 1.344 saniye sürdü
+Hamle 9 S 4x6:
+. . . . . . . .
+. . B . . . . .
+. . B S . . . .
+B B B S B . . .
+. . . S S . . .
+. S S S . . . .
+. . . . . . . .
+. . . . . . . .
+alfaBeta 2.558 saniye sürdü
+Hamle 10 B 2x2:
+. . . . . . . .
+. . B . . . . .
+. . B S . . . .
+B B B S B . . .
+. . . B S . . .
+. S B S . . . .
+. B . . . . . .
+. . . . . . . .
+alfaBeta 5.041 saniye sürdü
+Hamle 11 S 2x1:
+. . . . . . . .
+. . B . . . . .
+. . B S . . . .
+B B B S B . . .
+. . . B S . . .
+. S B S . . . .
+. S . . . . . .
+. S . . . . . .
+alfaBeta 2.388 saniye sürdü
+Hamle 12 B 5x3:
+. . . . . . . .
+. . B . . . . .
+. . B S . . . .
+B B B S B . . .
+. . . B B . . .
+. S B B B . . .
+. S . . . . . .
+. S . . . . . .
+alfaBeta 5.673 saniye sürdü
+Hamle 13 S 6x3:
+. . . . . . . .
+. . B . . . . .
+. . B S . . . .
+B B B S B . . .
+. . . B S . . .
+. S S S S S . .
+. S . . . . . .
+. S . . . . . .
+alfaBeta 6.026 saniye sürdü
+Hamle 14 B 7x2:
+. . . . . . . .
+. . B . . . . .
+. . B S . . . .
+B B B B B . . .
+. . . B B . . .
+. S S S S B . .
+. S . . . . B .
+. S . . . . . .
+alfaBeta 5.354 saniye sürdü
+Hamle 15 S 2x6:
+. . . . . . . .
+. . B . . . . .
+. S S S . . . .
+B B S B B . . .
+. . . S B . . .
+. S S S S B . .
+. S . . . . B .
+. S . . . . . .
+alfaBeta 5.733 saniye sürdü
+Hamle 16 B 1x3:
+. . . . . . . .
+. . B . . . . .
+. S S S . . . .
+B B S B B . . .
+. . . S B . . .
+B B B B B B . .
+. S . . . . B .
+. S . . . . . .
+alfaBeta 6.401 saniye sürdü
+Hamle 17 S 8x1:
+. . . . . . . .
+. . B . . . . .
+. S S S . . . .
+B B S S B . . .
+. . . S S . . .
+B B B B B S . .
+. S . . . . S .
+. S . . . . . S
+alfaBeta 5.305 saniye sürdü
+Hamle 18 B 4x7:
+. . . . . . . .
+. . B B . . . .
+. S B B . . . .
+B B S B B . . .
+. . . B S . . .
+B B B B B S . .
+. S . . . . S .
+. S . . . . . S
+alfaBeta 7.034 saniye sürdü
+Hamle 19 S 6x2:
+. . . . . . . .
+. . B B . . . .
+. S B B . . . .
+B B S B B . . .
+. . . S S . . .
+B B B B S S . .
+. S . . . S S .
+. S . . . . . S
+alfaBeta 3.793 saniye sürdü
+Hamle 20 B 5x2:
+. . . . . . . .
+. . B B . . . .
+. S B B . . . .
+B B S B B . . .
+. . . S B . . .
+B B B B B S . .
+. S . . B S S .
+. S . . . . . S
+alfaBeta 12.228 saniye sürdü
+Hamle 21 S 4x8:
+. . . S . . . .
+. . S S . . . .
+. S B S . . . .
+B B S S B . . .
+. . . S B . . .
+B B B B B S . .
+. S . . B S S .
+. S . . . . . S
+alfaBeta 12.492 saniye sürdü
+Hamle 22 B 1x7:
+. . . S . . . .
+B . S S . . . .
+. B B S . . . .
+B B B S B . . .
+. . . B B . . .
+B B B B B S . .
+. S . . B S S .
+. S . . . . . S
+alfaBeta 15.950 saniye sürdü
+Hamle 23 S 4x2:
+. . . S . . . .
+B . S S . . . .
+. B B S . . . .
+B B B S B . . .
+. . . S B . . .
+B B B S B S . .
+. S . S S S S .
+. S . . . . . S
+alfaBeta 11.940 saniye sürdü
+Hamle 24 B 3x1:
+. . . S . . . .
+B . S S . . . .
+. B B S . . . .
+B B B S B . . .
+. . . S B . . .
+B B B S B S . .
+. B . B S S S .
+. S B . . . . S
+alfaBeta 12.736 saniye sürdü
+Hamle 25 S 2x4:
+. . . S . . . .
+B . S S . . . .
+. B B S . . . .
+B B S S B . . .
+. S . S B . . .
+B S B S B S . .
+. S . B S S S .
+. S B . . . . S
+alfaBeta 8.207 saniye sürdü
+Hamle 26 B 8x2:
+. . . S . . . .
+B . S S . . . .
+. B B S . . . .
+B B S S B . . .
+. S . S B . . .
+B S B S B S . .
+. S . B B B B B
+. S B . . . . S
+alfaBeta 8.578 saniye sürdü
+Hamle 27 S 2x7:
+. . . S . . . .
+B S S S . . . .
+. S S S . . . .
+B S S S B . . .
+. S . S B . . .
+B S B S B S . .
+. S . B B B B B
+. S B . . . . S
+alfaBeta 5.995 saniye sürdü
+Hamle 28 B 5x7:
+. . . S . . . .
+B B B B B . . .
+. S S B . . . .
+B S B S B . . .
+. B . S B . . .
+B S B S B S . .
+. S . B B B B B
+. S B . . . . S
+alfaBeta 12.890 saniye sürdü
+Hamle 29 S 4x1:
+. . . S . . . .
+B B B B B . . .
+. S S B . . . .
+B S B S B . . .
+. B . S B . . .
+B S B S B S . .
+. S . S S B B B
+. S S S . . . S
+alfaBeta 6.652 saniye sürdü
+Hamle 30 B 1x1:
+. . . S . . . .
+B B B B B . . .
+. S S B . . . .
+B S B S B . . .
+. B . S B . . .
+B S B S B S . .
+. B . S S B B B
+B S S S . . . S
+alfaBeta 9.345 saniye sürdü
+Hamle 31 S 5x6:
+. . . S . . . .
+B B B B B . . .
+. S S S S . . .
+B S B S S . . .
+. B . S S . . .
+B S B S S S . .
+. B . S S B B B
+B S S S . . . S
+alfaBeta 7.117 saniye sürdü
+Hamle 32 B 5x1:
+. . . S . . . .
+B B B B B . . .
+. S S S B . . .
+B S B S B . . .
+. B . S B . . .
+B S B S B S . .
+. B . B B B B B
+B B B B B . . S
+alfaBeta 6.193 saniye sürdü
+Hamle 33 S 6x6:
+. . . S . . . .
+B B B B S . . .
+. S S S S S . .
+B S B S S . . .
+. B . S B . . .
+B S B S B S . .
+. B . B B B B B
+B B B B B . . S
+alfaBeta 6.357 saniye sürdü
+Hamle 34 B 6x4:
+. . . S . . . .
+B B B B S . . .
+. S S B S S . .
+B S B S B . . .
+. B . S B B . .
+B S B S B B . .
+. B . B B B B B
+B B B B B . . S
+alfaBeta 7.556 saniye sürdü
+Hamle 35 S 7x1:
+. . . S . . . .
+B B B B S . . .
+. S S B S S . .
+B S B S B . . .
+. B . S B B . .
+B S B S S B . .
+. B . B B S B B
+B B B B B . S S
+alfaBeta 5.562 saniye sürdü
+Hamle 36 B 1x4:
+. . . S . . . .
+B B B B S . . .
+. S B B S S . .
+B B B S B . . .
+B B . S B B . .
+B S B S S B . .
+. B . B B S B B
+B B B B B . S S
+alfaBeta 3.615 saniye sürdü
+Hamle 37 S 6x5:
+. . . S . . . .
+B B B B S . . .
+. S B B S S . .
+B B B S S S . .
+B B . S S S . .
+B S B S S S . .
+. B . B B S B B
+B B B B B . S S
+alfaBeta 5.832 saniye sürdü
+Hamle 38 B 7x3:
+. . . S . . . .
+B B B B S . . .
+. S B B S S . .
+B B B S B S . .
+B B . S S B . .
+B S B B B B B .
+. B . B B B B B
+B B B B B . S S
+alfaBeta 4.408 saniye sürdü
+Hamle 39 S 8x3:
+. . . S . . . .
+B B B B S . . .
+. S B B S S . .
+B B B S B S . .
+B B . S S B . .
+B S S S S S S S
+. B . B B B B S
+B B B B B . S S
+alfaBeta 5.556 saniye sürdü
+Hamle 40 B 7x4:
+. . . S . . . .
+B B B B S . . .
+. S B B B S . .
+B B B S B B . .
+B B . S S B B .
+B S S S S B B S
+. B . B B B B S
+B B B B B . S S
+alfaBeta 4.538 saniye sürdü
+Hamle 41 S 7x5:
+. . . S . . . .
+B B B B S . . .
+. S B B B S . .
+B B B S S S S .
+B B . S S S S .
+B S S S S B S S
+. B . B B B S S
+B B B B B . S S
+alfaBeta 2.785 saniye sürdü
+Hamle 42 B 8x5:
+. . . S . . . .
+B B B B S . . .
+. S B B B S . .
+B B B B B B B B
+B B . S S S B .
+B S S S S B S S
+. B . B B B S S
+B B B B B . S S
+alfaBeta 2.257 saniye sürdü
+Hamle 43 S 7x6:
+. . . S . . . .
+B B B B S . . .
+. S B B B S S .
+B B B B B S S B
+B B . S S S S .
+B S S S S B S S
+. B . B B B S S
+B B B B B . S S
+alfaBeta 1.472 saniye sürdü
+Hamle 44 B 6x7:
+. . . S . . . .
+B B B B B B . .
+. S B B B B B .
+B B B B B B S B
+B B . S S B S .
+B S S S S B S S
+. B . B B B S S
+B B B B B . S S
+alfaBeta 1.694 saniye sürdü
+Hamle 45 S 2x8:
+. S . S . . . .
+B S S B B B . .
+. S B S B B B .
+B B B B S B S B
+B B . S S S S .
+B S S S S B S S
+. B . B B B S S
+B B B B B . S S
+alfaBeta 0.752 saniye sürdü
+Hamle 46 B 3x2:
+. S . S . . . .
+B S S B B B . .
+. S B S B B B .
+B B B B S B S B
+B B . S B S S .
+B B S B S B S S
+. B B B B B S S
+B B B B B . S S
+alfaBeta 1.250 saniye sürdü
+Hamle 47 S 7x7:
+. S . S . . . .
+B S S S S S S .
+. S B S B S S .
+B B B B S B S B
+B B . S B S S .
+B B S B S B S S
+. B B B B B S S
+B B B B B . S S
+alfaBeta 1.003 saniye sürdü
+Hamle 48 B 8x7:
+. S . S . . . .
+B B B B B B B B
+. S B S B S B .
+B B B B S B S B
+B B . S B S S .
+B B S B S B S S
+. B B B B B S S
+B B B B B . S S
+alfaBeta 0.741 saniye sürdü
+Hamle 49 S 1x2:
+. S . S . . . .
+B B B B B B B B
+. S B S B S B .
+B B B B S B S B
+B B . S B S S .
+B B S B S B S S
+S S S S S S S S
+B B B B B . S S
+alfaBeta 0.214 saniye sürdü
+Hamle 50 B 6x1:
+. S . S . . . .
+B B B B B B B B
+. S B S B S B .
+B B B B S B S B
+B B . S B S S .
+B B S B S B S S
+S S S S B B S S
+B B B B B B S S
+alfaBeta 0.283 saniye sürdü
+Hamle 51 S 6x8:
+. S . S . S . .
+B B B B S S B B
+. S B S B S B .
+B B B B S B S B
+B B . S B S S .
+B B S B S B S S
+S S S S B B S S
+B B B B B B S S
+alfaBeta 0.174 saniye sürdü
+Hamle 52 B 3x4:
+. S . S . S . .
+B B B B S S B B
+. S B S B S B .
+B B B B S B S B
+B B B B B S S .
+B B B B S B S S
+S S B S B B S S
+B B B B B B S S
+alfaBeta 0.057 saniye sürdü
+Hamle 53 S 7x8:
+. S . S . S S .
+B B B B S S S B
+. S B S B S S .
+B B B B S B S B
+B B B B B S S .
+B B B B S B S S
+S S B S B B S S
+B B B B B B S S
+alfaBeta 0.033 saniye sürdü
+Hamle 54 B 5x8:
+. S . S B S S .
+B B B B B B S B
+. S B S B S B .
+B B B B S B S B
+B B B B B S S .
+B B B B S B S S
+S S B S B B S S
+B B B B B B S S
+alfaBeta 0.022 saniye sürdü
+Hamle 55 S 3x8:
+. S S S B S S .
+B B B S B B S B
+. S B S S S B .
+B B B B S S S B
+B B B B B S S .
+B B B B S B S S
+S S B S B B S S
+B B B B B B S S
+alfaBeta 0.009 saniye sürdü
+Hamle 56 B 1x6:
+. S S S B S S .
+B B B S B B S B
+B B B S S S B .
+B B B B S S S B
+B B B B B S S .
+B B B B S B S S
+S S B S B B S S
+B B B B B B S S
+alfaBeta 0.002 saniye sürdü
+Hamle 57 S 8x6:
+. S S S B S S .
+B B B S B B S B
+B B B S S S S S
+B B B B S S S B
+B B B B B S S .
+B B B B S B S S
+S S B S B B S S
+B B B B B B S S
+alfaBeta 0.002 saniye sürdü
+Hamle 58 B 8x4:
+. S S S B S S .
+B B B S B B S B
+B B B S S B S S
+B B B B S S B B
+B B B B B B B B
+B B B B S B B S
+S S B S B B S S
+B B B B B B S S
+alfaBeta 0.000 saniye sürdü
+Hamle 59 S 8x8:
+. S S S B S S S
+B B B S B B S S
+B B B S S B S S
+B B B B S S B B
+B B B B B B B B
+B B B B S B B S
+S S B S B B S S
+B B B B B B S S
+alfaBeta 0.000 saniye sürdü
+Hamle 60 B 1x8:
+B B B B B S S S
+B B B S B B S S
+B B B S S B S S
+B B B B S S B B
+B B B B B B B B
+B B B B S B B S
+S S B S B B S S
+B B B B B B S S
+alfaBeta 0.000 saniye sürdü
+alfaBeta 0.000 saniye sürdü
+Oyun bitti.
+Beyazlar: 43
+Siyahlar: 21
+Oyun 60 kere dallandı. Dal sayıları: 4,3,4,6,5,6,6,10,5,5,9,9,9,9,8,8,11,8,12,9,11,14,10,12,12,12,11,9,13,8,12,7,13,11,11,12,10,11,7,11,9,11,8,9,9,7,8,11,9,5,9,6,6,5,4,5,2,3,2,1
+Ortalama dal sayısı: 8.2
+En iri dal sayısı: 14
+8 x 8 ustalık: Usta 259.452 saniye sürdü
+** 8 x 8 ustalık: Kalfa 56.514 saniye sürdü
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . S B . . .
+. . . B S . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+alfaBeta 0.245 saniye sürdü
+Hamle 1 S 4x3:
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . S B . . .
+. . . S S . . .
+. . . S . . . .
+. . . . . . . .
+. . . . . . . .
+alfaBeta 0.146 saniye sürdü
+Hamle 2 B 3x3:
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . S B . . .
+. . . B S . . .
+. . B S . . . .
+. . . . . . . .
+. . . . . . . .
+alfaBeta 0.233 saniye sürdü
+Hamle 3 S 3x4:
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . S B . . .
+. . S S S . . .
+. . B S . . . .
+. . . . . . . .
+. . . . . . . .
+alfaBeta 0.248 saniye sürdü
+Hamle 4 B 5x3:
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . S B . . .
+. . S S B . . .
+. . B B B . . .
+. . . . . . . .
+. . . . . . . .
+alfaBeta 1.056 saniye sürdü
+Hamle 5 S 2x2:
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . S B . . .
+. . S S B . . .
+. . S B B . . .
+. S . . . . . .
+. . . . . . . .
+alfaBeta 1.117 saniye sürdü
+Hamle 6 B 3x5:
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . B B B . . .
+. . S B B . . .
+. . S B B . . .
+. S . . . . . .
+. . . . . . . .
+alfaBeta 0.772 saniye sürdü
+Hamle 7 S 5x2:
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . B B B . . .
+. . S B B . . .
+. . S S B . . .
+. S . . S . . .
+. . . . . . . .
+alfaBeta 0.928 saniye sürdü
+Hamle 8 B 2x4:
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . B B B . . .
+. B B B B . . .
+. . S S B . . .
+. S . . S . . .
+. . . . . . . .
+alfaBeta 1.596 saniye sürdü
+Hamle 9 S 6x3:
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . B B B . . .
+. B B B B . . .
+. . S S S S . .
+. S . . S . . .
+. . . . . . . .
+alfaBeta 1.313 saniye sürdü
+Hamle 10 B 3x2:
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . B B B . . .
+. B B B B . . .
+. . B B S S . .
+. S B . S . . .
+. . . . . . . .
+alfaBeta 1.645 saniye sürdü
+Hamle 11 S 2x3:
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . B B B . . .
+. B B B B . . .
+. S S S S S . .
+. S B . S . . .
+. . . . . . . .
+alfaBeta 2.243 saniye sürdü
+Hamle 12 B 1x4:
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . B B B . . .
+B B B B B . . .
+. B S S S S . .
+. S B . S . . .
+. . . . . . . .
+alfaBeta 3.343 saniye sürdü
+Hamle 13 S 1x3:
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . B B B . . .
+B B B B B . . .
+S S S S S S . .
+. S B . S . . .
+. . . . . . . .
+alfaBeta 2.036 saniye sürdü
+Hamle 14 B 2x1:
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . B B B . . .
+B B B B B . . .
+S B S S S S . .
+. B B . S . . .
+. B . . . . . .
+alfaBeta 1.364 saniye sürdü
+Hamle 15 S 2x5:
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. S B B B . . .
+B B S B B . . .
+S B S S S S . .
+. B B . S . . .
+. B . . . . . .
+alfaBeta 1.556 saniye sürdü
+Hamle 16 B 6x2:
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. S B B B . . .
+B B S B B . . .
+S B S S B S . .
+. B B . S B . .
+. B . . . . . .
+alfaBeta 2.768 saniye sürdü
+Hamle 17 S 1x2:
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. S B B B . . .
+B B S B B . . .
+S S S S B S . .
+S B B . S B . .
+. B . . . . . .
+alfaBeta 1.814 saniye sürdü
+Hamle 18 B 1x5:
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+B B B B B . . .
+B B S B B . . .
+S S S S B S . .
+S B B . S B . .
+. B . . . . . .
+alfaBeta 1.519 saniye sürdü
+Hamle 19 S 3x1:
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+B B B B B . . .
+B B S B B . . .
+S S S S B S . .
+S S S . S B . .
+. B S . . . . .
+alfaBeta 0.592 saniye sürdü
+Hamle 20 B 5x1:
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+B B B B B . . .
+B B S B B . . .
+S S S S B S . .
+S S S . B B . .
+. B S . B . . .
+alfaBeta 0.666 saniye sürdü
+Hamle 21 S 6x4:
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+B B B B B . . .
+B B S S S S . .
+S S S S B S . .
+S S S . B B . .
+. B S . B . . .
+alfaBeta 0.613 saniye sürdü
+Hamle 22 B 7x5:
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+B B B B B . B .
+B B S S S B . .
+S S S S B S . .
+S S S . B B . .
+. B S . B . . .
+alfaBeta 0.777 saniye sürdü
+Hamle 23 S 7x4:
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+B B B B B . B .
+B B S S S S S .
+S S S S B S . .
+S S S . B B . .
+. B S . B . . .
+alfaBeta 0.781 saniye sürdü
+Hamle 24 B 4x2:
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+B B B B B . B .
+B B S B S S S .
+S S B B B S . .
+S S S B B B . .
+. B S . B . . .
+alfaBeta 0.733 saniye sürdü
+Hamle 25 S 7x2:
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+B B B B B . B .
+B B S B S S S .
+S S B B B S . .
+S S S S S S S .
+. B S . B . . .
+alfaBeta 0.607 saniye sürdü
+Hamle 26 B 6x1:
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+B B B B B . B .
+B B S B S S S .
+S S B B B S . .
+S S S S B S S .
+. B S . B B . .
+alfaBeta 0.791 saniye sürdü
+Hamle 27 S 5x6:
+. . . . . . . .
+. . . . . . . .
+. . . . S . . .
+B B B S S . B .
+B B S B S S S .
+S S B B B S . .
+S S S S B S S .
+. B S . B B . .
+alfaBeta 0.852 saniye sürdü
+Hamle 28 B 6x6:
+. . . . . . . .
+. . . . . . . .
+. . . . S B . .
+B B B S B . B .
+B B S B S S S .
+S S B B B S . .
+S S S S B S S .
+. B S . B B . .
+alfaBeta 1.032 saniye sürdü
+Hamle 29 S 6x5:
+. . . . . . . .
+. . . . . . . .
+. . . . S B . .
+B B B S S S B .
+B B S B S S S .
+S S B B B S . .
+S S S S B S S .
+. B S . B B . .
+alfaBeta 1.104 saniye sürdü
+Hamle 30 B 8x5:
+. . . . . . . .
+. . . . . . . .
+. . . . S B . .
+B B B S S S B B
+B B S B S S B .
+S S B B B B . .
+S S S S B S S .
+. B S . B B . .
+alfaBeta 1.277 saniye sürdü
+Hamle 31 S 3x6:
+. . . . . . . .
+. . . . . . . .
+. . S . S B . .
+B B S S S S B B
+B B S B S S B .
+S S B B B B . .
+S S S S B S S .
+. B S . B B . .
+alfaBeta 1.405 saniye sürdü
+Hamle 32 B 7x3:
+. . . . . . . .
+. . . . . . . .
+. . S . S B . .
+B B S S S S B B
+B B S B S S B .
+S S B B B B B .
+S S S S B B S .
+. B S . B B . .
+alfaBeta 1.191 saniye sürdü
+Hamle 33 S 7x7:
+. . . . . . . .
+. . . . . . S .
+. . S . S S . .
+B B S S S S B B
+B B S B S S B .
+S S B B B B B .
+S S S S B B S .
+. B S . B B . .
+alfaBeta 1.725 saniye sürdü
+Hamle 34 B 7x1:
+. . . . . . . .
+. . . . . . S .
+. . S . S S . .
+B B S S S S B B
+B B S B S S B .
+S S B B B B B .
+S S S S B B B .
+. B S . B B B .
+alfaBeta 0.749 saniye sürdü
+Hamle 35 S 8x6:
+. . . . . . . .
+. . . . . . S .
+. . S . S S . S
+B B S S S S S B
+B B S B S S B .
+S S B B B B B .
+S S S S B B B .
+. B S . B B B .
+alfaBeta 1.317 saniye sürdü
+Hamle 36 B 6x7:
+. . . . . . . .
+. . . . . B S .
+. . S . S B . S
+B B S S S B S B
+B B S B S B B .
+S S B B B B B .
+S S S S B B B .
+. B S . B B B .
+alfaBeta 1.042 saniye sürdü
+Hamle 37 S 7x6:
+. . . . . . . .
+. . . . . B S .
+. . S . S S S S
+B B S S S S S B
+B B S B S B B .
+S S B B B B B .
+S S S S B B B .
+. B S . B B B .
+alfaBeta 1.281 saniye sürdü
+Hamle 38 B 2x6:
+. . . . . . . .
+. . . . . B S .
+. B S . S S S S
+B B B S S S S B
+B B S B S B B .
+S S B B B B B .
+S S S S B B B .
+. B S . B B B .
+alfaBeta 1.005 saniye sürdü
+Hamle 39 S 4x6:
+. . . . . . . .
+. . . . . B S .
+. B S S S S S S
+B B S S S S S B
+B S S B S B B .
+S S B B B B B .
+S S S S B B B .
+. B S . B B B .
+alfaBeta 0.739 saniye sürdü
+Hamle 40 B 2x7:
+. . . . . . . .
+. B . . . B S .
+. B B S S S S S
+B B S B S S S B
+B S S B B B B .
+S S B B B B B .
+S S S S B B B .
+. B S . B B B .
+alfaBeta 0.635 saniye sürdü
+Hamle 41 S 5x7:
+. . . . . . . .
+. B . . S S S .
+. B B S S S S S
+B B S B S S S B
+B S S B B B B .
+S S B B B B B .
+S S S S B B B .
+. B S . B B B .
+alfaBeta 0.591 saniye sürdü
+Hamle 42 B 4x7:
+. . . . . . . .
+. B . B S S S .
+. B B B B S S S
+B B S B S B S B
+B S S B B B B .
+S S B B B B B .
+S S S S B B B .
+. B S . B B B .
+alfaBeta 0.559 saniye sürdü
+Hamle 43 S 8x3:
+. . . . . . . .
+. B . B S S S .
+. B B B B S S S
+B B S B S B S B
+B S S B B B B .
+S S S S S S S S
+S S S S B B B .
+. B S . B B B .
+alfaBeta 0.645 saniye sürdü
+Hamle 44 B 8x2:
+. . . . . . . .
+. B . B S S S .
+. B B B B S S S
+B B S B S B S B
+B S S B B B B .
+S S S S S S B S
+S S S S B B B B
+. B S . B B B .
+alfaBeta 0.379 saniye sürdü
+Hamle 45 S 3x8:
+. . S . . . . .
+. B . S S S S .
+. B B B S S S S
+B B S B S S S B
+B S S B B B S .
+S S S S S S B S
+S S S S B B B B
+. B S . B B B .
+alfaBeta 0.333 saniye sürdü
+Hamle 46 B 8x4:
+. . S . . . . .
+. B . S S S S .
+. B B B S S S S
+B B S B S S S B
+B S S B B B B B
+S S S S S S B B
+S S S S B B B B
+. B S . B B B .
+alfaBeta 0.255 saniye sürdü
+Hamle 47 S 1x8:
+S . S . . . . .
+. S . S S S S .
+. B S B S S S S
+B B S S S S S B
+B S S B S B B B
+S S S S S S B B
+S S S S B B B B
+. B S . B B B .
+alfaBeta 0.180 saniye sürdü
+Hamle 48 B 4x8:
+S . S B . . . .
+. S . B B S S .
+. B S B S B S S
+B B S S S S B B
+B S S B S B B B
+S S S S S S B B
+S S S S B B B B
+. B S . B B B .
+alfaBeta 0.144 saniye sürdü
+Hamle 49 S 3x7:
+S . S B . . . .
+. S S S S S S .
+. B S S S B S S
+B B S S S S B B
+B S S B S B B B
+S S S S S S B B
+S S S S B B B B
+. B S . B B B .
+alfaBeta 0.115 saniye sürdü
+Hamle 50 B 6x8:
+S . S B . B . .
+. S S S S B S .
+. B S S S B S S
+B B S S S S B B
+B S S B S B B B
+S S S S S S B B
+S S S S B B B B
+. B S . B B B .
+alfaBeta 0.112 saniye sürdü
+Hamle 51 S 5x8:
+S . S S S B . .
+. S S S S S S .
+. B S S S B S S
+B B S S S S B B
+B S S B S B B B
+S S S S S S B B
+S S S S B B B B
+. B S . B B B .
+alfaBeta 0.041 saniye sürdü
+Hamle 52 B 7x8:
+S . S S S B B .
+. S S S S S B .
+. B S S S B B S
+B B S S S S B B
+B S S B S B B B
+S S S S S S B B
+S S S S B B B B
+. B S . B B B .
+alfaBeta 0.033 saniye sürdü
+Hamle 53 S 8x7:
+S . S S S B B .
+. S S S S S S S
+. B S S S B S S
+B B S S S S B B
+B S S B S B B B
+S S S S S S B B
+S S S S B B B B
+. B S . B B B .
+alfaBeta 0.011 saniye sürdü
+Hamle 54 B 2x8:
+S B B B B B B .
+. B B S S S S S
+. B S B S B S S
+B B S S B S B B
+B S S B S B B B
+S S S S S S B B
+S S S S B B B B
+. B S . B B B .
+alfaBeta 0.010 saniye sürdü
+Hamle 55 S 1x6:
+S B B B B B B .
+. B B S S S S S
+S S S B S B S S
+S S S S B S B B
+S S S B S B B B
+S S S S S S B B
+S S S S B B B B
+. B S . B B B .
+alfaBeta 0.004 saniye sürdü
+Hamle 56 B 1x1:
+S B B B B B B .
+. B B S S S S S
+S S S B S B S S
+S S S S B S B B
+S S S B S B B B
+S S B S S S B B
+S B S S B B B B
+B B S . B B B .
+alfaBeta 0.001 saniye sürdü
+Hamle 57 S 4x1:
+S B B B B B B .
+. B B S S S S S
+S S S B S B S S
+S S S S B S B B
+S S S B S B B B
+S S B S S S B B
+S B S S S B B B
+B B S S B B B .
+alfaBeta 0.000 saniye sürdü
+Hamle 58 B 1x7:
+S B B B B B B .
+B B B S S S S S
+B B S B S B S S
+B S B S B S B B
+B S S B S B B B
+B S B S S S B B
+B B S S S B B B
+B B S S B B B .
+alfaBeta 0.001 saniye sürdü
+Hamle 59 S 8x8:
+S S S S S S S S
+B B B S S S S S
+B B S B S B S S
+B S B S B S B B
+B S S B S B B B
+B S B S S S B B
+B B S S S B B B
+B B S S B B B .
+alfaBeta 0.000 saniye sürdü
+alfaBeta 0.000 saniye sürdü
+Yasal hamle yok. Sıra yine siyahın
+Hamle 60 S 8x1:
+S S S S S S S S
+B B B S S S S S
+B B S B S B S S
+B S B S B S B S
+B S S B S B B S
+B S B S S S B S
+B B S S S B S S
+B B S S S S S S
+alfaBeta 0.000 saniye sürdü
+alfaBeta 0.000 saniye sürdü
+Oyun bitti.
+Beyazlar: 23
+Siyahlar: 41
+Oyun 60 kere dallandı. Dal sayıları: 4,3,4,2,9,7,6,6,8,7,7,9,12,8,10,9,12,9,14,8,11,8,12,8,12,8,10,12,10,11,12,14,11,15,8,12,10,11,12,9,12,9,9,9,11,9,8,9,8,8,7,6,7,4,6,4,4,2,2,1
+Ortalama dal sayısı: 8.4
+En iri dal sayısı: 15
+8 x 8 ustalık: Kalfa 56.514 saniye sürdü
+** 8 x 8 ustalık: Çırak 17.342 saniye sürdü
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . S B . . .
+. . . B S . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+alfaBeta 0.098 saniye sürdü
+Hamle 1 S 4x3:
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . S B . . .
+. . . S S . . .
+. . . S . . . .
+. . . . . . . .
+. . . . . . . .
+alfaBeta 0.077 saniye sürdü
+Hamle 2 B 3x3:
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . S B . . .
+. . . B S . . .
+. . B S . . . .
+. . . . . . . .
+. . . . . . . .
+alfaBeta 0.063 saniye sürdü
+Hamle 3 S 2x3:
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . S B . . .
+. . . B S . . .
+. S S S . . . .
+. . . . . . . .
+. . . . . . . .
+alfaBeta 0.099 saniye sürdü
+Hamle 4 B 2x2:
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . S B . . .
+. . . B S . . .
+. S B S . . . .
+. B . . . . . .
+. . . . . . . .
+alfaBeta 0.084 saniye sürdü
+Hamle 5 S 2x1:
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . S B . . .
+. . . B S . . .
+. S B S . . . .
+. S . . . . . .
+. S . . . . . .
+alfaBeta 0.087 saniye sürdü
+Hamle 6 B 1x1:
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . S B . . .
+. . . B S . . .
+. S B S . . . .
+. B . . . . . .
+B S . . . . . .
+alfaBeta 0.052 saniye sürdü
+Hamle 7 S 3x4:
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . S B . . .
+. . S S S . . .
+. S B S . . . .
+. B . . . . . .
+B S . . . . . .
+alfaBeta 0.073 saniye sürdü
+Hamle 8 B 5x3:
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . S B . . .
+. . S S B . . .
+. S B B B . . .
+. B . . . . . .
+B S . . . . . .
+alfaBeta 0.200 saniye sürdü
+Hamle 9 S 6x3:
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . S B . . .
+. . S S S . . .
+. S S S S S . .
+. B . . . . . .
+B S . . . . . .
+alfaBeta 0.049 saniye sürdü
+Hamle 10 B 5x2:
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . S B . . .
+. . S S B . . .
+. S S S B S . .
+. B . . B . . .
+B S . . . . . .
+alfaBeta 0.154 saniye sürdü
+Hamle 11 S 6x5:
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . S S S . .
+. . S S S . . .
+. S S S B S . .
+. B . . B . . .
+B S . . . . . .
+alfaBeta 0.193 saniye sürdü
+Hamle 12 B 1x3:
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . S S S . .
+. . S S S . . .
+B B B B B S . .
+. B . . B . . .
+B S . . . . . .
+alfaBeta 0.224 saniye sürdü
+Hamle 13 S 5x1:
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . S S S . .
+. . S S S . . .
+B B B B S S . .
+. B . . S . . .
+B S . . S . . .
+alfaBeta 0.198 saniye sürdü
+Hamle 14 B 7x3:
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . S S S . .
+. . S S S . . .
+B B B B B B B .
+. B . . S . . .
+B S . . S . . .
+alfaBeta 0.215 saniye sürdü
+Hamle 15 S 3x2:
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . S S S . .
+. . S S S . . .
+B B S S B B B .
+. B S . S . . .
+B S . . S . . .
+alfaBeta 0.253 saniye sürdü
+Hamle 16 B 5x6:
+. . . . . . . .
+. . . . . . . .
+. . . . B . . .
+. . . B B S . .
+. . B S B . . .
+B B S S B B B .
+. B S . S . . .
+B S . . S . . .
+alfaBeta 0.632 saniye sürdü
+Hamle 17 S 8x3:
+. . . . . . . .
+. . . . . . . .
+. . . . B . . .
+. . . B B S . .
+. . B S B . . .
+B B S S S S S S
+. B S . S . . .
+B S . . S . . .
+alfaBeta 0.419 saniye sürdü
+Hamle 18 B 3x1:
+. . . . . . . .
+. . . . . . . .
+. . . . B . . .
+. . . B B S . .
+. . B S B . . .
+B B B S S S S S
+. B B . S . . .
+B B B . S . . .
+alfaBeta 0.317 saniye sürdü
+Hamle 19 S 3x5:
+. . . . . . . .
+. . . . . . . .
+. . . . B . . .
+. . S S S S . .
+. . B S B . . .
+B B B S S S S S
+. B B . S . . .
+B B B . S . . .
+alfaBeta 0.176 saniye sürdü
+Hamle 20 B 3x6:
+. . . . . . . .
+. . . . . . . .
+. . B . B . . .
+. . B B S S . .
+. . B S B . . .
+B B B S S S S S
+. B B . S . . .
+B B B . S . . .
+alfaBeta 0.345 saniye sürdü
+Hamle 21 S 2x5:
+. . . . . . . .
+. . . . . . . .
+. . B . B . . .
+. S S S S S . .
+. . S S B . . .
+B B B S S S S S
+. B B . S . . .
+B B B . S . . .
+alfaBeta 0.194 saniye sürdü
+Hamle 22 B 7x2:
+. . . . . . . .
+. . . . . . . .
+. . B . B . . .
+. S S S S S . .
+. . S S B . . .
+B B B S S B S S
+. B B . S . B .
+B B B . S . . .
+alfaBeta 0.243 saniye sürdü
+Hamle 23 S 8x1:
+. . . . . . . .
+. . . . . . . .
+. . B . B . . .
+. S S S S S . .
+. . S S S . . .
+B B B S S S S S
+. B B . S . S .
+B B B . S . . S
+alfaBeta 0.127 saniye sürdü
+Hamle 24 B 7x6:
+. . . . . . . .
+. . . . . . . .
+. . B . B . B .
+. S S S S B . .
+. . S S B . . .
+B B B B S S S S
+. B B . S . S .
+B B B . S . . S
+alfaBeta 0.239 saniye sürdü
+Hamle 25 S 1x2:
+. . . . . . . .
+. . . . . . . .
+. . B . B . B .
+. S S S S B . .
+. . S S B . . .
+B S B B S S S S
+S B B . S . S .
+B B B . S . . S
+alfaBeta 0.211 saniye sürdü
+Hamle 26 B 1x5:
+. . . . . . . .
+. . . . . . . .
+. . B . B . B .
+B B B B B B . .
+. . S S B . . .
+B S B B S S S S
+S B B . S . S .
+B B B . S . . S
+alfaBeta 0.303 saniye sürdü
+Hamle 27 S 2x7:
+. . . . . . . .
+. S . . . . . .
+. . S . B . B .
+B B B S B B . .
+. . S S S . . .
+B S B B S S S S
+S B B . S . S .
+B B B . S . . S
+alfaBeta 0.226 saniye sürdü
+Hamle 28 B 6x2:
+. . . . . . . .
+. S . . . . . .
+. . S . B . B .
+B B B S B B . .
+. . S B S . . .
+B S B B B S S S
+S B B . S B S .
+B B B . S . . S
+alfaBeta 0.376 saniye sürdü
+Hamle 29 S 4x2:
+. . . . . . . .
+. S . . . . . .
+. . S . B . B .
+B B B S B B . .
+. . S S S . . .
+B S B S B S S S
+S S S S S B S .
+B B B . S . . S
+alfaBeta 0.425 saniye sürdü
+Hamle 30 B 6x1:
+. . . . . . . .
+. S . . . . . .
+. . S . B . B .
+B B B S B B . .
+. . B S S . . .
+B S B B B S S S
+S S S S B B S .
+B B B . S B . S
+alfaBeta 0.463 saniye sürdü
+Hamle 31 S 7x1:
+. . . . . . . .
+. S . . . . . .
+. . S . B . B .
+B B B S B B . .
+. . B S S . . .
+B S B B S S S S
+S S S S B S S .
+B B B . S S S S
+alfaBeta 0.289 saniye sürdü
+Hamle 32 B 6x4:
+. . . . . . . .
+. S . . . . . .
+. . S . B . B .
+B B B S B B . .
+. . B B B B . .
+B S B B B S S S
+S S S B B S S .
+B B B . S S S S
+alfaBeta 0.595 saniye sürdü
+Hamle 33 S 5x7:
+. . . . . . . .
+. S . . S . . .
+. . S . S . B .
+B B B S S B . .
+. . B B S B . .
+B S B B S S S S
+S S S B S S S .
+B B B . S S S S
+alfaBeta 0.436 saniye sürdü
+Hamle 34 B 8x2:
+. . . . . . . .
+. S . . S . . .
+. . S . S . B .
+B B B S S B . .
+. . B B S B . .
+B S B B S S B S
+S S S B B B B B
+B B B . S S S S
+alfaBeta 0.400 saniye sürdü
+Hamle 35 S 4x1:
+. . . . . . . .
+. S . . S . . .
+. . S . S . B .
+B B B S S B . .
+. . B S S B . .
+B S B S S S B S
+S S S S S B B B
+B B B S S S S S
+alfaBeta 0.381 saniye sürdü
+Hamle 36 B 1x8:
+B . . . . . . .
+. B . . S . . .
+. . B . S . B .
+B B B B S B . .
+. . B S B B . .
+B S B S S B B S
+S S S S S B B B
+B B B S S S S S
+alfaBeta 0.365 saniye sürdü
+Hamle 37 S 7x4:
+B . . . . . . .
+. B . . S . . .
+. . B . S . B .
+B B B B S S . .
+. . B S S S S .
+B S B S S S S S
+S S S S S B S B
+B B B S S S S S
+alfaBeta 0.192 saniye sürdü
+Hamle 38 B 8x4:
+B . . . . . . .
+. B . . S . . .
+. . B . S . B .
+B B B B S S . .
+. . B B B B B B
+B S B S S S B B
+S S S S S B S B
+B B B S S S S S
+alfaBeta 0.258 saniye sürdü
+Hamle 39 S 8x5:
+B . . . . . . .
+. B . . S . . .
+. . B . S . B .
+B B B B S S . S
+. . B B B B S S
+B S B S S S B S
+S S S S S B S S
+B B B S S S S S
+alfaBeta 0.149 saniye sürdü
+Hamle 40 B 5x8:
+B . . . B . . .
+. B . . B . . .
+. . B . B . B .
+B B B B B S . S
+. . B B B B S S
+B S B S S S B S
+S S S S S B S S
+B B B S S S S S
+alfaBeta 0.201 saniye sürdü
+Hamle 41 S 3x7:
+B . . . B . . .
+. B S . B . . .
+. . S . B . B .
+B B S B B S . S
+. . S B B B S S
+B S S S S S B S
+S S S S S B S S
+B B B S S S S S
+alfaBeta 0.161 saniye sürdü
+Hamle 42 B 3x8:
+B . B . B . . .
+. B B . B . . .
+. . B . B . B .
+B B B B B S . S
+. . B B B B S S
+B S B S S S B S
+S S B S S B S S
+B B B S S S S S
+alfaBeta 0.150 saniye sürdü
+Hamle 43 S 6x7:
+B . B . B . . .
+. B B . B S . .
+. . B . S . S .
+B B B S B S . S
+. . S B B B S S
+B S B S S S B S
+S S B S S B S S
+B B B S S S S S
+alfaBeta 0.110 saniye sürdü
+Hamle 44 B 2x4:
+B . B . B . . .
+. B B . B S . .
+. . B . S . S .
+B B B S B S . S
+. B B B B B S S
+B B B S S S B S
+S B B S S B S S
+B B B S S S S S
+alfaBeta 0.136 saniye sürdü
+Hamle 45 S 1x4:
+B . B . B . . .
+. B B . B S . .
+. . B . S . S .
+B B B S B S . S
+S S S S S S S S
+S S B S S S B S
+S B S S S B S S
+B B B S S S S S
+alfaBeta 0.066 saniye sürdü
+Hamle 46 B 8x7:
+B . B . B . . .
+. B B . B S . B
+. . B . S . B .
+B B B S B B . S
+S S S S B S S S
+S S B B S S B S
+S B B S S B S S
+B B B S S S S S
+alfaBeta 0.076 saniye sürdü
+Hamle 47 S 1x6:
+B . B . B . . .
+. B B . B S . B
+S . B . S . B .
+S S B S B B . S
+S S S S B S S S
+S S B B S S B S
+S B B S S B S S
+B B B S S S S S
+alfaBeta 0.078 saniye sürdü
+Hamle 48 B 1x7:
+B . B . B . . .
+B B B . B S . B
+B . B . S . B .
+B S B S B B . S
+B S S S B S S S
+B S B B S S B S
+B B B S S B S S
+B B B S S S S S
+alfaBeta 0.038 saniye sürdü
+Hamle 49 S 7x5:
+B . B . B . . .
+B B B . B S . B
+B . B . S . B .
+B S B S S S S S
+B S S S B S S S
+B S B B S S B S
+B B B S S B S S
+B B B S S S S S
+alfaBeta 0.054 saniye sürdü
+Hamle 50 B 8x6:
+B . B . B . . .
+B B B . B S . B
+B . B . S . B B
+B S B S S S B S
+B S S S B B S S
+B S B B B S B S
+B B B B S B S S
+B B B S S S S S
+alfaBeta 0.052 saniye sürdü
+Hamle 51 S 8x8:
+B . B . B . . S
+B B B . B S . S
+B . B . S . B S
+B S B S S S B S
+B S S S B B S S
+B S B B B S B S
+B B B B S B S S
+B B B S S S S S
+alfaBeta 0.024 saniye sürdü
+Hamle 52 B 7x8:
+B . B . B . B S
+B B B . B B . S
+B . B . B . B S
+B S B B S S B S
+B S B S B B S S
+B B B B B S B S
+B B B B S B S S
+B B B S S S S S
+alfaBeta 0.013 saniye sürdü
+Hamle 53 S 6x6:
+B . B . B . B S
+B B B . B B . S
+B . B . B S S S
+B S B B S S S S
+B S B S B B S S
+B B B B B S B S
+B B B B S B S S
+B B B S S S S S
+alfaBeta 0.011 saniye sürdü
+Hamle 54 B 2x6:
+B . B . B . B S
+B B B . B B . S
+B B B . B S S S
+B B B B S S S S
+B B B S B B S S
+B B B B B S B S
+B B B B S B S S
+B B B S S S S S
+alfaBeta 0.009 saniye sürdü
+Hamle 55 S 4x7:
+B . B . B . B S
+B B B S B B . S
+B B B . S S S S
+B B B B S S S S
+B B B S B B S S
+B B B B B S B S
+B B B B S B S S
+B B B S S S S S
+alfaBeta 0.005 saniye sürdü
+Hamle 56 B 4x6:
+B . B . B . B S
+B B B S B B . S
+B B B B S S S S
+B B B B B S S S
+B B B S B B S S
+B B B B B S B S
+B B B B S B S S
+B B B S S S S S
+alfaBeta 0.002 saniye sürdü
+Hamle 57 S 2x8:
+B S B . B . B S
+B B S S B B . S
+B B B S S S S S
+B B B B S S S S
+B B B S B S S S
+B B B B B S S S
+B B B B S B S S
+B B B S S S S S
+alfaBeta 0.001 saniye sürdü
+Hamle 58 B 7x7:
+B S B . B . B S
+B B S S B B B S
+B B B S S B S S
+B B B B B S S S
+B B B B B S S S
+B B B B B S S S
+B B B B S B S S
+B B B S S S S S
+alfaBeta 0.001 saniye sürdü
+Hamle 59 S 4x8:
+B S S S B . B S
+B B S S S B B S
+B B B S S S S S
+B B B B B S S S
+B B B B B S S S
+B B B B B S S S
+B B B B S B S S
+B B B S S S S S
+alfaBeta 0.000 saniye sürdü
+Hamle 60 B 6x8:
+B S S S B B B S
+B B S S B B B S
+B B B B S S S S
+B B B B B S S S
+B B B B B S S S
+B B B B B S S S
+B B B B S B S S
+B B B S S S S S
+alfaBeta 0.000 saniye sürdü
+alfaBeta 0.000 saniye sürdü
+Oyun bitti.
+Beyazlar: 36
+Siyahlar: 28
+Oyun 60 kere dallandı. Dal sayıları: 4,3,4,6,4,7,3,5,8,4,6,9,8,9,7,7,13,8,9,6,8,6,11,4,9,7,12,7,9,7,11,8,11,7,10,8,11,6,9,6,11,6,10,7,6,4,6,6,5,6,6,5,6,3,4,2,4,2,2,1
+Ortalama dal sayısı: 6.7
+En iri dal sayısı: 13
+8 x 8 ustalık: Çırak 17.342 saniye sürdü
+** 8 x 8 ustalık: Er 12.041 saniye sürdü
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . S B . . .
+. . . B S . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+alfaBeta 0.059 saniye sürdü
+Hamle 1 S 6x5:
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . S S S . .
+. . . B S . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+alfaBeta 0.025 saniye sürdü
+Hamle 2 B 6x4:
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . S S S . .
+. . . B B B . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+alfaBeta 0.033 saniye sürdü
+Hamle 3 S 5x3:
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . S S S . .
+. . . B S B . .
+. . . . S . . .
+. . . . . . . .
+. . . . . . . .
+alfaBeta 0.032 saniye sürdü
+Hamle 4 B 4x6:
+. . . . . . . .
+. . . . . . . .
+. . . B . . . .
+. . . B B S . .
+. . . B S B . .
+. . . . S . . .
+. . . . . . . .
+. . . . . . . .
+alfaBeta 0.052 saniye sürdü
+Hamle 5 S 6x3:
+. . . . . . . .
+. . . . . . . .
+. . . B . . . .
+. . . B B S . .
+. . . B S S . .
+. . . . S S . .
+. . . . . . . .
+. . . . . . . .
+alfaBeta 0.069 saniye sürdü
+Hamle 6 B 7x3:
+. . . . . . . .
+. . . . . . . .
+. . . B . . . .
+. . . B B S . .
+. . . B S B . .
+. . . . S S B .
+. . . . . . . .
+. . . . . . . .
+alfaBeta 0.093 saniye sürdü
+Hamle 7 S 3x4:
+. . . . . . . .
+. . . . . . . .
+. . . B . . . .
+. . . B B S . .
+. . S S S B . .
+. . . . S S B .
+. . . . . . . .
+. . . . . . . .
+alfaBeta 0.163 saniye sürdü
+Hamle 8 B 6x2:
+. . . . . . . .
+. . . . . . . .
+. . . B . . . .
+. . . B B S . .
+. . S S S B . .
+. . . . S B B .
+. . . . . B . .
+. . . . . . . .
+alfaBeta 0.185 saniye sürdü
+Hamle 9 S 7x4:
+. . . . . . . .
+. . . . . . . .
+. . . B . . . .
+. . . B B S . .
+. . S S S S S .
+. . . . S B B .
+. . . . . B . .
+. . . . . . . .
+alfaBeta 0.161 saniye sürdü
+Hamle 10 B 5x2:
+. . . . . . . .
+. . . . . . . .
+. . . B . . . .
+. . . B B S . .
+. . S S B S S .
+. . . . B B B .
+. . . . B B . .
+. . . . . . . .
+alfaBeta 0.233 saniye sürdü
+Hamle 11 S 4x2:
+. . . . . . . .
+. . . . . . . .
+. . . B . . . .
+. . . B B S . .
+. . S S B S S .
+. . . . S B B .
+. . . S B B . .
+. . . . . . . .
+alfaBeta 0.220 saniye sürdü
+Hamle 12 B 2x3:
+. . . . . . . .
+. . . . . . . .
+. . . B . . . .
+. . . B B S . .
+. . B S B S S .
+. B . . S B B .
+. . . S B B . .
+. . . . . . . .
+alfaBeta 0.281 saniye sürdü
+Hamle 13 S 4x3:
+. . . . . . . .
+. . . . . . . .
+. . . B . . . .
+. . . B B S . .
+. . B S S S S .
+. B . S S B B .
+. . . S B B . .
+. . . . . . . .
+alfaBeta 0.175 saniye sürdü
+Hamle 14 B 3x3:
+. . . . . . . .
+. . . . . . . .
+. . . B . . . .
+. . . B B S . .
+. . B B S S S .
+. B B B B B B .
+. . . S B B . .
+. . . . . . . .
+alfaBeta 0.214 saniye sürdü
+Hamle 15 S 3x2:
+. . . . . . . .
+. . . . . . . .
+. . . B . . . .
+. . . B B S . .
+. . B B S S S .
+. B B S B B B .
+. . S S B B . .
+. . . . . . . .
+alfaBeta 0.177 saniye sürdü
+Hamle 16 B 5x1:
+. . . . . . . .
+. . . . . . . .
+. . . B . . . .
+. . . B B S . .
+. . B B S S S .
+. B B S B B B .
+. . S B B B . .
+. . . . B . . .
+alfaBeta 0.258 saniye sürdü
+Hamle 17 S 1x4:
+. . . . . . . .
+. . . . . . . .
+. . . B . . . .
+. . . B B S . .
+S . B B S S S .
+. S B S B B B .
+. . S B B B . .
+. . . . B . . .
+alfaBeta 0.154 saniye sürdü
+Hamle 18 B 8x5:
+. . . . . . . .
+. . . . . . . .
+. . . B . . . .
+. . . B B S . B
+S . B B S S B .
+. S B S B B B .
+. . S B B B . .
+. . . . B . . .
+alfaBeta 0.268 saniye sürdü
+Hamle 19 S 8x4:
+. . . . . . . .
+. . . . . . . .
+. . . B . . . .
+. . . B B S . B
+S . B B S S S S
+. S B S B B B .
+. . S B B B . .
+. . . . B . . .
+alfaBeta 0.123 saniye sürdü
+Hamle 20 B 8x3:
+. . . . . . . .
+. . . . . . . .
+. . . B . . . .
+. . . B B S . B
+S . B B S S S B
+. S B S B B B B
+. . S B B B . .
+. . . . B . . .
+alfaBeta 0.185 saniye sürdü
+Hamle 21 S 2x4:
+. . . . . . . .
+. . . . . . . .
+. . . B . . . .
+. . . B B S . B
+S S S S S S S B
+. S B S B B B B
+. . S B B B . .
+. . . . B . . .
+alfaBeta 0.151 saniye sürdü
+Hamle 22 B 3x1:
+. . . . . . . .
+. . . . . . . .
+. . . B . . . .
+. . . B B S . B
+S S S S S S S B
+. S B S B B B B
+. . B B B B . .
+. . B . B . . .
+alfaBeta 0.223 saniye sürdü
+Hamle 23 S 3x6:
+. . . . . . . .
+. . . . . . . .
+. . S B . . . .
+. . . S B S . B
+S S S S S S S B
+. S B S B B B B
+. . B B B B . .
+. . B . B . . .
+alfaBeta 0.125 saniye sürdü
+Hamle 24 B 1x3:
+. . . . . . . .
+. . . . . . . .
+. . S B . . . .
+. . . S B S . B
+S S S S S S S B
+B B B S B B B B
+. . B B B B . .
+. . B . B . . .
+alfaBeta 0.172 saniye sürdü
+Hamle 25 S 5x6:
+. . . . . . . .
+. . . . . . . .
+. . S S S . . .
+. . . S S S . B
+S S S S S S S B
+B B B S B B B B
+. . B B B B . .
+. . B . B . . .
+alfaBeta 0.160 saniye sürdü
+Hamle 26 B 2x5:
+. . . . . . . .
+. . . . . . . .
+. . S S S . . .
+. B . S S S . B
+S B B S S S S B
+B B B B B B B B
+. . B B B B . .
+. . B . B . . .
+alfaBeta 0.119 saniye sürdü
+Hamle 27 S 2x2:
+. . . . . . . .
+. . . . . . . .
+. . S S S . . .
+. B . S S S . B
+S B B S S S S B
+B B S B B B B B
+. S B B B B . .
+. . B . B . . .
+alfaBeta 0.155 saniye sürdü
+Hamle 28 B 1x5:
+. . . . . . . .
+. . . . . . . .
+. . S S S . . .
+B B . S S S . B
+B B B S S S S B
+B B S B B B B B
+. S B B B B . .
+. . B . B . . .
+alfaBeta 0.125 saniye sürdü
+Hamle 29 S 2x1:
+. . . . . . . .
+. . . . . . . .
+. . S S S . . .
+B B . S S S . B
+B B B S S S S B
+B B S S B B B B
+. S S B B B . .
+. S B . B . . .
+alfaBeta 0.152 saniye sürdü
+Hamle 30 B 3x5:
+. . . . . . . .
+. . . . . . . .
+. . S S S . . .
+B B B S S S . B
+B B B B S S S B
+B B S S B B B B
+. S S B B B . .
+. S B . B . . .
+alfaBeta 0.059 saniye sürdü
+Hamle 31 S 1x6:
+. . . . . . . .
+. . . . . . . .
+S . S S S . . .
+B S B S S S . B
+B B S B S S S B
+B B S S B B B B
+. S S B B B . .
+. S B . B . . .
+alfaBeta 0.095 saniye sürdü
+Hamle 32 B 4x1:
+. . . . . . . .
+. . . . . . . .
+S . S S S . . .
+B S B S S S . B
+B B S B S S S B
+B B S S B B B B
+. S B B B B . .
+. S B B B . . .
+alfaBeta 0.037 saniye sürdü
+Hamle 33 S 8x2:
+. . . . . . . .
+. . . . . . . .
+S . S S S . . .
+B S B S S S . B
+B B S B S S S B
+B B S S B B S B
+. S B B B B . S
+. S B B B . . .
+alfaBeta 0.095 saniye sürdü
+Hamle 34 B 5x7:
+. . . . . . . .
+. . . . B . . .
+S . S B B . . .
+B S B S B S . B
+B B S B B S S B
+B B S S B B S B
+. S B B B B . S
+. S B B B . . .
+alfaBeta 0.084 saniye sürdü
+Hamle 35 S 6x7:
+. . . . . . . .
+. . . . B S . .
+S . S B S . . .
+B S B S B S . B
+B B S B B S S B
+B B S S B B S B
+. S B B B B . S
+. S B B B . . .
+alfaBeta 0.084 saniye sürdü
+Hamle 36 B 6x6:
+. . . . . . . .
+. . . . B S . .
+S . S B B B . .
+B S B S B B . B
+B B S B B B S B
+B B S S B B S B
+. S B B B B . S
+. S B B B . . .
+alfaBeta 0.088 saniye sürdü
+Hamle 37 S 4x7:
+. . . . . . . .
+. . . S S S . .
+S . S S S B . .
+B S B S B S . B
+B B S B B B S B
+B B S S B B S B
+. S B B B B . S
+. S B B B . . .
+alfaBeta 0.089 saniye sürdü
+Hamle 38 B 7x5:
+. . . . . . . .
+. . . S S S . .
+S . S S S B . .
+B S B S B B B B
+B B S B B B S B
+B B S S B B S B
+. S B B B B . S
+. S B B B . . .
+alfaBeta 0.073 saniye sürdü
+Hamle 39 S 7x6:
+. . . . . . . .
+. . . S S S . .
+S . S S S S S .
+B S B S B S S B
+B B S B S B S B
+B B S S B B S B
+. S B B B B . S
+. S B B B . . .
+alfaBeta 0.079 saniye sürdü
+Hamle 40 B 8x6:
+. . . . . . . .
+. . . S S S . .
+S . S S S S S B
+B S B S B S B B
+B B S B S B S B
+B B S S B B S B
+. S B B B B . S
+. S B B B . . .
+alfaBeta 0.035 saniye sürdü
+Hamle 41 S 7x2:
+. . . . . . . .
+. . . S S S . .
+S . S S S S S B
+B S B S B S B B
+B B S B S B S B
+B B S S B S S B
+. S S S S S S S
+. S B B B . . .
+alfaBeta 0.072 saniye sürdü
+Hamle 42 B 3x7:
+. . . . . . . .
+. . B S S S . .
+S . B B S S S B
+B S B S B S B B
+B B S B S B S B
+B B S S B S S B
+. S S S S S S S
+. S B B B . . .
+alfaBeta 0.047 saniye sürdü
+Hamle 43 S 6x1:
+. . . . . . . .
+. . B S S S . .
+S . B B S S S B
+B S B S B S B B
+B B S B S B S B
+B B S S B S S B
+. S S S S S S S
+. S S S S S . .
+alfaBeta 0.060 saniye sürdü
+Hamle 44 B 2x6:
+. . . . . . . .
+. . B S S S . .
+S B B B S S S B
+B B B S B S B B
+B B S B S B S B
+B B S S B S S B
+. S S S S S S S
+. S S S S S . .
+alfaBeta 0.045 saniye sürdü
+Hamle 45 S 3x8:
+. . S . . . . .
+. . S S S S . .
+S B S B S S S B
+B B S S B S B B
+B B S B S B S B
+B B S S B S S B
+. S S S S S S S
+. S S S S S . .
+alfaBeta 0.032 saniye sürdü
+Hamle 46 B 1x7:
+. . S . . . . .
+B . S S S S . .
+B B S B S S S B
+B B S S B S B B
+B B S B S B S B
+B B S S B S S B
+. S S S S S S S
+. S S S S S . .
+alfaBeta 0.009 saniye sürdü
+Hamle 47 S 1x2:
+. . S . . . . .
+B . S S S S . .
+B B S B S S S B
+B B S S B S B B
+B B S B S B S B
+B S S S B S S B
+S S S S S S S S
+. S S S S S . .
+alfaBeta 0.018 saniye sürdü
+Hamle 48 B 7x7:
+. . S . . . . .
+B . S S S S B .
+B B S B S B B B
+B B S S B S B B
+B B S B S B S B
+B S S S B S S B
+S S S S S S S S
+. S S S S S . .
+alfaBeta 0.025 saniye sürdü
+Hamle 49 S 2x7:
+. . S . . . . .
+B S S S S S B .
+B S S B S B B B
+B S S S B S B B
+B S S B S B S B
+B S S S B S S B
+S S S S S S S S
+. S S S S S . .
+alfaBeta 0.017 saniye sürdü
+Hamle 50 B 2x8:
+. B S . . . . .
+B S B S S S B .
+B S S B S B B B
+B S S S B S B B
+B S S B S B S B
+B S S S B S S B
+S S S S S S S S
+. S S S S S . .
+alfaBeta 0.025 saniye sürdü
+Hamle 51 S 4x8:
+. B S S . . . .
+B S S S S S B .
+B S S B S B B B
+B S S S B S B B
+B S S B S B S B
+B S S S B S S B
+S S S S S S S S
+. S S S S S . .
+alfaBeta 0.014 saniye sürdü
+Hamle 52 B 6x8:
+. B S S . B . .
+B S S S B B B .
+B S S B S B B B
+B S S S B S B B
+B S S B S B S B
+B S S S B S S B
+S S S S S S S S
+. S S S S S . .
+alfaBeta 0.012 saniye sürdü
+Hamle 53 S 5x8:
+. B S S S B . .
+B S S S S B B .
+B S S B S B B B
+B S S S B S B B
+B S S B S B S B
+B S S S B S S B
+S S S S S S S S
+. S S S S S . .
+alfaBeta 0.007 saniye sürdü
+Hamle 54 B 8x1:
+. B S S S B . .
+B S S S S B B .
+B S S B S B B B
+B S S S B S B B
+B S S B S B S B
+B S S S B S S B
+S S S S S S S B
+. S S S S S . B
+alfaBeta 0.004 saniye sürdü
+Hamle 55 S 7x8:
+. B S S S S S .
+B S S S S S S .
+B S S B S B S B
+B S S S B S S B
+B S S B S B S B
+B S S S B S S B
+S S S S S S S B
+. S S S S S . B
+alfaBeta 0.003 saniye sürdü
+Hamle 56 B 8x7:
+. B S S S S S .
+B B B B B B B B
+B S S B S B S B
+B S S S B S S B
+B S S B S B S B
+B S S S B S S B
+S S S S S S S B
+. S S S S S . B
+alfaBeta 0.003 saniye sürdü
+Hamle 57 S 8x8:
+. B S S S S S S
+B B B B B B S B
+B S S B S S S B
+B S S S S S S B
+B S S S S B S B
+B S S S B S S B
+S S S S S S S B
+. S S S S S . B
+alfaBeta 0.002 saniye sürdü
+Hamle 58 B 1x1:
+. B S S S S S S
+B B B B B B S B
+B S S B S S S B
+B S S S S S S B
+B S S S S B S B
+B S S S B S S B
+B S S S S S S B
+B S S S S S . B
+alfaBeta 0.000 saniye sürdü
+Hamle 59 S 1x8:
+S S S S S S S S
+B S B B B B S B
+B S S B S S S B
+B S S S S S S B
+B S S S S B S B
+B S S S B S S B
+B S S S S S S B
+B S S S S S . B
+alfaBeta 0.001 saniye sürdü
+Hamle 60 B 7x1:
+S S S S S S S S
+B S B B B B S B
+B S S B S S S B
+B S S S S S S B
+B S S S S B S B
+B S S S B S S B
+B S S S S B S B
+B B B B B B B B
+alfaBeta 0.000 saniye sürdü
+alfaBeta 0.000 saniye sürdü
+Oyun bitti.
+Beyazlar: 28
+Siyahlar: 36
+Oyun 60 kere dallandı. Dal sayıları: 4,3,5,4,7,6,7,10,11,8,12,11,14,8,12,8,15,8,14,7,12,10,13,10,12,11,8,12,9,11,7,12,4,13,8,13,9,14,6,15,4,13,7,11,6,10,3,8,5,7,5,5,5,3,4,5,2,2,1,1
+Ortalama dal sayısı: 8.2
+En iri dal sayısı: 15
+8 x 8 ustalık: Er 12.041 saniye sürdü
+* 7x7 SabırlıDeha (level=8) ile ilk hamle:
+. . . . . . .
+. . . B . . .
+. . S S B . .
+. S B . B S .
+. . B S S . .
+. . . B . . .
+. . . . . . .
+Unable to stop script.
+Please restart the Kojo Environment unless you see a 'Script Stopped' message soon.
+alfaBeta 88.958 saniye sürdü
+Script Stopped.
+** 7 x 7 ustalık: Usta 63.373 saniye sürdü
+. . . . . . .
+. . . B . . .
+. . S S B . .
+. S B . B S .
+. . B S S . .
+. . . B . . .
+. . . . . . .
+alfaBeta 7.229 saniye sürdü
+Hamle 1 S 5x1:
+. . . . . . .
+. . . B . . .
+. . S S B . .
+. S B . B S .
+. . S S S . .
+. . . S . . .
+. . . . S . .
+alfaBeta 5.493 saniye sürdü
+Hamle 2 B 3x2:
+. . . . . . .
+. . . B . . .
+. . S S B . .
+. S B . B S .
+. . B B S . .
+. . B S . . .
+. . . . S . .
+alfaBeta 6.844 saniye sürdü
+Hamle 3 S 3x1:
+. . . . . . .
+. . . B . . .
+. . S S B . .
+. S S . B S .
+. . S B S . .
+. . S S . . .
+. . S . S . .
+alfaBeta 4.034 saniye sürdü
+Hamle 4 B 1x3:
+. . . . . . .
+. . . B . . .
+. . B S B . .
+. B S . B S .
+B . S B S . .
+. . S S . . .
+. . S . S . .
+alfaBeta 5.087 saniye sürdü
+Hamle 5 S 6x5:
+. . . . . . .
+. . . B . . .
+. . B S S S .
+. B S . S S .
+B . S S S . .
+. . S S . . .
+. . S . S . .
+alfaBeta 1.261 saniye sürdü
+Hamle 6 B 7x3:
+. . . . . . .
+. . . B . . .
+. . B S B S .
+. B S . S B .
+B . S S S . B
+. . S S . . .
+. . S . S . .
+alfaBeta 2.734 saniye sürdü
+Hamle 7 S 1x5:
+. . . . . . .
+. . . B . . .
+S . B S B S .
+. S S . S B .
+B . S S S . B
+. . S S . . .
+. . S . S . .
+alfaBeta 2.272 saniye sürdü
+Hamle 8 B 5x2:
+. . . . . . .
+. . . B . . .
+S . B S B S .
+. S S . B B .
+B . S S B . B
+. . S S B . .
+. . S . S . .
+alfaBeta 3.397 saniye sürdü
+Hamle 9 S 5x6:
+. . . . . . .
+. . . B S . .
+S . B S S S .
+. S S . S B .
+B . S S S . B
+. . S S S . .
+. . S . S . .
+alfaBeta 1.555 saniye sürdü
+Hamle 10 B 6x6:
+. . . . . . .
+. . . B B B .
+S . B S S B .
+. S S . S B .
+B . S S S . B
+. . S S S . .
+. . S . S . .
+alfaBeta 3.431 saniye sürdü
+Hamle 11 S 5x7:
+. . . . S . .
+. . . S S B .
+S . S S S B .
+. S S . S B .
+B . S S S . B
+. . S S S . .
+. . S . S . .
+alfaBeta 1.489 saniye sürdü
+Hamle 12 B 2x1:
+. . . . S . .
+. . . S S B .
+S . S S S B .
+. S S . B B .
+B . S B S . B
+. . B S S . .
+. B S . S . .
+alfaBeta 1.625 saniye sürdü
+Hamle 13 S 7x5:
+. . . . S . .
+. . . S S S .
+S . S S S S S
+. S S . B S .
+B . S B S . B
+. . B S S . .
+. B S . S . .
+alfaBeta 1.503 saniye sürdü
+Hamle 14 B 3x7:
+. . B . S . .
+. . . B S S .
+S . S S B S S
+. S S . B B .
+B . S B S . B
+. . B S S . .
+. B S . S . .
+alfaBeta 1.137 saniye sürdü
+Hamle 15 S 6x3:
+. . B . S . .
+. . . B S S .
+S . S S B S S
+. S S . S S .
+B . S B S S B
+. . B S S . .
+. B S . S . .
+alfaBeta 1.688 saniye sürdü
+Hamle 16 B 7x6:
+. . B . S . .
+. . . B B B B
+S . S S B B S
+. S S . B S .
+B . S B S S B
+. . B S S . .
+. B S . S . .
+alfaBeta 1.172 saniye sürdü
+Hamle 17 S 6x7:
+. . B . S S .
+. . . B S S B
+S . S S B S S
+. S S . B S .
+B . S B S S B
+. . B S S . .
+. B S . S . .
+alfaBeta 1.906 saniye sürdü
+Hamle 18 B 6x1:
+. . B . S S .
+. . . B S S B
+S . S S B S S
+. S S . B S .
+B . S B S S B
+. . B S B . .
+. B S . S B .
+alfaBeta 1.343 saniye sürdü
+Hamle 19 S 7x1:
+. . B . S S .
+. . . B S S B
+S . S S B S S
+. S S . B S .
+B . S B S S B
+. . B S B . .
+. B S . S S S
+alfaBeta 1.234 saniye sürdü
+Hamle 20 B 7x4:
+. . B . S S .
+. . . B S S B
+S . S S B S B
+. S S . B B B
+B . S B S B B
+. . B S B . .
+. B S . S S S
+alfaBeta 0.597 saniye sürdü
+Hamle 21 S 6x2:
+. . B . S S .
+. . . B S S B
+S . S S B S B
+. S S . B S B
+B . S B S S B
+. . B S S S .
+. B S . S S S
+alfaBeta 0.762 saniye sürdü
+Hamle 22 B 4x1:
+. . B . S S .
+. . . B S S B
+S . S S B S B
+. S S . B S B
+B . S B S B B
+. . B B B S .
+. B B B S S S
+alfaBeta 0.364 saniye sürdü
+Hamle 23 S 1x1:
+. . B . S S .
+. . . B S S B
+S . S S B S B
+. S S . B S B
+B . S B S B B
+. . B B B S .
+S S S S S S S
+alfaBeta 0.285 saniye sürdü
+Hamle 24 B 2x5:
+. . B . S S .
+. . . B S S B
+S B B B B S B
+. S B . B S B
+B . S B S B B
+. . B B B S .
+S S S S S S S
+alfaBeta 0.235 saniye sürdü
+Hamle 25 S 2x3:
+. . B . S S .
+. . . B S S B
+S B B S B S B
+. S S . B S B
+B S S B S B B
+. . S B B S .
+S S S S S S S
+alfaBeta 0.200 saniye sürdü
+Hamle 26 B 2x2:
+. . B . S S .
+. . . B S S B
+S B B S B S B
+. B S . B S B
+B B S B S B B
+. B B B B S .
+S S S S S S S
+alfaBeta 0.209 saniye sürdü
+Hamle 27 S 2x6:
+. . B . S S .
+. S . B S S B
+S S B S B S B
+. S S . B S B
+B S S B S B B
+. S B B B S .
+S S S S S S S
+alfaBeta 0.246 saniye sürdü
+Hamle 28 B 1x2:
+. . B . S S .
+. S . B S S B
+S S B S B S B
+. S S . B S B
+B S S B S B B
+B B B B B S .
+S S S S S S S
+alfaBeta 0.108 saniye sürdü
+Hamle 29 S 3x6:
+. . B . S S .
+. S S S S S B
+S S S S B S B
+. S S . B S B
+B S S B S B B
+B B B B B S .
+S S S S S S S
+alfaBeta 0.029 saniye sürdü
+Hamle 30 B 1x6:
+. . B . S S .
+B B B B B B B
+S B S S B S B
+. S B . B S B
+B S S B S B B
+B B B B B S .
+S S S S S S S
+alfaBeta 0.015 saniye sürdü
+Hamle 31 S 1x7:
+S . B . S S .
+S S B B B B B
+S B S S B S B
+. S B . B S B
+B S S B S B B
+B B B B B S .
+S S S S S S S
+alfaBeta 0.004 saniye sürdü
+Hamle 32 B 4x4:
+S . B . S S .
+S S B B B B B
+S B S B B S B
+. S B B B S B
+B S B B S B B
+B B B B B S .
+S S S S S S S
+alfaBeta 0.002 saniye sürdü
+Hamle 33 S 1x4:
+S . B . S S .
+S S B B B B B
+S B S B B S B
+S S B B B S B
+S S B B S B B
+S B B B B S .
+S S S S S S S
+alfaBeta 0.001 saniye sürdü
+Hamle 34 B 7x2:
+S . B . S S .
+S S B B B B B
+S B S B B S B
+S S B B B S B
+S S B B S B B
+S B B B B B B
+S S S S S S S
+alfaBeta 0.001 saniye sürdü
+Hamle 35 S 7x7:
+S . B . S S S
+S S B B B S S
+S B S B S S S
+S S B S B S S
+S S S B S B S
+S S B B B B S
+S S S S S S S
+alfaBeta 0.000 saniye sürdü
+Hamle 36 B 2x7:
+S B B . S S S
+S B B B B S S
+S B S B S S S
+S S B S B S S
+S S S B S B S
+S S B B B B S
+S S S S S S S
+alfaBeta 0.000 saniye sürdü
+Hamle 37 S 4x7:
+S S S S S S S
+S B S S S S S
+S S S S S S S
+S S B S B S S
+S S S B S B S
+S S B B B B S
+S S S S S S S
+alfaBeta 0.000 saniye sürdü
+alfaBeta 0.000 saniye sürdü
+Oyun bitti.
+Beyazlar: 9
+Siyahlar: 40
+Oyun 37 kere dallandı. Dal sayıları: 13,10,10,11,11,3,9,4,9,3,10,6,8,10,6,9,6,10,9,8,7,8,6,7,6,6,8,9,5,7,6,4,3,2,2,1,1
+Ortalama dal sayısı: 6.8
+En iri dal sayısı: 13
+** 7 x 7 ustalık: Kalfa 48.297 saniye sürdü
+. . . . . . .
+. . . B . . .
+. . S S B . .
+. S B . B S .
+. . B S S . .
+. . . B . . .
+. . . . . . .
+alfaBeta 3.125 saniye sürdü
+Hamle 1 S 6x3:
+. . . . . . .
+. . . B . . .
+. . S S B . .
+. S B . S S .
+. . B S S S .
+. . . B . . .
+. . . . . . .
+alfaBeta 2.936 saniye sürdü
+Hamle 2 B 5x2:
+. . . . . . .
+. . . B . . .
+. . S S B . .
+. S B . B S .
+. . B B B S .
+. . . B B . .
+. . . . . . .
+alfaBeta 2.957 saniye sürdü
+Hamle 3 S 2x3:
+. . . . . . .
+. . . B . . .
+. . S S B . .
+. S S . B S .
+. S S S S S .
+. . . B B . .
+. . . . . . .
+alfaBeta 3.486 saniye sürdü
+Hamle 4 B 4x4:
+. . . . . . .
+. . . B . . .
+. . S B B . .
+. S S B B S .
+. S S B S S .
+. . . B B . .
+. . . . . . .
+alfaBeta 3.888 saniye sürdü
+Hamle 5 S 3x1:
+. . . . . . .
+. . . B . . .
+. . S B B . .
+. S S B B S .
+. S S B S S .
+. . . S B . .
+. . S . . . .
+alfaBeta 3.873 saniye sürdü
+Hamle 6 B 2x2:
+. . . . . . .
+. . . B . . .
+. . S B B . .
+. S S B B S .
+. S B B S S .
+. B . S B . .
+. . S . . . .
+alfaBeta 3.895 saniye sürdü
+Hamle 7 S 3x2:
+. . . . . . .
+. . . B . . .
+. . S B B . .
+. S S B B S .
+. S S B S S .
+. B S S B . .
+. . S . . . .
+alfaBeta 3.628 saniye sürdü
+Hamle 8 B 6x2:
+. . . . . . .
+. . . B . . .
+. . S B B . .
+. S S B B S .
+. S S B B S .
+. B S S B B .
+. . S . . . .
+alfaBeta 4.389 saniye sürdü
+Hamle 9 S 6x1:
+. . . . . . .
+. . . B . . .
+. . S B B . .
+. S S B B S .
+. S S S B S .
+. B S S S S .
+. . S . . S .
+alfaBeta 2.932 saniye sürdü
+Hamle 10 B 5x1:
+. . . . . . .
+. . . B . . .
+. . S B B . .
+. S S B B S .
+. S S S B S .
+. B S S B S .
+. . S . B S .
+alfaBeta 2.072 saniye sürdü
+Hamle 11 S 2x1:
+. . . . . . .
+. . . B . . .
+. . S B B . .
+. S S B B S .
+. S S S B S .
+. S S S B S .
+. S S . B S .
+alfaBeta 1.127 saniye sürdü
+Hamle 12 B 2x5:
+. . . . . . .
+. . . B . . .
+. B B B B . .
+. S B B B S .
+. S S B B S .
+. S S S B S .
+. S S . B S .
+alfaBeta 1.234 saniye sürdü
+Hamle 13 S 4x1:
+. . . . . . .
+. . . B . . .
+. B B B B . .
+. S B B B S .
+. S S B B S .
+. S S S S S .
+. S S S S S .
+alfaBeta 0.584 saniye sürdü
+Hamle 14 B 1x3:
+. . . . . . .
+. . . B . . .
+. B B B B . .
+. B B B B S .
+B B B B B S .
+. S S S S S .
+. S S S S S .
+alfaBeta 0.438 saniye sürdü
+Hamle 15 S 5x6:
+. . . . . . .
+. . . B S . .
+. B B B S . .
+. B B B S S .
+B B B B S S .
+. S S S S S .
+. S S S S S .
+alfaBeta 0.567 saniye sürdü
+Hamle 16 B 6x5:
+. . . . . . .
+. . . B S . .
+. B B B B B .
+. B B B B S .
+B B B B S S .
+. S S S S S .
+. S S S S S .
+alfaBeta 0.616 saniye sürdü
+Hamle 17 S 1x2:
+. . . . . . .
+. . . B S . .
+. B B S B B .
+. B S B B S .
+B S B B S S .
+S S S S S S .
+. S S S S S .
+alfaBeta 0.528 saniye sürdü
+Hamle 18 B 3x6:
+. . . . . . .
+. . B B S . .
+. B B B B B .
+. B S B B S .
+B S B B S S .
+S S S S S S .
+. S S S S S .
+alfaBeta 0.435 saniye sürdü
+Hamle 19 S 7x4:
+. . . . . . .
+. . B B S . .
+. B B B B S .
+. B S B B S S
+B S B B S S .
+S S S S S S .
+. S S S S S .
+alfaBeta 0.369 saniye sürdü
+Hamle 20 B 7x5:
+. . . . . . .
+. . B B S . .
+. B B B B B B
+. B S B B S S
+B S B B S S .
+S S S S S S .
+. S S S S S .
+alfaBeta 0.283 saniye sürdü
+Hamle 21 S 2x7:
+. S . . . . .
+. . S B S . .
+. B B S B B B
+. B S B S S S
+B S B B S S .
+S S S S S S .
+. S S S S S .
+alfaBeta 0.258 saniye sürdü
+Hamle 22 B 6x6:
+. S . . . . .
+. . S B B B .
+. B B S B B B
+. B S B S S S
+B S B B S S .
+S S S S S S .
+. S S S S S .
+alfaBeta 0.215 saniye sürdü
+Hamle 23 S 1x6:
+. S . . . . .
+S . S B B B .
+. S B S B B B
+. B S B S S S
+B S B B S S .
+S S S S S S .
+. S S S S S .
+alfaBeta 0.119 saniye sürdü
+Hamle 24 B 2x6:
+. S . . . . .
+S B B B B B .
+. B B S B B B
+. B S B S S S
+B S B B S S .
+S S S S S S .
+. S S S S S .
+alfaBeta 0.128 saniye sürdü
+Hamle 25 S 6x7:
+. S . . . S .
+S B B B S S .
+. B B S B S B
+. B S B S S S
+B S B B S S .
+S S S S S S .
+. S S S S S .
+alfaBeta 0.106 saniye sürdü
+Hamle 26 B 5x7:
+. S . . B S .
+S B B B B B .
+. B B S B S B
+. B S B S S S
+B S B B S S .
+S S S S S S .
+. S S S S S .
+alfaBeta 0.088 saniye sürdü
+Hamle 27 S 4x7:
+. S . S S S .
+S B B S S B .
+. B B S B S B
+. B S B S S S
+B S B B S S .
+S S S S S S .
+. S S S S S .
+alfaBeta 0.081 saniye sürdü
+Hamle 28 B 7x6:
+. S . S S S .
+S B B S S B B
+. B B S B B B
+. B S B B S S
+B S B B S S .
+S S S S S S .
+. S S S S S .
+alfaBeta 0.021 saniye sürdü
+Hamle 29 S 1x5:
+. S . S S S .
+S B B S S B B
+S S S S B B B
+. S S B B S S
+B S S B S S .
+S S S S S S .
+. S S S S S .
+alfaBeta 0.021 saniye sürdü
+Hamle 30 B 7x3:
+. S . S S S .
+S B B S S B B
+S S S S B B B
+. S S B B B B
+B S S B B B B
+S S S S S S .
+. S S S S S .
+alfaBeta 0.008 saniye sürdü
+Hamle 31 S 1x7:
+S S . S S S .
+S S B S S B B
+S S S S B B B
+. S S B B B B
+B S S B B B B
+S S S S S S .
+. S S S S S .
+alfaBeta 0.004 saniye sürdü
+Hamle 32 B 7x1:
+S S . S S S .
+S S B S S B B
+S S S S B B B
+. S S B B B B
+B S S B B B B
+S S S S S B .
+. S S S S S B
+alfaBeta 0.002 saniye sürdü
+Hamle 33 S 3x7:
+S S S S S S .
+S S S S S B B
+S S S S B B B
+. S S B B B B
+B S S B B B B
+S S S S S B .
+. S S S S S B
+alfaBeta 0.001 saniye sürdü
+Hamle 34 B 1x4:
+S S S S S S .
+S S S S S B B
+S S S S B B B
+B B B B B B B
+B S S B B B B
+S S S S S B .
+. S S S S S B
+alfaBeta 0.000 saniye sürdü
+Hamle 35 S 7x7:
+S S S S S S S
+S S S S S S B
+S S S S S B B
+B B B S B B B
+B S S B B B B
+S S S S S B .
+. S S S S S B
+alfaBeta 0.000 saniye sürdü
+Hamle 36 B 1x1:
+S S S S S S S
+S S S S S S B
+S S S S S B B
+B B B S B B B
+B S S B B B B
+B S S S S B .
+B B B B B B B
+alfaBeta 0.000 saniye sürdü
+Hamle 37 S 7x2:
+S S S S S S S
+S S S S S S S
+S S S S S B S
+B B B S S B S
+B S S B B S S
+B S S S S S S
+B B B B B B B
+alfaBeta 0.000 saniye sürdü
+alfaBeta 0.000 saniye sürdü
+Oyun bitti.
+Beyazlar: 16
+Siyahlar: 33
+Oyun 37 kere dallandı. Dal sayıları: 13,10,10,10,10,12,13,11,15,13,12,13,10,9,10,8,11,9,10,9,9,8,10,6,9,7,7,6,5,6,5,4,4,2,2,1,1
+Ortalama dal sayısı: 8.4
+En iri dal sayısı: 15
+7 x 7 ustalık: Kalfa 48.297 saniye sürdü
+** 7 x 7 ustalık: Çırak 10.806 saniye sürdü
+. . . . . . .
+. . . B . . .
+. . S S B . .
+. S B . B S .
+. . B S S . .
+. . . B . . .
+. . . . . . .
+alfaBeta 0.790 saniye sürdü
+Hamle 1 S 5x1:
+. . . . . . .
+. . . B . . .
+. . S S B . .
+. S B . B S .
+. . S S S . .
+. . . S . . .
+. . . . S . .
+alfaBeta 0.469 saniye sürdü
+Hamle 2 B 3x2:
+. . . . . . .
+. . . B . . .
+. . S S B . .
+. S B . B S .
+. . B B S . .
+. . B S . . .
+. . . . S . .
+alfaBeta 0.530 saniye sürdü
+Hamle 3 S 3x1:
+. . . . . . .
+. . . B . . .
+. . S S B . .
+. S S . B S .
+. . S B S . .
+. . S S . . .
+. . S . S . .
+alfaBeta 0.339 saniye sürdü
+Hamle 4 B 1x3:
+. . . . . . .
+. . . B . . .
+. . B S B . .
+. B S . B S .
+B . S B S . .
+. . S S . . .
+. . S . S . .
+alfaBeta 0.335 saniye sürdü
+Hamle 5 S 6x5:
+. . . . . . .
+. . . B . . .
+. . B S S S .
+. B S . S S .
+B . S S S . .
+. . S S . . .
+. . S . S . .
+alfaBeta 0.126 saniye sürdü
+Hamle 6 B 7x3:
+. . . . . . .
+. . . B . . .
+. . B S B S .
+. B S . S B .
+B . S S S . B
+. . S S . . .
+. . S . S . .
+alfaBeta 0.206 saniye sürdü
+Hamle 7 S 6x3:
+. . . . . . .
+. . . B . . .
+. . B S B S .
+. B S . S S .
+B . S S S S B
+. . S S . . .
+. . S . S . .
+alfaBeta 0.179 saniye sürdü
+Hamle 8 B 2x3:
+. . . . . . .
+. . . B . . .
+. . B S B S .
+. B S . S S .
+B B B B B B B
+. . S S . . .
+. . S . S . .
+alfaBeta 0.458 saniye sürdü
+Hamle 9 S 5x2:
+. . . . . . .
+. . . B . . .
+. . B S B S .
+. B S . S S .
+B B B S S B B
+. . S S S . .
+. . S . S . .
+alfaBeta 0.276 saniye sürdü
+Hamle 10 B 4x1:
+. . . . . . .
+. . . B . . .
+. . B S B S .
+. B S . S S .
+B B B S S B B
+. . B S B . .
+. . S B S . .
+alfaBeta 0.358 saniye sürdü
+Hamle 11 S 6x2:
+. . . . . . .
+. . . B . . .
+. . B S B S .
+. B S . S S .
+B B B S S S B
+. . B S S S .
+. . S B S . .
+alfaBeta 0.230 saniye sürdü
+Hamle 12 B 4x4:
+. . . . . . .
+. . . B . . .
+. . B B B S .
+. B B B S S .
+B B B B S S B
+. . B B S S .
+. . S B S . .
+alfaBeta 0.305 saniye sürdü
+Hamle 13 S 2x5:
+. . . . . . .
+. . . B . . .
+. S S S S S .
+. B S B S S .
+B B B S S S B
+. . B B S S .
+. . S B S . .
+alfaBeta 0.287 saniye sürdü
+Hamle 14 B 7x4:
+. . . . . . .
+. . . B . . .
+. S S S S S .
+. B S B B B B
+B B B S S B B
+. . B B B S .
+. . S B S . .
+alfaBeta 0.274 saniye sürdü
+Hamle 15 S 2x2:
+. . . . . . .
+. . . B . . .
+. S S S S S .
+. S S S B B B
+B S S S S B B
+. S S S S S .
+. . S B S . .
+alfaBeta 0.176 saniye sürdü
+Hamle 16 B 1x4:
+. . . . . . .
+. . . B . . .
+. S S S S S .
+B B B B B B B
+B B S S S B B
+. S B S S S .
+. . S B S . .
+alfaBeta 0.242 saniye sürdü
+Hamle 17 S 1x2:
+. . . . . . .
+. . . B . . .
+. S S S S S .
+B B S B B B B
+B S S S S B B
+S S B S S S .
+. . S B S . .
+alfaBeta 0.214 saniye sürdü
+Hamle 18 B 3x6:
+. . . . . . .
+. . B B . . .
+. B B B S S .
+B B B B B B B
+B S B S S B B
+S S B S S S .
+. . S B S . .
+alfaBeta 0.216 saniye sürdü
+Hamle 19 S 1x5:
+. . . . . . .
+. . B B . . .
+S S S S S S .
+S S B B B B B
+S S S S S B B
+S S B S S S .
+. . S B S . .
+alfaBeta 0.219 saniye sürdü
+Hamle 20 B 6x1:
+. . . . . . .
+. . B B . . .
+S S S S S S .
+S S B B B B B
+S S S B S B B
+S S B S B B .
+. . S B B B .
+alfaBeta 0.176 saniye sürdü
+Hamle 21 S 7x1:
+. . . . . . .
+. . B B . . .
+S S S S S S .
+S S B B B B B
+S S S B S B B
+S S B S B S .
+. . S S S S S
+alfaBeta 0.130 saniye sürdü
+Hamle 22 B 1x1:
+. . . . . . .
+. . B B . . .
+S S S S S S .
+S S B B B B B
+S S B B S B B
+S B B S B S .
+B . S S S S S
+alfaBeta 0.083 saniye sürdü
+Hamle 23 S 3x7:
+. . S . . . .
+. . S S . . .
+S S S S S S .
+S S B B B B B
+S S B B S B B
+S B B S B S .
+B . S S S S S
+alfaBeta 0.054 saniye sürdü
+Hamle 24 B 1x6:
+. . S . . . .
+B . S S . . .
+B B S S S S .
+B S B B B B B
+B S B B S B B
+B B B S B S .
+B . S S S S S
+alfaBeta 0.044 saniye sürdü
+Hamle 25 S 2x1:
+. . S . . . .
+B . S S . . .
+B B S S S S .
+B S B B S B B
+B S B S S B B
+B S S S B S .
+B S S S S S S
+alfaBeta 0.045 saniye sürdü
+Hamle 26 B 5x6:
+. . S . . . .
+B . S S B . .
+B B S B B B .
+B S B B B B B
+B S B S B B B
+B S S S B S .
+B S S S S S S
+alfaBeta 0.035 saniye sürdü
+Hamle 27 S 6x6:
+. . S . . . .
+B . S S S S .
+B B S B S S .
+B S B S B S B
+B S S S B S B
+B S S S B S .
+B S S S S S S
+alfaBeta 0.040 saniye sürdü
+Hamle 28 B 7x7:
+. . S . . . B
+B . S S S B .
+B B S B B S .
+B S B B B S B
+B S B S B S B
+B B S S B S .
+B S S S S S S
+alfaBeta 0.021 saniye sürdü
+Hamle 29 S 7x6:
+. . S . . . B
+B . S S S S S
+B B S B B S .
+B S B B B S B
+B S B S B S B
+B B S S B S .
+B S S S S S S
+alfaBeta 0.030 saniye sürdü
+Hamle 30 B 4x7:
+. . S B . . B
+B . B B B S S
+B B S B B B .
+B S B B B S B
+B S B S B S B
+B B S S B S .
+B S S S S S S
+alfaBeta 0.008 saniye sürdü
+Hamle 31 S 5x7:
+. . S S S . B
+B . B S S S S
+B B S B S B .
+B S B B S S B
+B S B S S S B
+B B S S S S .
+B S S S S S S
+alfaBeta 0.007 saniye sürdü
+Hamle 32 B 7x5:
+. . S S S . B
+B . B S S S B
+B B S B S B B
+B S B B S S B
+B S B S S S B
+B B S S S S .
+B S S S S S S
+alfaBeta 0.003 saniye sürdü
+Hamle 33 S 2x7:
+. S S S S . B
+B . S S S S B
+B B S S S B B
+B S B B S S B
+B S B S S S B
+B B S S S S .
+B S S S S S S
+alfaBeta 0.002 saniye sürdü
+Hamle 34 B 6x7:
+. S S S S B B
+B . S S B B B
+B B S B S B B
+B S B B S S B
+B S B S S S B
+B B S S S S .
+B S S S S S S
+alfaBeta 0.001 saniye sürdü
+Hamle 35 S 2x6:
+. S S S S B B
+B S S S B B B
+B S S B S B B
+B S B B S S B
+B S B S S S B
+B B S S S S .
+B S S S S S S
+alfaBeta 0.000 saniye sürdü
+Hamle 36 B 7x2:
+. S S S S B B
+B S S S B B B
+B S S B S B B
+B S B B B S B
+B S B S S B B
+B B B B B B B
+B S S S S S S
+alfaBeta 0.000 saniye sürdü
+alfaBeta 0.000 saniye sürdü
+Yasal hamle yok. Sıra yine beyazın
+Hamle 37 B 1x7:
+B B B B B B B
+B B S S B B B
+B S B B S B B
+B S B B B S B
+B S B S S B B
+B B B B B B B
+B S S S S S S
+alfaBeta 0.000 saniye sürdü
+alfaBeta 0.000 saniye sürdü
+Oyun bitti.
+Beyazlar: 34
+Siyahlar: 15
+Oyun 37 kere dallandı. Dal sayıları: 13,10,10,11,11,3,9,4,12,6,13,8,9,11,11,7,8,10,8,10,8,7,7,8,4,8,7,9,3,7,5,4,2,3,1,2,1
+Ortalama dal sayısı: 7.3
+En iri dal sayısı: 13
+7 x 7 ustalık: Er 10.806 saniye sürdü
+** 7 x 7 ustalık: Er 7.263 saniye sürdü
+. . . . . . .
+. . . B . . .
+. . S S B . .
+. S B . B S .
+. . B S S . .
+. . . B . . .
+. . . . . . .
+alfaBeta 0.245 saniye sürdü
+Hamle 1 S 2x5:
+. . . . . . .
+. . . B . . .
+. S S S B . .
+. S S . B S .
+. . B S S . .
+. . . B . . .
+. . . . . . .
+alfaBeta 0.127 saniye sürdü
+Hamle 2 B 3x2:
+. . . . . . .
+. . . B . . .
+. S S S B . .
+. S S . B S .
+. . B B S . .
+. . B B . . .
+. . . . . . .
+alfaBeta 0.136 saniye sürdü
+Hamle 3 S 5x2:
+. . . . . . .
+. . . B . . .
+. S S S B . .
+. S S . B S .
+. . B S S . .
+. . B B S . .
+. . . . . . .
+alfaBeta 0.117 saniye sürdü
+Hamle 4 B 6x3:
+. . . . . . .
+. . . B . . .
+. S S S B . .
+. S S . B S .
+. . B B B B .
+. . B B S . .
+. . . . . . .
+alfaBeta 0.193 saniye sürdü
+Hamle 5 S 2x2:
+. . . . . . .
+. . . B . . .
+. S S S B . .
+. S S . B S .
+. . B B B B .
+. S S S S . .
+. . . . . . .
+alfaBeta 0.195 saniye sürdü
+Hamle 6 B 4x4:
+. . . . . . .
+. . . B . . .
+. S S B B . .
+. S S B B S .
+. . B B B B .
+. S S S S . .
+. . . . . . .
+alfaBeta 0.150 saniye sürdü
+Hamle 7 S 5x7:
+. . . . S . .
+. . . S . . .
+. S S B B . .
+. S S B B S .
+. . B B B B .
+. S S S S . .
+. . . . . . .
+alfaBeta 0.197 saniye sürdü
+Hamle 8 B 7x3:
+. . . . S . .
+. . . S . . .
+. S S B B . .
+. S S B B B .
+. . B B B B B
+. S S S S . .
+. . . . . . .
+alfaBeta 0.096 saniye sürdü
+Hamle 9 S 6x2:
+. . . . S . .
+. . . S . . .
+. S S B B . .
+. S S S B B .
+. . B B S B B
+. S S S S S .
+. . . . . . .
+alfaBeta 0.149 saniye sürdü
+Hamle 10 B 1x1:
+. . . . S . .
+. . . S . . .
+. S S B B . .
+. S S S B B .
+. . B B S B B
+. B S S S S .
+B . . . . . .
+alfaBeta 0.108 saniye sürdü
+Hamle 11 S 6x6:
+. . . . S . .
+. . . S . S .
+. S S B S . .
+. S S S B B .
+. . B B S B B
+. B S S S S .
+B . . . . . .
+alfaBeta 0.192 saniye sürdü
+Hamle 12 B 6x5:
+. . . . S . .
+. . . S . S .
+. S S B B B .
+. S S S B B .
+. . B B S B B
+. B S S S S .
+B . . . . . .
+alfaBeta 0.087 saniye sürdü
+Hamle 13 S 1x2:
+. . . . S . .
+. . . S . S .
+. S S B B B .
+. S S S B B .
+. . B B S B B
+S S S S S S .
+B . . . . . .
+alfaBeta 0.165 saniye sürdü
+Hamle 14 B 3x6:
+. . . . S . .
+. . B S . S .
+. S B B B B .
+. S B S B B .
+. . B B S B B
+S S S S S S .
+B . . . . . .
+alfaBeta 0.131 saniye sürdü
+Hamle 15 S 2x3:
+. . . . S . .
+. . B S . S .
+. S B B B B .
+. S B S B B .
+. S S S S B B
+S S S S S S .
+B . . . . . .
+alfaBeta 0.171 saniye sürdü
+Hamle 16 B 6x7:
+. . . . S B .
+. . B S . B .
+. S B B B B .
+. S B S B B .
+. S S S S B B
+S S S S S S .
+B . . . . . .
+alfaBeta 0.101 saniye sürdü
+Hamle 17 S 7x6:
+. . . . S B .
+. . B S . B S
+. S B B B S .
+. S B S S B .
+. S S S S B B
+S S S S S S .
+B . . . . . .
+alfaBeta 0.223 saniye sürdü
+Hamle 18 B 7x1:
+. . . . S B .
+. . B S . B S
+. S B B B S .
+. S B B S B .
+. S S S B B B
+S S S S S B .
+B . . . . . B
+alfaBeta 0.102 saniye sürdü
+Hamle 19 S 2x6:
+. . . . S B .
+. S S S . B S
+. S B B B S .
+. S B B S B .
+. S S S B B B
+S S S S S B .
+B . . . . . B
+alfaBeta 0.116 saniye sürdü
+Hamle 20 B 4x1:
+. . . . S B .
+. S S S . B S
+. S B B B S .
+. S B B S B .
+. S S B B B B
+S S S B B B .
+B . . B . . B
+alfaBeta 0.077 saniye sürdü
+Hamle 21 S 7x4:
+. . . . S B .
+. S S S . B S
+. S B B B S .
+. S B B S S S
+. S S B B B B
+S S S B B B .
+B . . B . . B
+alfaBeta 0.095 saniye sürdü
+Hamle 22 B 2x1:
+. . . . S B .
+. S S S . B S
+. S B B B S .
+. S B B S S S
+. S S B B B B
+S S B B B B .
+B B . B . . B
+alfaBeta 0.051 saniye sürdü
+Hamle 23 S 7x5:
+. . . . S B .
+. S S S . S S
+. S B B B S S
+. S B B S S S
+. S S B B B B
+S S B B B B .
+B B . B . . B
+alfaBeta 0.054 saniye sürdü
+Hamle 24 B 1x6:
+. . . . S B .
+B S S S . S S
+. B B B B S S
+. S B B S S S
+. S S B B B B
+S S B B B B .
+B B . B . . B
+alfaBeta 0.045 saniye sürdü
+Hamle 25 S 1x5:
+. . . . S B .
+B S S S . S S
+S S S S S S S
+. S B B S S S
+. S S B B B B
+S S B B B B .
+B B . B . . B
+alfaBeta 0.052 saniye sürdü
+Hamle 26 B 1x7:
+B . . . S B .
+B B S S . S S
+S S B S S S S
+. S B B S S S
+. S S B B B B
+S S B B B B .
+B B . B . . B
+alfaBeta 0.039 saniye sürdü
+Hamle 27 S 3x7:
+B . S . S B .
+B S S S . S S
+S S B S S S S
+. S B B S S S
+. S S B B B B
+S S B B B B .
+B B . B . . B
+alfaBeta 0.026 saniye sürdü
+Hamle 28 B 1x4:
+B . S . S B .
+B S S S . S S
+B S B S S S S
+B B B B S S S
+. B S B B B B
+S S B B B B .
+B B . B . . B
+alfaBeta 0.025 saniye sürdü
+Hamle 29 S 1x3:
+B . S . S B .
+B S S S . S S
+B S S S S S S
+B S B B S S S
+S S S B B B B
+S S B B B B .
+B B . B . . B
+alfaBeta 0.007 saniye sürdü
+Hamle 30 B 4x7:
+B . S B B B .
+B S B B . S S
+B B S B S S S
+B S B B S S S
+S S S B B B B
+S S B B B B .
+B B . B . . B
+alfaBeta 0.008 saniye sürdü
+Hamle 31 S 3x1:
+B . S B B B .
+B S B B . S S
+B B S B S S S
+B S B B S S S
+S S S B S B B
+S S S S B B .
+B B S B . . B
+alfaBeta 0.004 saniye sürdü
+Hamle 32 B 5x1:
+B . S B B B .
+B S B B . S S
+B B S B S S S
+B B B B S S S
+S S B B S B B
+S S S B B B .
+B B S B B . B
+alfaBeta 0.008 saniye sürdü
+Hamle 33 S 7x2:
+B . S B B B .
+B S B B . S S
+B B S B S S S
+B B B B S S S
+S S B B S S S
+S S S S S S S
+B B S B B . B
+alfaBeta 0.004 saniye sürdü
+Hamle 34 B 6x1:
+B . S B B B .
+B S B B . B S
+B B S B S B S
+B B B B S B S
+S S B B S B S
+S S S S B B S
+B B S B B B B
+alfaBeta 0.004 saniye sürdü
+Hamle 35 S 5x6:
+B . S B B B .
+B S S S S S S
+B B S S S S S
+B B S B S B S
+S S B B S B S
+S S S S B B S
+B B S B B B B
+alfaBeta 0.000 saniye sürdü
+Hamle 36 B 7x7:
+B . S B B B B
+B S S S S B B
+B B S S B S B
+B B S B S B B
+S S B B S B B
+S S S S B B B
+B B S B B B B
+alfaBeta 0.000 saniye sürdü
+alfaBeta 0.000 saniye sürdü
+Yasal hamle yok. Sıra yine beyazın
+Hamle 37 B 2x7:
+B B B B B B B
+B B B S S B B
+B B S B B S B
+B B S B B B B
+S S B B S B B
+S S S S B B B
+B B S B B B B
+alfaBeta 0.000 saniye sürdü
+alfaBeta 0.000 saniye sürdü
+Oyun bitti.
+Beyazlar: 36
+Siyahlar: 13
+Oyun 37 kere dallandı. Dal sayıları: 13,10,11,10,12,15,8,18,6,13,7,16,6,15,8,15,8,13,10,13,7,11,7,9,8,8,7,6,6,4,7,4,5,4,3,2,1
+Ortalama dal sayısı: 8.8
+En iri dal sayısı: 18
+* ABa.ustalık(Deha) 6x6 çabuk bitti
+özdevinimliOyun(abArama, 0.1)
+. . . . . .
+. . . . . .
+. . S B . .
+. . B S . .
+. . . . . .
+. . . . . .
+alfaBeta 1.805 saniye sürdü
+Hamle 1 S 3x2:
+. . . . . .
+. . . . . .
+. . S B . .
+. . S S . .
+. . S . . .
+. . . . . .
+alfaBeta 1.373 saniye sürdü
+Hamle 2 B 2x2:
+. . . . . .
+. . . . . .
+. . S B . .
+. . B S . .
+. B S . . .
+. . . . . .
+alfaBeta 1.975 saniye sürdü
+Hamle 3 S 1x2:
+. . . . . .
+. . . . . .
+. . S B . .
+. . B S . .
+S S S . . .
+. . . . . .
+alfaBeta 1.579 saniye sürdü
+Hamle 4 B 1x1:
+. . . . . .
+. . . . . .
+. . S B . .
+. . B S . .
+S B S . . .
+B . . . . .
+alfaBeta 0.969 saniye sürdü
+Hamle 5 S 5x4:
+. . . . . .
+. . . . . .
+. . S S S .
+. . B S . .
+S B S . . .
+B . . . . .
+alfaBeta 2.244 saniye sürdü
+Hamle 6 B 4x2:
+. . . . . .
+. . . . . .
+. . S S S .
+. . B S . .
+S B B B . .
+B . . . . .
+alfaBeta 2.892 saniye sürdü
+Hamle 7 S 5x2:
+. . . . . .
+. . . . . .
+. . S S S .
+. . B S . .
+S S S S S .
+B . . . . .
+alfaBeta 2.033 saniye sürdü
+Hamle 8 B 3x1:
+. . . . . .
+. . . . . .
+. . S S S .
+. . B S . .
+S S B S S .
+B . B . . .
+alfaBeta 1.125 saniye sürdü
+Hamle 9 S 2x1:
+. . . . . .
+. . . . . .
+. . S S S .
+. . B S . .
+S S S S S .
+B S B . . .
+alfaBeta 2.173 saniye sürdü
+Hamle 10 B 1x3:
+. . . . . .
+. . . . . .
+. . S S S .
+B . B S . .
+B B S S S .
+B S B . . .
+alfaBeta 0.915 saniye sürdü
+Hamle 11 S 4x1:
+. . . . . .
+. . . . . .
+. . S S S .
+B . B S . .
+B B S S S .
+B S S S . .
+alfaBeta 2.400 saniye sürdü
+Hamle 12 B 6x2:
+. . . . . .
+. . . . . .
+. . S S S .
+B . B S . .
+B B B B B B
+B S S S . .
+alfaBeta 0.517 saniye sürdü
+Hamle 13 S 6x1:
+. . . . . .
+. . . . . .
+. . S S S .
+B . B S . .
+B B B B S B
+B S S S . S
+alfaBeta 1.396 saniye sürdü
+Hamle 14 B 3x5:
+. . . . . .
+. . B . . .
+. . B S S .
+B . B S . .
+B B B B S B
+B S S S . S
+alfaBeta 2.291 saniye sürdü
+Hamle 15 S 3x6:
+. . S . . .
+. . S . . .
+. . S S S .
+B . S S . .
+B B S B S B
+B S S S . S
+alfaBeta 0.924 saniye sürdü
+Hamle 16 B 5x1:
+. . S . . .
+. . S . . .
+. . S S S .
+B . S S . .
+B B S B S B
+B B B B B S
+alfaBeta 0.070 saniye sürdü
+Hamle 17 S 6x3:
+. . S . . .
+. . S . . .
+. . S S S .
+B . S S . S
+B B S B S S
+B B B B B S
+alfaBeta 0.231 saniye sürdü
+Hamle 18 B 5x5:
+. . S . . .
+. . S . B .
+. . S B S .
+B . B S . S
+B B S B S S
+B B B B B S
+alfaBeta 0.305 saniye sürdü
+Hamle 19 S 5x6:
+. . S . S .
+. . S . S .
+. . S B S .
+B . B S . S
+B B S B S S
+B B B B B S
+alfaBeta 0.470 saniye sürdü
+Hamle 20 B 2x3:
+. . S . S .
+. . S . S .
+. . S B S .
+B B B S . S
+B B B B S S
+B B B B B S
+alfaBeta 0.058 saniye sürdü
+Hamle 21 S 5x3:
+. . S . S .
+. . S . S .
+. . S S S .
+B B B S S S
+B B B B S S
+B B B B B S
+alfaBeta 0.054 saniye sürdü
+Hamle 22 B 6x4:
+. . S . S .
+. . S . S .
+. . S S S B
+B B B S B S
+B B B B S S
+B B B B B S
+alfaBeta 0.021 saniye sürdü
+Hamle 23 S 6x5:
+. . S . S .
+. . S . S S
+. . S S S S
+B B B S B S
+B B B B S S
+B B B B B S
+alfaBeta 0.030 saniye sürdü
+Hamle 24 B 6x6:
+. . S . S B
+. . S . B S
+. . S B S S
+B B B S B S
+B B B B S S
+B B B B B S
+alfaBeta 0.009 saniye sürdü
+Hamle 25 S 4x5:
+. . S . S B
+. . S S S S
+. . S S S S
+B B B S B S
+B B B B S S
+B B B B B S
+alfaBeta 0.004 saniye sürdü
+Hamle 26 B 2x6:
+. B S . S B
+. . B S S S
+. . S B S S
+B B B S B S
+B B B B S S
+B B B B B S
+alfaBeta 0.003 saniye sürdü
+Hamle 27 S 1x6:
+S S S . S B
+. . B S S S
+. . S B S S
+B B B S B S
+B B B B S S
+B B B B B S
+alfaBeta 0.002 saniye sürdü
+Hamle 28 B 2x4:
+S S S . S B
+. . B S S S
+. B B B S S
+B B B S B S
+B B B B S S
+B B B B B S
+alfaBeta 0.001 saniye sürdü
+Hamle 29 S 1x4:
+S S S . S B
+. . B S S S
+S S S S S S
+B B B S B S
+B B B B S S
+B B B B B S
+alfaBeta 0.001 saniye sürdü
+Hamle 30 B 1x5:
+S S S . S B
+B . B S S S
+B B S S S S
+B B B S B S
+B B B B S S
+B B B B B S
+alfaBeta 0.001 saniye sürdü
+Hamle 31 S 2x5:
+S S S . S B
+B S S S S S
+B B S S S S
+B B B S B S
+B B B B S S
+B B B B B S
+alfaBeta 0.000 saniye sürdü
+Hamle 32 B 4x6:
+S S S B B B
+B S B B S S
+B B S B S S
+B B B B B S
+B B B B S S
+B B B B B S
+alfaBeta 0.000 saniye sürdü
+alfaBeta 0.000 saniye sürdü
+Oyun bitti.
+Beyazlar: 23
+Siyahlar: 13
+Oyun 32 kere dallandı. Dal sayıları: 4,3,4,6,3,6,5,6,3,5,3,5,4,6,7,4,1,6,4,7,2,4,1,3,2,2,2,2,2,3,1,1
+Ortalama dal sayısı: 3.7
+En iri dal sayısı: 7
+* Eski 8x8
 . . . . . . . .
 . . . . . . . .
 . . . . . . . .
@@ -606,3 +4768,4 @@ B S B B B S B S
 B B B S B B B S
 B B B S B B B S
 B B B B B B S S
+* The End
