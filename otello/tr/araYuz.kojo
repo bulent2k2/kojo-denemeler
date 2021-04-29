@@ -3,7 +3,10 @@
 //#include bellek
 //#include alfabeta
 
-class Arayüz(tahta: ETahta, bellek: Bellek) { // tahtayı ve taşları çizelim ve canlandıralım
+class Arayüz( // tahtayı ve taşları çizelim ve canlandıralım
+    tahta:      ETahta,
+    bellek:     Bellek,
+    bilgisayar: Taş) {
     private def tahtayıKur = {
         silVeSakla; /* tümEkranTuval; */ artalanıKur(koyuGri)
         val içKöşeler = EsnekDizim.boş[Resim]
@@ -49,6 +52,14 @@ class Arayüz(tahta: ETahta, bellek: Bellek) { // tahtayı ve taşları çizelim
                             satıryaz(s"Yasal hamle yok. Sıra yine ${tahta.oyuncu().adı}ın")
                             skoruGüncelle
                         }
+                        else {
+                            if (tahta.oyuncu() == bilgisayar && !tahta.hamleYoksa) {
+                                skorBilgisayarHamleArıyor
+                                /* burada yaparsak abArama sırasında herşey donuyor ve bizim
+                                   aldığımız taşlar abArama hamlesini yapana kadar dönmüyor */
+                                // öneri // todo
+                            }
+                        }
                     }
                 case _ =>
             }
@@ -74,6 +85,8 @@ class Arayüz(tahta: ETahta, bellek: Bellek) { // tahtayı ve taşları çizelim
         k.fareÇıkınca { (_, _) =>
             k.boyamaRenginiKur(odaRengi)
             ipucu.gizle()
+            // todo: çıkmadan, ya da tekrar tıklamadan çalışmıyor!
+            if (tahta.oyuncu() == bilgisayar && !tahta.hamleYoksa) öneri
         }
     }
     private val boşOdaRengi = Renk(10, 111, 23) // koyuYeşil
@@ -184,6 +197,7 @@ class Arayüz(tahta: ETahta, bellek: Bellek) { // tahtayı ve taşları çizelim
         bellek.başaAl()
         skorBaşlangıç
         hamleResminiSil
+        if (tahta.oyuncu() == bilgisayar && !tahta.hamleYoksa) öneri
     }
 
     def hamleyiYap(yasal: Dizi[Komşu], hane: Oda, duraklamaSüresi: Kesir = 0.0): Birim = {
@@ -333,7 +347,13 @@ class Arayüz(tahta: ETahta, bellek: Bellek) { // tahtayı ve taşları çizelim
         d.fareGirince { (_, _) =>
             d.kalemRenginiKur(if (tahta.yasallar.isEmpty) kırmızı else beyaz)
         }
-        d.fareyeTıklayınca { (_, _) => öneri }
+        /* todo: çalışmadı
+        var running = yanlış
+        def run(flag: => İkil) = flag
+        d.fareyeTıklayınca { (_, _) => running = doğru; skorBilgisayarHamleArıyor }
+        d.fareÇıkınca { (_, _) => if (run(running)) öneri; running = yanlış; düğmeTepkisi(d) } */
+        // todo: skor ne yazık ki güncellenmiyor arama sırasında bütün arayüz donuyor
+        d.fareyeTıklayınca { (_, _) => skorBilgisayarHamleArıyor; öneri }
     }
     private val d1 = {
         val d = düğme(dx, dy + boy, sarı, "seçenekler")
@@ -354,7 +374,7 @@ class Arayüz(tahta: ETahta, bellek: Bellek) { // tahtayı ve taşları çizelim
     private val skorYazısı = {
         val y = {
             val tahtaTavanı = dy + (odaSayısı - 0.75) * boy
-            val düğmelerinTavanı = dy + 4.75 * boy
+            val düğmelerinTavanı = dy + 5 * boy
             enİrisi(tahtaTavanı, düğmelerinTavanı)
         }
         val yazı = götür(dx - b3, y) -> Resim.yazıRenkli(s"", 20, sarı)
@@ -372,6 +392,7 @@ class Arayüz(tahta: ETahta, bellek: Bellek) { // tahtayı ve taşları çizelim
     }
     def skorBaşlangıç = skorYazısı.güncelle(s"${tahta.oyuncu().adı.capitalize} başlar")
     def skoruGüncelle = skorYazısı.güncelle(s"${tahta.hamleSayısı()}. hamle${if (bellek.sıraGeriDöndüMü) " yine " else " "}${tahta.oyuncu().adı}ın\n${tahta.kaçkaç(doğru)}")
+    def skorBilgisayarHamleArıyor = skorYazısı.güncelle(s"${tahta.hamleSayısı()}. hamle. Bilgisayar arıyor...\n${tahta.kaçkaç(doğru)}")
     skorBaşlangıç
 
     private val ipucu = Resim.yazıRenkli("", 20, kırmızı)
@@ -385,4 +406,7 @@ class Arayüz(tahta: ETahta, bellek: Bellek) { // tahtayı ve taşları çizelim
             case _               =>
         }
     }
+
+    if (tahta.oyuncu() == bilgisayar && !tahta.hamleYoksa) öneri
+
 }

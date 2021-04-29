@@ -5,14 +5,15 @@
 
 çıktıyıSil
 val çeşni = 0 // ya da 1
-val odaSayısı = 4
+val odaSayısı = 8
 val kimBaşlar = Siyah // Beyaz ya da Siyah başlayabilir. Seç :-)
+val bilgisayar = Siyah // Siyah ya da Beyaz oynar ya da Yok (yani oynamaz)
 
 val tahta = new ETahta(odaSayısı, kimBaşlar, çeşni)
 val bellek = new Bellek(tahta)
-val araYüz = new Arayüz(tahta, bellek)
+val araYüz = new Arayüz(tahta, bellek, bilgisayar)
 
-val düzey = Er
+val düzey = Usta
 //özdevin(0.02) // bilgisayar çabucak bir oyunla başlayabilir istersen
 ABa.ustalık(düzey)
 /*

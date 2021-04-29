@@ -7,11 +7,16 @@ val açıklama = <html>
  Otello'ya hoşgeldin!
   </html>.toString
 
-val ay_çeşniler = ay.Salındıraç("geleneksel", "değişik")
+val ay_çeşniler = ay.Salındıraç("geleneksel", "bir çeşni")
 val ay_tahta = ay.Salındıraç(4, 5, 6, 7, 8, 9, 10, 11, 12)
 val ay_tahta2 = ay.Salındıraç(7, 8, 9, 10, 11, 12) // todo
 val ay_ilk = ay.Salındıraç("Siyah", "Beyaz")
 val ay_düzey = ay.Salındıraç("Er", "Çırak", "Kalfa", "Usta", "Doktor", "Deha")
+val ay_bilgisayar = ay.Salındıraç(
+    "Oynamasın",
+    "Siyahları oynasın",
+    "Beyazları oynasın"
+)
 
 def menu: Birim = {
     silVeSakla
@@ -23,6 +28,7 @@ def menu: Birim = {
                 ay.Sıra(ay.Tanıt("Tahta:"), ay_tahta),
                 ay.Sıra(ay.Tanıt("Kim başlar:"), ay_ilk),
                 ay.Sıra(ay.Tanıt("Düzey:"), ay_düzey),
+                ay.Sıra(ay.Tanıt("Bilgisayar:"), ay_bilgisayar),
                 ay.Sıra(ay.Düğme("Oyna!") {
                     val odaSayısı = ay_tahta.value
                     val çeşni = ay_çeşniler.value match {
@@ -32,7 +38,7 @@ def menu: Birim = {
                     var sorunYok = doğru
                     if (çeşni != 0) {
                         if (odaSayısı < 7) {
-                            satıryaz("Değişik başlangıç taşları için 7x7 ya da daha iri bir tahta seç!")
+                            satıryaz("Çeşnili başlangıç taşları için 7x7 ya da daha iri bir tahta seç!")
                             sorunYok = yanlış
                         }
                     }
@@ -47,12 +53,19 @@ def menu: Birim = {
                         case "Usta"   => Usta
                         case "Doktor" => Doktor
                         case "Deha"   => Deha
+                        case _        => Kalfa
+                    }
+                    val bilgisayar = ay_bilgisayar.value match {
+                        case "Siyahları oynasın" => Siyah
+                        case "Beyazları oynasın" => Beyaz
+                        case "Oynamasın"         => Yok
+                        case _                   => Yok
                     }
                     if (sorunYok) {
                         val tahta = new ETahta(odaSayısı, kimBaşlar, çeşni)
                         val bellek = new Bellek(tahta)
                         çıktıyıSil
-                        new Arayüz(tahta, bellek)
+                        new Arayüz(tahta, bellek, bilgisayar)
                         ABa.ustalık(düzey)
                     }
                 })
