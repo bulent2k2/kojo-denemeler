@@ -26,6 +26,7 @@ case object G extends Yön; case object GB extends Yön
 case object B extends Yön; case object KB extends Yön
 case class Komşu(yön: Yön, oda: Oda)
 trait Ustalık
+case object ErdenAz extends Ustalık
 case object Er extends Ustalık
 case object Çırak extends Ustalık
 case object Kalfa extends Ustalık
@@ -33,6 +34,7 @@ case object Usta extends Ustalık
 case object Doktor extends Ustalık
 case object Aheste extends Ustalık
 case object Deha extends Ustalık
+case object DehadanÇok extends Ustalık
 case object ÇokSabır extends Ustalık
 
 class HamleSayısı {

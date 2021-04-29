@@ -93,7 +93,6 @@ class ETahta(
         case Oda(y, x) => 0 <= y && y < odaSayısı && 0 <= x && x < odaSayısı
     }
 
-    // üst aduzayından buraya taşınanlar:
     def hamleyiDene(oda: Oda): Dizi[Komşu] = komşularıBul(oda).filter { komşu =>
         val komşuTaş = taş(komşu.oda)
         komşuTaş != Yok && komşuTaş != oyuncu() && sonuDaYasalMı(komşu, oyuncu())._1

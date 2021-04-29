@@ -13,15 +13,9 @@ val ay_tahta2 = ay.Salındıraç(7, 8, 9, 10, 11, 12) // todo
 val ay_ilk = ay.Salındıraç("Siyah", "Beyaz")
 val ay_düzey = ay.Salındıraç("Er", "Çırak", "Kalfa", "Usta", "Doktor", "Deha")
 
-def yeniOyun = ???
-def hamleyiYap(yasal: Dizi[Komşu], hane: Oda, duraklamaSüresi: Kesir = 0.0) = ???
-def sırayıÖbürOyuncuyaGeçir = ???
-def öneri = ???
-def özdevin() = ???
-
 def menu: Birim = {
     silVeSakla
-    çiz(götür(tuvalAlanı.x, tuvalAlanı.y) ->
+    çizMerkezde(büyüt(2.0) ->
         Resim.arayüz(
             ay.Sütun(
                 ay.Sıra(ay.Tanıt(açıklama)),

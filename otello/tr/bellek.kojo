@@ -51,4 +51,9 @@ class Bellek(tahta: ETahta) {
         oyuncular.sil()
         hamleler.sil()
     }
+
+    def sıraGeriDöndüMü =
+        if (tahta.hamleSayısı() == 1) yanlış
+        else tahta.oyuncu() == oyuncular(tahta.hamleSayısı() - 2)
+
 }

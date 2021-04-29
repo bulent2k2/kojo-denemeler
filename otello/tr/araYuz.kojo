@@ -4,9 +4,6 @@
 //#include alfabeta
 
 class Arayüz(tahta: ETahta, bellek: Bellek) { // tahtayı ve taşları çizelim ve canlandıralım
-    /* arayüz sınıfının arayüzünde şunlar var sadece:
-       boya(hane, oyuncu), hamleyiGöster(hane), hamleResminiSil
-       seçenekleriGöster, skoruGüncelle */
     private def tahtayıKur = {
         silVeSakla; /* tümEkranTuval; */ artalanıKur(koyuGri)
         val içKöşeler = EsnekDizim.boş[Resim]
@@ -25,7 +22,8 @@ class Arayüz(tahta: ETahta, bellek: Bellek) { // tahtayı ve taşları çizelim
         içKöşeler.dizi.map(_.öneAl())
     }
     val odaSayısı = tahta.odaSayısı
-    val boy = 60 // karelerin boyu inç başına nokta sayısı. 64 => 1cm'de yaklaşık 25 nokta var (/ 64 2.54)
+    // karelerin boyu inç başına nokta sayısı. 64 => 1cm'de yaklaşık 25 nokta var (/ 64 2.54)
+    val boy = 50
     val (köşeX, köşeY) = (-odaSayısı / 2 * boy, -odaSayısı / 2 * boy) // tahtayı ortalamak için sol alt köşesini belirle
     val (b2, b3, b4) = (boy / 2, boy / 3, boy / 4)
     val kareninOdası = Eşlem.boş[Resim, Oda]
@@ -36,25 +34,23 @@ class Arayüz(tahta: ETahta, bellek: Bellek) { // tahtayı ve taşları çizelim
     private def odanınNoktası(oda: Oda, solAltKöşe: İkil = doğru) =
         if (solAltKöşe) Nokta(köşeX + oda.stn * boy, köşeY + oda.str * boy)
         else Nokta(köşeX + oda.stn * boy + b2, köşeY + oda.str * boy + b2)
+
     private def kareyiTanımla(k: Resim) = {
         val oda = kareninOdası(k)
         k.fareyeTıklayınca { (_, _) =>
-            var oynadıMı = yanlış
             tahta.taş(oda) match {
                 case Yok =>
                     val yasal = tahta.hamleyiDene(oda)
                     if (yasal.size > 0) {
-                        oynadıMı = doğru
                         hamleyiYap(yasal, oda)
+                        if (bittiMi) bittiKaçKaç(tahta)
+                        else if (tahta.hamleYoksa) {
+                            sırayıÖbürOyuncuyaGeçir
+                            satıryaz(s"Yasal hamle yok. Sıra yine ${tahta.oyuncu().adı}ın")
+                            skoruGüncelle
+                        }
                     }
                 case _ =>
-            }
-            if (oynadıMı && tahta.hamleYoksa) {
-                sırayıÖbürOyuncuyaGeçir
-                if (tahta.hamleYoksa)
-                    bittiKaçKaç(tahta)
-                else
-                    satıryaz(s"Yasal hamle yok. Sıra yine ${tahta.oyuncu().adı}ın")
             }
         }
         def odaRengi = taşınRengi(tahta.taş(oda))
@@ -91,6 +87,7 @@ class Arayüz(tahta: ETahta, bellek: Bellek) { // tahtayı ve taşları çizelim
 
     def bittiKaçKaç(tahta: ETahta) = if (!tahta.oyunBitti) {
         tahta.oyunBitti = doğru
+        skorBitiş
         satıryaz(s"Oyun bitti.\n${tahta.kaçkaç()}")
     }
 
@@ -151,12 +148,11 @@ class Arayüz(tahta: ETahta, bellek: Bellek) { // tahtayı ve taşları çizelim
     def ileri = {
         bellek.ileriGit
         taşlarıGüncelle
-        seçenekleriGöster
+        bittiMi
     }
     def geri = {
         bellek.geriAl
         taşlarıGüncelle
-        seçenekleriGöster
     }
     def taşlarıGüncelle = {
         for (y <- tahta.satırAralığı; x <- tahta.satırAralığı)
@@ -166,7 +162,20 @@ class Arayüz(tahta: ETahta, bellek: Bellek) { // tahtayı ve taşları çizelim
             case Biri(hane) => hamleyiGöster(hane)
             case _          => hamleResminiSil
         }
+        seçenekleriGöster
     }
+    def bittiMi = if (tahta.hamleYoksa) {
+        sırayıÖbürOyuncuyaGeçir
+        if (tahta.hamleYoksa) {
+            skorBitiş
+            doğru
+        }
+        else {
+            sırayıÖbürOyuncuyaGeçir
+            yanlış
+        }
+    }
+    else yanlış
 
     def yeniOyun = if (tahta.hamleSayısı() != 1) {
         tahta.başaAl("Yeni oyun:")
@@ -263,9 +272,10 @@ class Arayüz(tahta: ETahta, bellek: Bellek) { // tahtayı ve taşları çizelim
 
             }
             hamleyiYap(tahta.hamleyiDene(hamle), hamle)
+            bittiMi
         }
     }
-    def tahtadanTahta: Tahta = {
+    def tahtadanTahta: Tahta = { // elektronik tahtadan arama tahtası oluşturalım
         val tane = odaSayısı
         var t = new Tahta(tane, Vector.fill(tane * tane)(0))
         def diziden(dizi: Dizi[(Sayı, Sayı)])(taş: Taş) = t = t.koy(dizi.map(p => Oda(p._1, p._2)), taş)
@@ -318,7 +328,7 @@ class Arayüz(tahta: ETahta, bellek: Bellek) { // tahtayı ve taşları çizelim
     private def düğmeSeçili(d: Resim) = düğmeTepkisi(d, renksiz, beyaz)
 
     private val (dx, dy) = ((0.8 + odaSayısı) * boy + köşeX, köşeY + b2)
-    private val d0 = { // alttan birinci sırada soldan ikinci
+    private val d0 = {
         val d = düğme(dx, dy + 2 * boy, pembe, "öneri")
         d.fareGirince { (_, _) =>
             d.kalemRenginiKur(if (tahta.yasallar.isEmpty) kırmızı else beyaz)
@@ -350,8 +360,18 @@ class Arayüz(tahta: ETahta, bellek: Bellek) { // tahtayı ve taşları çizelim
         val yazı = götür(dx - b3, y) -> Resim.yazıRenkli(s"", 20, sarı)
         yazı.çiz(); yazı
     }
+    def skorBitiş = {
+        val fark = tahta.say(Beyaz) - tahta.say(Siyah)
+        val msj =
+            if (fark > 0)
+                s"Beyaz $fark taşla kazandı"
+            else if (fark < 0)
+                s"Siyah ${-fark} taşla kazandı"
+            else "Berabere!"
+        skorYazısı.güncelle(s"$msj\n${tahta.kaçkaç(doğru)}")
+    }
     def skorBaşlangıç = skorYazısı.güncelle(s"${tahta.oyuncu().adı.capitalize} başlar")
-    def skoruGüncelle = skorYazısı.güncelle(s"${tahta.hamleSayısı()}\n${tahta.kaçkaç(doğru)}")
+    def skoruGüncelle = skorYazısı.güncelle(s"${tahta.hamleSayısı()}. hamle${if (bellek.sıraGeriDöndüMü) " yine " else " "}${tahta.oyuncu().adı}ın\n${tahta.kaçkaç(doğru)}")
     skorBaşlangıç
 
     private val ipucu = Resim.yazıRenkli("", 20, kırmızı)

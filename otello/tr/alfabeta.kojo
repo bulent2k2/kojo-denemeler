@@ -1,36 +1,49 @@
 //#include anaTanimlar
 
-var i = 0
-class Oyun(tane: Sayı) {
-    val t = yeniTahta(tane)
-    val durum = new Durum(t, Siyah)
-
-    def oyna: Durum = döngü(durum)
-
-    import scala.annotation.tailrec
-    @tailrec
-    private def döngü(durum: Durum): Durum = {
-        durum.tahta.yaz("döngü")
-        i += 1
-        if (durum.oyunBittiMi) return durum
-        if (i > tane * tane) { satıryaz("çok uzadı!"); return durum }
-        val hamle = ABa.hamleYap(durum) match {
-            case Biri(oda) => oda
-            case _ => ABa.hamleYap(new Durum(durum.tahta, durum.karşıTaş)) match {
-                case Biri(oda) => oda
-                case _         => throw new Exception("Burada olmamalı")
-            }
-        }
-        val yeni = durum.oyna(hamle)
-        satıryaz(s"$i. hamle ${durum.sıra} $hamle:")
-        döngü(yeni)
-    }
-}
-
-//
-
 object ABa { // alfa-beta arama
-    def ustalık = aramaDerinliğiSınırı.toString
+    def hamleYap(durum: Durum): Belki[Oda] = {
+        var çıktı: Belki[Oda] = Hiçbiri
+        zamanTut(s"Alfa-beta ${düzeydenUstalığa} arama") {
+            çıktı = alfaBetaHamle(durum)
+        }("sürdü")
+        çıktı
+    }
+
+    def alfaBetaHamle(durum: Durum): Belki[Oda] =
+        if (durum.seçenekler.isEmpty) Hiçbiri
+        else // todo: karşı oyuncunun skorunu azaltan birden çok hamle varsa rastgele seç
+            Biri((for (hamle <- durum.seçenekler) yield hamle ->
+                abHamle(durum.oyna(hamle), aramaDerinliğiSınırı)
+            ).minBy(_._2)._1)
+
+    // todo: yasal hamle olmadığı zaman arama kısa kesilmemeli!
+    def abHamle(durum: Durum, derinlik: Sayı): Sayı =
+        if (durum.bitti || derinlik == 0 || durum.seçenekler.isEmpty) durum.skor
+        else azalt(durum, derinlik, Int.MinValue, Int.MaxValue)
+
+    def azalt(durum: Durum, derinlik: Sayı, alfa: Sayı, beta: Sayı): Sayı =
+        if (durum.bitti || derinlik == 0 || durum.seçenekler.isEmpty) durum.skor
+        else {
+            var yeniBeta = beta
+            durum.seçenekler.foreach { hamle => // onun hamleleri
+                val yeniDurum = durum.oyna(hamle)
+                yeniBeta = enUfağı(beta, artır(yeniDurum, derinlik - 1, alfa, yeniBeta))
+                if (alfa >= yeniBeta) return alfa
+            }
+            yeniBeta
+        }
+    def artır(durum: Durum, derinlik: Sayı, alfa: Sayı, beta: Sayı): Sayı =
+        if (durum.bitti || derinlik == 0 || durum.seçenekler.isEmpty) durum.skor
+        else {
+            var yeniAlfa = alfa
+            durum.seçenekler.foreach { hamle =>
+                val yeniDurum = durum.oyna(hamle)
+                yeniAlfa = enİrisi(yeniAlfa, azalt(yeniDurum, derinlik - 1, yeniAlfa, beta))
+                if (yeniAlfa >= beta) return beta
+            }
+            yeniAlfa
+        }
+
     def ustalık(derece: Ustalık) = {
         aramaDerinliğiSınırı = derece match {
             case Er       => 3
@@ -44,100 +57,21 @@ object ABa { // alfa-beta arama
             case _        => 5
         }
     }
-    private var aramaDerinliğiSınırı = 3
-    def hamleYap(durum: Durum): Belki[Oda] = {
-        var çıktı: Belki[Oda] = Hiçbiri
-        zamanTut(s"Alfa-beta arama (düzey: $ustalık)") {
-            çıktı = alfaBetaHamle(durum)
-        }("sürdü")
-        çıktı
-    }
-
-    // alfa-beta search, works
-    def abHamle2(durum: Durum, derinlik: Sayı): Sayı =
-        if (durum.bitti || derinlik == 0 || durum.seçenekler.isEmpty) durum.skor
-        else azalt2(durum, derinlik, Int.MinValue, Int.MaxValue)
-
-    def azalt2(durum: Durum, derinlik: Sayı, alfa: Sayı, beta: Sayı): Sayı =
-        if (durum.bitti || derinlik == 0 || durum.seçenekler.isEmpty) durum.skor
+    def düzeydenUstalığa: Ustalık =
+        if (aramaDerinliğiSınırı < 3) ErdenAz
+        else if (aramaDerinliğiSınırı > 8) DehadanÇok
         else {
-            var yeniBeta = beta
-            durum.seçenekler.foreach { hamle => // onun hamleleri
-                val yeniDurum = durum.oyna(hamle)
-                yeniBeta = enUfağı(beta, artır2(yeniDurum, derinlik - 1, alfa, yeniBeta))
-                if (alfa >= yeniBeta) return alfa
+            aramaDerinliğiSınırı match {
+                case 3 => Er
+                case 4 => Çırak
+                case 5 => Kalfa
+                case 6 => Usta
+                case 7 => Doktor
+                case 8 => Deha
             }
-            yeniBeta
         }
-    def artır2(durum: Durum, derinlik: Sayı, alfa: Sayı, beta: Sayı): Sayı =
-        if (durum.bitti || derinlik == 0 || durum.seçenekler.isEmpty) durum.skor
-        else {
-            var yeniAlfa = alfa
-            durum.seçenekler.foreach { hamle =>
-                val yeniDurum = durum.oyna(hamle)
-                yeniAlfa = enİrisi(yeniAlfa, azalt2(yeniDurum, derinlik - 1, yeniAlfa, beta))
-                if (yeniAlfa >= beta) return beta
-            }
-            yeniAlfa
-        }
+    var aramaDerinliğiSınırı = 3
 
-    def alfaBetaHamle(durum: Durum): Belki[Oda] =
-        if (durum.seçenekler.isEmpty) Hiçbiri
-        else // todo: karşı oyuncunun skorunu azaltan birden çok hamle varsa rastgele seç
-            // benim hamleler, onun skorunu ençok azaltan hamleyi seç
-            Biri((for (hamle <- durum.seçenekler) yield hamle ->
-                abHamle2(durum.oyna(hamle), aramaDerinliğiSınırı)
-            // alfa-beta implementation below is buggy !
-            //  alfaBeta(durum.oyna(hamle), aramaDerinliğiSınırı)
-            ).minBy(_._2)._1)
-
-    // karşı oyuncunun skorunu azaltmaya çalışalım
-    private def alfaBeta(durum: Durum, derinlik: Sayı): Sayı =
-        if (durum.bitti) durum.skor // needed due to the recursive call to this when there are no moves
-        else if (durum.seçenekler.isEmpty) { // onun hamlesi yok!
-            satıryaz(s"sıra değişti: ${durum.sıra} -> ${durum.karşıTaş}") // sıra bana döndü
-            val yDurum = new Durum(durum.tahta, durum.karşıTaş)
-            val (enİyiHamle, beta) = (for (hamle <- yDurum.seçenekler) yield hamle -> alfaBeta(yDurum.oyna(hamle), derinlik - 1)).maxBy(_._2)
-            azalt(yDurum.oyna(enİyiHamle), derinlik - 2, Int.MinValue, beta)
-        }
-        else azalt(durum, derinlik, Int.MinValue, Int.MaxValue) // onun en iyi karşılık hamleleri arasından en zayıf olanı bulmak istiyoruz
-
-    private def azalt(durum: Durum, derinlik: Sayı, alfa: Sayı, beta: Sayı): Sayı =
-        if (durum.bitti || derinlik == 0) durum.skor
-        else if (durum.seçenekler.isEmpty) {
-            satıryaz(s"sıra değişti: ${durum.sıra} -> ${durum.karşıTaş}")
-            val yDurum = new Durum(durum.tahta, durum.karşıTaş)
-            val (enİyiHamle, yeniAlfa) = (for (hamle <- yDurum.seçenekler) yield hamle -> alfaBeta(yDurum.oyna(hamle), derinlik - 1)).maxBy(_._2)
-            //artır(yDurum.oyna(enİyiHamle), derinlik - 2, yeniAlfa, beta)
-            yeniAlfa
-        }
-        else {
-            var yeniBeta = beta
-            durum.seçenekler.foreach { hamle => // onun hamleleri
-                val yeniDurum = durum.oyna(hamle)
-                yeniBeta = enUfağı(beta, artır(yeniDurum, derinlik - 1, alfa, yeniBeta)) // benim hamlelerim
-                if (alfa >= yeniBeta) return alfa
-            }
-            yeniBeta
-        }
-    private def artır(durum: Durum, derinlik: Sayı, alfa: Sayı, beta: Sayı): Sayı =
-        if (durum.bitti || derinlik == 0) durum.skor
-        else if (durum.seçenekler.isEmpty) {
-            satıryaz(s"sıra değişti: ${durum.sıra} -> ${durum.karşıTaş}")
-            val yDurum = new Durum(durum.tahta, durum.karşıTaş)
-            val (enİyiHamle, yeniBeta) = (for (hamle <- yDurum.seçenekler) yield hamle -> alfaBeta(yDurum.oyna(hamle), derinlik - 1)).minBy(_._2)
-            //azalt(yDurum.oyna(enİyiHamle), derinlik - 1, alfa, yeniBeta)
-            yeniBeta
-        }
-        else {
-            var yeniAlfa = alfa
-            durum.seçenekler.foreach { hamle =>
-                val yeniDurum = durum.oyna(hamle)
-                yeniAlfa = enİrisi(yeniAlfa, azalt(yeniDurum, derinlik - 1, yeniAlfa, beta))
-                if (yeniAlfa >= beta) return beta
-            }
-            yeniAlfa
-        }
 }
 
 class Durum(val tahta: Tahta, val sıra: Taş) {
@@ -327,6 +261,33 @@ def yeniTahta(tane: Sayı, çeşni: Sayı = 0): Tahta = {
     t
 }
 
+var i = 0
+class Oyun(tane: Sayı) {
+    val t = yeniTahta(tane)
+    val durum = new Durum(t, Siyah)
+
+    def oyna: Durum = döngü(durum)
+
+    import scala.annotation.tailrec
+    @tailrec
+    private def döngü(durum: Durum): Durum = {
+        durum.tahta.yaz("döngü")
+        i += 1
+        if (durum.oyunBittiMi) return durum
+        if (i > tane * tane) { satıryaz("çok uzadı!"); return durum }
+        val hamle = ABa.hamleYap(durum) match {
+            case Biri(oda) => oda
+            case _ => ABa.hamleYap(new Durum(durum.tahta, durum.karşıTaş)) match {
+                case Biri(oda) => oda
+                case _         => throw new Exception("Burada olmamalı")
+            }
+        }
+        val yeni = durum.oyna(hamle)
+        satıryaz(s"$i. hamle ${durum.sıra} $hamle:")
+        döngü(yeni)
+    }
+}
+
 def dene1 = {
     val tane = 4
     var t = new Tahta(tane, Vector.fill(tane * tane)(0))
@@ -345,9 +306,12 @@ def dene1 = {
 def dene2 = {
     çıktıyıSil
     val o = new Oyun(4)
+    //ABa.ustalık(Çırak)
+    ABa.aramaDerinliğiSınırı = 2
     o.oyna
 }
 //dene1
-// Bu yazılımcığı otello.kojo kullanıyor. Onun için denemeleri artık çalıştırmıyoruz
+/* Bu yazılımcığı otello.kojo ve menu.kojo kullanıyor.
+   Onun için denemeleri artık çalıştırmıyoruz */
 //dene2
 satıryaz("arama motoru hazır")
