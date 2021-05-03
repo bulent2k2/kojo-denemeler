@@ -11,33 +11,33 @@ object ABS {
         println(f"Alpha-beta search took $delta%.3f seconds")
         out
     }
-    def move_(state: State): Option[Room] = 
+    def move_(state: State): Option[Room] =
         if (state.moves.isEmpty) None
-        else Some((for(move <- state.moves) yield move -> 
-        abMove(state.move(move), maxDepth)).minBy(_._2)._1)
-        
-    def abMove(state: State, depth: Int): Int = 
+        else Some((for (move <- state.moves) yield move ->
+            abMove(state.move(move), maxDepth)).minBy(_._2)._1)
+
+    def abMove(state: State, depth: Int): Int =
         if (state.isGameOver || depth == 0 || state.moves.isEmpty) state.score
         else minimize(state, depth, Int.MinValue, Int.MaxValue)
-        
-    def minimize(state: State, depth: Int, alpha: Int, beta: Int): Int = 
+
+    def minimize(state: State, depth: Int, alpha: Int, beta: Int): Int =
         if (state.isGameOver || depth == 0 || state.moves.isEmpty) state.score
         else {
             var newBeta = beta
-            state.moves.foreach { move => 
+            state.moves.foreach { move =>
                 val newState = state.move(move)
                 newBeta = math.min(beta, maximize(newState, depth - 1, alpha, newBeta))
                 if (alpha >= newBeta) return alpha
             }
             newBeta
         }
-    def maximize(state: State, depth: Int, alpha: Int, beta: Int): Int = 
+    def maximize(state: State, depth: Int, alpha: Int, beta: Int): Int =
         if (state.isGameOver || depth == 0 || state.moves.isEmpty) state.score
         else {
             var newAlpha = alpha
             state.moves.foreach { move =>
                 val newState = state.move(move)
-                newAlpha = math.max(newAlpha, minimize(newState, depth -1, newAlpha, beta))
+                newAlpha = math.max(newAlpha, minimize(newState, depth - 1, newAlpha, beta))
                 if (newAlpha > beta) return beta
             }
             newAlpha
@@ -97,8 +97,11 @@ class Game(size: Int) {
 
 def test_alpha_beta = {
     clearOutput
-    val g = new Game(4)
+    val g = new Game(8)
+    ABS.maxDepth = 3
+    val t0 = epochTime
     g.play
+    println(f"Alpha-beta search took ${epochTime - t0}%.3f seconds")
 }
 //test_alpha_beta
 
