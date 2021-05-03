@@ -1,0 +1,555 @@
+* berabere! April 14, 2021
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . S B . . .
+. . . B S . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+Oyun: 1. Sıra beyazın
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . S B . . .
+. . . B B . . .
+. . . . B . . .
+. . . . . . . .
+. . . . . . . .
+Oyun: 2. Sıra siyahın
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . S B . . .
+. . . B S . . .
+. . . . B S . .
+. . . . . . . .
+. . . . . . . .
+Oyun: 3. Sıra beyazın
+. . . . . . . .
+. . . . . . . .
+. . . B . . . .
+. . . B B . . .
+. . . B S . . .
+. . . . B S . .
+. . . . . . . .
+. . . . . . . .
+Oyun: 4. Sıra siyahın
+. . . . . . . .
+. . . . . . . .
+. . S B . . . .
+. . . S B . . .
+. . . B S . . .
+. . . . B S . .
+. . . . . . . .
+. . . . . . . .
+Oyun: 5. Sıra beyazın
+. . . . . . . .
+. . . . . . . .
+. . S B . . . .
+. . . S B . . .
+. . . B B B . .
+. . . . B S . .
+. . . . . . . .
+. . . . . . . .
+Oyun: 6. Sıra siyahın
+. . . . . . . .
+. . . . . . . .
+. . S B . . . .
+. . . S B . . .
+. . . S B B . .
+. . . S S S . .
+. . . . . . . .
+. . . . . . . .
+Oyun: 7. Sıra beyazın
+. . . . . . . .
+. . . . . . . .
+. . S B . . . .
+. . . B B . . .
+. . . B B B . .
+. . . B B S . .
+. . . B . . . .
+. . . . . . . .
+Oyun: 8. Sıra siyahın
+. . . . . . . .
+. . . . . . . .
+. . S B . . . .
+. . . B B . . .
+. . . B B B . .
+. . S S S S . .
+. . . B . . . .
+. . . . . . . .
+Oyun: 9. Sıra beyazın
+. . . . . . . .
+. . . . . . . .
+. . S B . . . .
+. . . B B . . .
+. . . B B B . .
+. . S S B B . .
+. . . B . B . .
+. . . . . . . .
+Oyun: 10. Sıra siyahın
+. . . . . . . .
+. . . . . . . .
+. . S B . . . .
+. . . B B . . .
+. . . B B B . .
+. . S S B B . .
+. . . S . B . .
+. . . S . . . .
+Oyun: 11. Sıra beyazın
+. . . . . . . .
+. . . . . . . .
+. . S B . . . .
+. . . B B . . .
+. . . B B B . .
+. . S B B B . .
+. . B S . B . .
+. . . S . . . .
+Oyun: 12. Sıra siyahın
+. . . . . . . .
+. . . . . . . .
+. . S B . . . .
+. . . B B . . .
+. . . B B B . .
+. . S B B B . .
+. . S S . B . .
+. . S S . . . .
+Oyun: 13. Sıra beyazın
+. . . . . . . .
+. . . . . . . .
+. B B B . . . .
+. . . B B . . .
+. . . B B B . .
+. . S B B B . .
+. . S S . B . .
+. . S S . . . .
+Oyun: 14. Sıra siyahın
+. . . . . . . .
+. . . S . . . .
+. B B S . . . .
+. . . S B . . .
+. . . S B B . .
+. . S S B B . .
+. . S S . B . .
+. . S S . . . .
+Oyun: 15. Sıra beyazın
+. . . . B . . .
+. . . B . . . .
+. B B S . . . .
+. . . S B . . .
+. . . S B B . .
+. . S S B B . .
+. . S S . B . .
+. . S S . . . .
+Oyun: 16. Sıra siyahın
+. . . . B . . .
+. . . B . . . .
+. B B S . S . .
+. . . S S . . .
+. . . S B B . .
+. . S S B B . .
+. . S S . B . .
+. . S S . . . .
+Oyun: 17. Sıra beyazın
+. . . . B . . .
+. . . B . . . .
+. B B S . S . .
+. . . S S . . .
+. . B B B B . .
+. . S S B B . .
+. . S S . B . .
+. . S S . . . .
+Oyun: 18. Sıra siyahın
+. . . . B . . .
+. . . B . . . .
+. B B S . S . .
+. . . S S . S .
+. . B B B S . .
+. . S S S B . .
+. . S S . B . .
+. . S S . . . .
+Oyun: 19. Sıra beyazın
+. . . . B . . .
+. . . B . . . .
+. B B S . S . .
+. . . S S . S .
+. . B B B B B .
+. . S S S B . .
+. . S S . B . .
+. . S S . . . .
+Oyun: 20. Sıra siyahın
+. . . . B . . .
+. . . B . . . .
+. B B S . S . .
+. . . S S . S .
+. . B B B B B .
+. . S S S B . .
+. . S S . S . .
+. . S S . . S .
+Oyun: 21. Sıra beyazın
+. . . . B . . .
+. . . B . . . .
+. B B B B S . .
+. . . B B . S .
+. . B B B B B .
+. . S S S B . .
+. . S S . S . .
+. . S S . . S .
+Oyun: 22. Sıra siyahın
+. . . . B . . .
+. . . B . . . .
+S S S S S S . .
+. . . B B . S .
+. . B B B B B .
+. . S S S B . .
+. . S S . S . .
+. . S S . . S .
+Oyun: 23. Sıra beyazın
+. . . . B . . .
+. . . B B . . .
+S S S S B S . .
+. . . B B . S .
+. . B B B B B .
+. . S S S B . .
+. . S S . S . .
+. . S S . . S .
+Oyun: 24. Sıra siyahın
+. . . . B . . .
+. . . B B . . .
+S S S S B S . .
+. S . B B . S .
+. . S B B B B .
+. . S S S B . .
+. . S S . S . .
+. . S S . . S .
+Oyun: 25. Sıra beyazın
+. . . . B . . .
+. . . B B . . .
+S S B S B S . .
+. B . B B . S .
+B . S B B B B .
+. . S S S B . .
+. . S S . S . .
+. . S S . . S .
+Oyun: 26. Sıra siyahın
+. . . . B . . .
+. . . B B . . .
+S S B S B S . .
+. B . B B . S .
+B . S S S S S S
+. . S S S B . .
+. . S S . S . .
+. . S S . . S .
+Oyun: 27. Sıra beyazın
+. . . . B . . .
+. . B B B . . .
+S S B B B S . .
+. B . B B . S .
+B . S S S S S S
+. . S S S B . .
+. . S S . S . .
+. . S S . . S .
+Oyun: 28. Sıra siyahın
+. S . . B . . .
+. . S B B . . .
+S S B S B S . .
+. B . B S . S .
+B . S S S S S S
+. . S S S B . .
+. . S S . S . .
+. . S S . . S .
+Oyun: 29. Sıra beyazın
+. S B . B . . .
+. . B B B . . .
+S S B S B S . .
+. B . B S . S .
+B . S S S S S S
+. . S S S B . .
+. . S S . S . .
+. . S S . . S .
+Oyun: 30. Sıra siyahın
+. S B . B . . .
+. . B B B . . .
+S S B S B S . .
+. S . B S . S .
+B S S S S S S S
+. . S S S B . .
+. . S S . S . .
+. . S S . . S .
+Oyun: 31. Sıra beyazın
+. S B . B . . .
+. . B B B . . .
+S S B S B S . .
+. S . B S . S .
+B S B S S S S S
+. B B B B B . .
+. . S S . S . .
+. . S S . . S .
+Oyun: 32. Sıra siyahın
+. S B . B . . .
+. . B B B . . .
+S S B S B S . .
+. S S S S . S .
+B S S S S S S S
+. B S B B B . .
+. . S S . S . .
+. . S S . . S .
+Oyun: 33. Sıra beyazın
+. S B . B . . .
+. . B B B . . .
+S S B S B S . .
+. S S S S B S .
+B S S S B B S S
+. B S B B B . .
+. . S S . S . .
+. . S S . . S .
+Oyun: 34. Sıra siyahın
+. S B . B . . .
+. . B B B . . .
+S S B S B S . .
+. S S S S B S .
+B S S S B B S S
+. S S B B B . .
+S . S S . S . .
+. . S S . . S .
+Oyun: 35. Sıra beyazın
+. S B . B . . .
+. . B B B . . .
+S S B S B S . B
+. S S S S B B .
+B S S S B B S S
+. S S B B B . .
+S . S S . S . .
+. . S S . . S .
+Oyun: 36. Sıra siyahın
+. S B . B . . .
+. . B B B . . .
+S S B S B S . B
+. S S S S B B .
+B S S S B S S S
+. S S S S S S .
+S . S S . S . .
+. . S S . . S .
+Oyun: 37. Sıra beyazın
+B B B . B . . .
+. . B B B . . .
+S S B S B S . B
+. S S S S B B .
+B S S S B S S S
+. S S S S S S .
+S . S S . S . .
+. . S S . . S .
+Oyun: 38. Sıra siyahın
+B B B S B . . .
+. . S S S . . .
+S S B S B S . B
+. S S S S B B .
+B S S S B S S S
+. S S S S S S .
+S . S S . S . .
+. . S S . . S .
+Oyun: 39. Sıra beyazın
+B B B S B . . .
+. . S S S . . .
+S S B S B B B B
+. S S S S B B .
+B S S S B S S S
+. S S S S S S .
+S . S S . S . .
+. . S S . . S .
+Oyun: 40. Sıra siyahın
+B B B S B . . .
+. . S S S . S .
+S S B S B S S B
+. S S S S B S .
+B S S S B S S S
+. S S S S S S .
+S . S S . S . .
+. . S S . . S .
+Oyun: 41. Sıra beyazın
+B B B S B . . .
+. . B S S . S .
+S S B B B S S B
+. S S S B B S .
+B S S S B B S S
+. S S S S S B .
+S . S S . S . B
+. . S S . . S .
+Oyun: 42. Sıra siyahın
+B B B S B . . .
+. . B S S S S .
+S S B B S S S B
+. S S S B B S .
+B S S S B B S S
+. S S S S S B .
+S . S S . S . B
+. . S S . . S .
+Oyun: 43. Sıra beyazın
+B B B S B . . B
+. . B S S S B .
+S S B B S B S B
+. S S S B B S .
+B S S S B B S S
+. S S S S S B .
+S . S S . S . B
+. . S S . . S .
+Oyun: 44. Sıra siyahın
+B B B S B . . B
+. . B S S S S S
+S S B B S B S B
+. S S S B B S .
+B S S S B B S S
+. S S S S S B .
+S . S S . S . B
+. . S S . . S .
+Oyun: 45. Sıra beyazın
+B B B S B . B B
+. . B S S S B S
+S S B B S B B B
+. S S S B B B .
+B S S S B B B S
+. S S S S S B .
+S . S S . S . B
+. . S S . . S .
+Oyun: 46. Sıra siyahın
+B B B S B . B B
+. S S S S S B S
+S S S B S B B B
+. S S S B B B .
+B S S S B B B S
+. S S S S S B .
+S . S S . S . B
+. . S S . . S .
+Oyun: 47. Sıra beyazın
+B B B S B . B B
+B B B B B B B S
+S S S B S B B B
+. S S S B B B .
+B S S S B B B S
+. S S S S S B .
+S . S S . S . B
+. . S S . . S .
+Oyun: 48. Sıra siyahın
+B B B S S S B B
+B B B B S S B S
+S S S S S S B B
+. S S S B S B .
+B S S S B S B S
+. S S S S S B .
+S . S S . S . B
+. . S S . . S .
+Oyun: 49. Sıra beyazın
+B B B S S S B B
+B B B B S S B S
+B B S S S S B B
+B B B B B S B .
+B S S S B S B S
+. S S S S S B .
+S . S S . S . B
+. . S S . . S .
+Oyun: 50. Sıra siyahın
+B B B S S S B B
+B B B B S S B S
+B B S S S S B B
+B B B B B S B .
+B S S S B S S S
+. S S S S S S S
+S . S S . S . B
+. . S S . . S .
+Oyun: 51. Sıra beyazın
+B B B S S S B B
+B B B B S S B S
+B B S S S S B B
+B B B B B S B .
+B B S S B S S S
+B S S S S S S S
+S . S S . S . B
+. . S S . . S .
+Oyun: 52. Sıra siyahın
+B B B S S S B B
+B B B B S S B S
+B B S S S S B B
+B B B B B S B .
+B B S S B S S S
+B S S S S S S S
+S . S S . S . S
+. . S S . . S S
+Oyun: 53. Sıra beyazın
+B B B S S S B B
+B B B B S S B S
+B B S S S S B B
+B B B B B S B .
+B B S S B S B S
+B S S S S B B S
+S . S S . S B S
+. . S S . . S S
+Oyun: 54. Sıra siyahın
+B B B S S S B B
+B B B B S S B S
+B B S S S S S S
+B B B B B S S S
+B B S S B S B S
+B S S S S B B S
+S . S S . S B S
+. . S S . . S S
+Oyun: 55. Sıra beyazın
+B B B S S S B B
+B B B B S S B S
+B B S S S S S S
+B B B B B S S S
+B B S S B S B S
+B S S S S B B S
+S . S S . B B S
+. . S S . B S S
+Oyun: 56. Sıra siyahın
+B B B S S S B B
+B B B B S S B S
+B B S S S S S S
+B B B B B S S S
+B B S S B S B S
+B S S S S B S S
+S . S S . S B S
+. . S S S S S S
+Oyun: 57. Sıra beyazın
+B B B S S S B B
+B B B B S S B S
+B B S S S S S S
+B B B B B S S S
+B B B S B S B S
+B S S B B B S S
+S . S S B B B S
+. . S S S S S S
+Oyun: 58. Sıra siyahın
+Yasal hamle yok. Sıra yine B'nin
+B B B S S S B B
+B B B B S S B S
+B B S S S S S S
+B B B B B S S S
+B B B S B S B S
+B S S B B B S S
+B . S S B B B S
+B . S S S S S S
+Oyun: 59. Sıra siyahın
+Yasal hamle yok. Sıra yine B'nin
+B B B S S S B B
+B B B B S S B S
+B B S S S S S S
+B B B B B S S S
+B B B S B S B S
+B S S B B B S S
+B . B S B B B S
+B B S S S S S S
+Oyun: 60. Sıra siyahın
+B B B S S S B B
+B B B B S S B S
+B B S S S S S S
+B B B B B S S S
+B B B S B S B S
+B S S B B B S S
+B S S S B B B S
+B B S S S S S S
+Oyun: 61. Sıra beyazın
+Oyun bitti.
+beyazlar: 32
+siyahlar: 32

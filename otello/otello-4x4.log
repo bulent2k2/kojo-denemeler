@@ -1,0 +1,77 @@
+* Özdevinim. Siyah 16 taşla kazanır
+Oyun: 1. Sıra siyahın
+3 seçenek var.
+. B . .
+. B B .
+S S S .
+. . . .
+Oyun: 2. Sıra beyazın
+4 seçenek var.
+. B . .
+. B B .
+S S B .
+. . B .
+Oyun: 3. Sıra siyahın
+3 seçenek var.
+. B S .
+. S B .
+S S B .
+. . B .
+Oyun: 4. Sıra beyazın
+5 seçenek var.
+. B S .
+B B B .
+S B B .
+. . B .
+Oyun: 5. Sıra siyahın
+2 seçenek var.
+S S S .
+S B B .
+S B B .
+. . B .
+Oyun: 6. Sıra beyazın
+Yasal hamle yok. Sıra yine siyahın
+4 seçenek var.
+S S S .
+S B S .
+S S S S
+. . B .
+Oyun: 7. Sıra beyazın
+3 seçenek var.
+S S S .
+S B S .
+S B S S
+. B B .
+Oyun: 8. Sıra siyahın
+1 seçenek var.
+S S S .
+S B S .
+S S S S
+S B B .
+Oyun: 9. Sıra beyazın
+2 seçenek var.
+S S S .
+S B B B
+S S B S
+S B B .
+Oyun: 10. Sıra siyahın
+2 seçenek var.
+S S S .
+S S B B
+S S S S
+S S S S
+Oyun: 11. Sıra beyazın
+Yasal hamle yok. Sıra yine siyahın
+1 seçenek var.
+S S S S
+S S S S
+S S S S
+S S S S
+Oyun: 12. Sıra beyazın
+Oyun bitti.
+beyazlar: 0
+siyahlar: 16
+12 dallanma oldu. Dal sayıları: 4,3,4,3,5,2,4,3,1,2,2,1
+Ortalama dal sayısı: 2.8
+En iri dal sayısı: 5
+Özdevinimli oyun 0.007 saniye sürdü
