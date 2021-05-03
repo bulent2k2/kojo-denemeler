@@ -15,7 +15,7 @@ object ABS {
         if (state.moves.isEmpty) None
         else Some((for (move <- state.moves) yield move ->
             abMove(state.move(move), maxDepth)).minBy(_._2)._1)
-
+// todo: maxDepth must be adaptive, or better just jind out how many branches we can process...
     def abMove(state: State, depth: Int): Int =
         if (state.isGameOver || depth == 0 || state.moves.isEmpty) state.score
         else minimize(state, depth, Int.MinValue, Int.MaxValue)

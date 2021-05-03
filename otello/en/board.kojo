@@ -79,6 +79,7 @@ def test_board = {
         b = newBoard
         turn = Black
     }
+    println("Board is functional.")
 }
 test_board
 
@@ -94,6 +95,7 @@ def test_newBoard = {
         val b = if (n < 7) newBoard(n) else newBoard(n, 1)
         assert(b.board == expected, s"newBoard $n")
     }
+    println("New board test passed.")
 }
 test_newBoard
 
