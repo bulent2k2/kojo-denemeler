@@ -20,7 +20,6 @@ class History(board: EBoard) {
         restoreBoard(board.moveCount())
         board.moveCount.incr()
     }
-    def setMoved = movedAfterLatestUndo = true
 
     def isSkippedTurn =
         if (board.moveCount() == 1) false
@@ -41,12 +40,14 @@ class History(board: EBoard) {
     }
 
     def saveBoard(isNewMove: Boolean, move: Option[Room]) = {
-        if (isNewMove) // clear the future -- its obsolete now. No longer anything to redo
+        if (isNewMove) { // clear the future -- its obsolete now. No longer anything to redo
             while (board.moveCount() <= oldBoards.size) {
                 oldBoards.remove(oldBoards.size - 1)
                 players.remove(players.size - 1)
                 moves.remove(moves.size - 1)
             }
+            movedAfterLatestUndo = true
+        }
         val neu = Array.ofDim[Stone](board.size, board.size)
         for (x <- board.range; y <- board.range)
             neu(y)(x) = board.stone(y, x)

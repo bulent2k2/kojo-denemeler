@@ -37,6 +37,16 @@ class EBoard(
     def setStone(y: Int)(x: Int)(s: Stone) = board(y)(x) = s
     def setStone(room: Room)(s: Stone) = board(room.y)(room.x) = s
     def print = for (y <- range.reverse) println(board(y).mkString(" "))
+    def pretendMove(room: Room): Seq[Room] = moveCore(player(), room)
+    def move(room: Room): Seq[Room] = {
+        val touched = pretendMove(room)
+        touched.map { r => setStone(r)(player()) }
+        if (touched.size > 0) {
+            player.change()
+            moveCount.incr()
+        }
+        touched // and need to be (re-)painted
+    }
     def isGameOver =
         if (moves(player()).size > 0) false
         else moves(player.opponent).isEmpty
@@ -48,20 +58,26 @@ class EBoard(
     def placeSeq(rooms: Seq[(Int, Int)])(stone: Stone): Unit =
         rooms.map(p => Room(p._1, p._2)).foreach { setStone(_)(stone) }
 
-    def newBoard = {
-        var b = new EBoard(size, startingPlayer, variant)
-        CoreBoard.newBoard(b, size, variant)
-        for (x <- range; y <- range) setStone(y)(x)(b.stone(y, x))
-    }
-    def resetBoard(header: String = "") = {
-        newBoard
+    def reset(header: String = "") = {
+        CoreBoard.newBoard(this, size, variant)
         player.reset()
         moveCount.reset()
         lastMove = None
-        if (header.size > 0) println(header)
-        print
+        if (header.size > 0) {
+            println(header)
+            print
+        }
     }
 
-    resetBoard()
+    reset()
 }
 
+def test_eboard = {
+    val board = new EBoard(8, Black, 0)
+    // note: Room(y, x) is printed: (x+1)x(y+1)
+    assert(board.moves(Black).toString == "Vector(4x3, 3x4, 6x5, 5x6)", "black's starting moves")
+    assert(board.moves(White).toString == "Vector(5x3, 6x4, 3x5, 4x6)", "white's starting moves")
+    assert(board.neighborsToFlip(Room(3, 2), Black, White) == List(Neighbor(E, Room(3, 3))), "neighbors")
+    assert(board.moveCore(Black, Room(3, 2)) == List(Room(3, 2), Room(3, 3)), "stones to flip")
+}
+test_eboard

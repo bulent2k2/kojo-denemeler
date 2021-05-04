@@ -14,6 +14,7 @@ case object Empty extends Stone {
     override val name = "empty"
     override def toString() = "."
 }
+// note: Room(y, x) is printed: (x+1)x(y+1)
 case class Room(row: Int, col: Int) {
     val y = row
     val x = col
@@ -68,17 +69,22 @@ trait CoreBoard {
             if (stone(n.room) == opponent && line._1) line._2 else 0
         }.sum
 
-    def moveCore(turn: Stone, room: Room): Seq[Room] = {
-        val rooms = ArrayBuffer(room)
-        val opponent = if (turn == White) Black else White
-        neighborsToFlip(room, turn, opponent).foreach { n =>
-            rooms += n.room
-            theRestOfTheLine(n).takeWhile(stone(_) == opponent) foreach {
-                r => rooms += r
-            }
+    def moveCore(turn: Stone, room: Room): Seq[Room] =
+        if (stone(room) != Empty) {
+            Seq()
         }
-        rooms.toSeq
-    }
+        else {
+            val rooms = ArrayBuffer(room)
+            val opponent = if (turn == White) Black else White
+            neighborsToFlip(room, turn, opponent).foreach { n =>
+                rooms += n.room
+                theRestOfTheLine(n).takeWhile(stone(_) == opponent) foreach {
+                    r => rooms += r
+                }
+            }
+            rooms.toSeq
+        }
+
     def neighborsToFlip(r: Room, turn: Stone, opponent: Stone): Seq[Neighbor] =
         findTheNeighbors(r) filter { n =>
             stone(n.room) == opponent && isTheEndOfLineLegal(n, turn)._1
@@ -102,6 +108,10 @@ trait CoreBoard {
     ) filter { n => isValid(n.room) }
     def isValid: Room => Boolean = {
         case Room(y, x) => 0 <= y && y < size && 0 <= x && x < size
+    }
+    def isInnerCorner: Room => Boolean = {
+        case Room(y, x) => (x == 2 && (y == 2 || y == end - 2)) ||
+            (x == end - 2 && (y == 2 || y == end - 2))
     }
     def theRestOfTheLine(n: Neighbor): Seq[Room] = {
         val line = ArrayBuffer.empty[Room]
@@ -137,6 +147,8 @@ trait CoreBoard {
 
 object CoreBoard {
     def newBoard(board: CoreBoard, size: Int, variant: Int = 0): Unit = {
+        for (x <- board.range; y <- board.range)
+            board.placeSeq(Seq(y -> x))(Empty)
         val mid: Int = size / 2
         val end = size - 1
         variant match {
