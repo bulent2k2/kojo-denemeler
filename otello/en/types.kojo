@@ -36,6 +36,13 @@ case object Doctor extends Level
 case object Genius extends Level
 case object MoreThanGenius extends Level
 
+class FooBoard(val size: Int = 2) extends CoreBoard {
+    def stone(r: Room): Stone = Empty
+    def placeSeq(rs: Seq[(Int, Int)])(s: Stone): Unit =
+        println("eternally empty board")
+    CoreBoard.newBoard(this, 2)
+}
+
 trait CoreBoard {
     def size: Int
     val lastRoom = size - 1
@@ -44,6 +51,8 @@ trait CoreBoard {
     val range = 0 to last
 
     def stone(r: Room): Stone
+    def stones(s: Stone): Seq[Room] = for (x <- range; y <- range; if stone(Room(y, x)) == s) yield Room(y, x)
+
     def score(turn: Stone) = {
         count(turn) // + 4 * countIf(turn)(isCorner) + 2 * countIf(turn)(isTwoAwayFromCorner)
         // + countIf(turn)(isInnerCorner) - 2 * countIf(turn)(isTrapCorner)
@@ -57,16 +66,20 @@ trait CoreBoard {
         ) yield 1
         ).size
 
+    def isGameOver = moves(White).isEmpty && moves(Black).isEmpty
+
     def moves(turn: Stone) =
         (for (y <- range; x <- range; if stone(Room(y, x)) == Empty)
             yield Room(y, x)) filter {
-            neighborsToFlip(_, turn, if (turn == White) Black else White).size > 0
+            neighborsToFlip(_, turn).size > 0
         }
 
-    def movePayoff(room: Room, turn: Stone, opponent: Stone): Int =
+    def opponent(turn: Stone) = if (turn == White) Black else White
+
+    def movePayoff(room: Room, turn: Stone): Int =
         findTheNeighbors(room).map { n =>
             val line = isTheEndOfLineLegal(n, turn)
-            if (stone(n.room) == opponent && line._1) line._2 else 0
+            if (stone(n.room) == opponent(turn) && line._1) line._2 else 0
         }.sum
 
     def moveCore(turn: Stone, room: Room): Seq[Room] =
@@ -75,19 +88,18 @@ trait CoreBoard {
         }
         else {
             val rooms = ArrayBuffer(room)
-            val opponent = if (turn == White) Black else White
-            neighborsToFlip(room, turn, opponent).foreach { n =>
+            neighborsToFlip(room, turn).foreach { n =>
                 rooms += n.room
-                theRestOfTheLine(n).takeWhile(stone(_) == opponent) foreach {
+                theRestOfTheLine(n).takeWhile(stone(_) == opponent(turn)) foreach {
                     r => rooms += r
                 }
             }
             rooms.toSeq
         }
 
-    def neighborsToFlip(r: Room, turn: Stone, opponent: Stone): Seq[Neighbor] =
+    def neighborsToFlip(r: Room, turn: Stone): Seq[Neighbor] =
         findTheNeighbors(r) filter { n =>
-            stone(n.room) == opponent && isTheEndOfLineLegal(n, turn)._1
+            stone(n.room) == opponent(turn) && isTheEndOfLineLegal(n, turn)._1
         }
     def isTheEndOfLineLegal(n: Neighbor, turn: Stone): (Boolean, Int) = {
         val theRest = theRestOfTheLine(n)
@@ -143,12 +155,14 @@ trait CoreBoard {
             placeSeq(Seq((y, x), (y + 1, x + 1)))(White)
             placeSeq(Seq((y + 1, x), (y, x + 1)))(Black)
     }
+
 }
 
 object CoreBoard {
-    def newBoard(board: CoreBoard, size: Int, variant: Int = 0): Unit = {
+    def newBoard(board: CoreBoard, variant: Int = 0): Unit = {
         for (x <- board.range; y <- board.range)
             board.placeSeq(Seq(y -> x))(Empty)
+        val size = board.size
         val mid: Int = size / 2
         val end = size - 1
         variant match {
@@ -173,3 +187,32 @@ object CoreBoard {
         }
     }
 }
+
+def test_foo_boards = {
+    val foo1 = new FooBoard()
+    assert(foo1.count(White) == 0, "foo w")
+    assert(foo1.count(Black) == 0, "foo b")
+    assert(foo1.count(Empty) == 4, "foo e")
+    assert(Room(0, 1).toString == "2x1", "humans count from 1 and first state the column number")
+    for (s <- List(White, Black)) assert(foo1.stones(s) == Vector(), s"get $s stones")
+    assert(foo1.stones(Empty) == Vector(Room(0, 0), Room(1, 0), Room(0, 1), Room(1, 1)), "get empty roomw")
+    assert(foo1.findTheNeighbors(Room(0, 0)) == List(
+        Neighbor(E, Room(0, 1)), Neighbor(N, Room(1, 0)), Neighbor(NE, Room(1, 1))
+    ), "what's next to 1x1?")
+    // here is the list in order: List(Neighbor(W,1x2), Neighbor(S,2x1), Neighbor(SW,1x1))
+    assert(foo1.findTheNeighbors(Room(1, 1)).toSet == Set(
+        Neighbor(S, Room(0, 1)), Neighbor(W, Room(1, 0)), Neighbor(SW, Room(0, 0))
+    ), "what's next to 2x2?")
+    // here is the list in order: List(Neighbor(W,1x1), Neighbor(N,2x2), Neighbor(NW,1x2))
+    assert(foo1.findTheNeighbors(Room(0, 1)).toSet == Set(
+        Neighbor(W, Room(0, 0)), Neighbor(N, Room(1, 1)), Neighbor(NW, Room(1, 0))
+    ), "what's next to 2x1?")
+    // List(Neighbor(E,2x2), Neighbor(S,1x1), Neighbor(SE,2x1))
+    assert(foo1.findTheNeighbors(Room(1, 0)).toSet == Set(
+        Neighbor(E, Room(1, 1)), Neighbor(S, Room(0, 0)), Neighbor(SE, Room(0, 1))
+    ), "what's next to 1x2?")
+}
+val runUnitTests = false
+if (runUnitTests)
+    test_foo_boards
+

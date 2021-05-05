@@ -44,12 +44,14 @@ class EBoard(
         if (touched.size > 0) {
             player.change()
             moveCount.incr()
+            if (moves(player()).isEmpty && !isGameOver) {
+                println(s"There are no moves for ${player().name.capitalize}. ${player.opponent.name.capitalize} to play again")
+                player.change()
+            }
         }
         touched // and need to be (re-)painted
     }
-    def isGameOver =
-        if (moves(player()).size > 0) false
-        else moves(player.opponent).isEmpty
+
     def score(short: Boolean) = {
         val (p1, p2) = if (short) ("W", "B") else ("White", "Black")
         s"$p1: ${count(White)}\n$p2: ${count(Black)}"
@@ -59,7 +61,7 @@ class EBoard(
         rooms.map(p => Room(p._1, p._2)).foreach { setStone(_)(stone) }
 
     def reset(header: String = "") = {
-        CoreBoard.newBoard(this, size, variant)
+        CoreBoard.newBoard(this, variant)
         player.reset()
         moveCount.reset()
         lastMove = None
@@ -77,7 +79,8 @@ def test_eboard = {
     // note: Room(y, x) is printed: (x+1)x(y+1)
     assert(board.moves(Black).toString == "Vector(4x3, 3x4, 6x5, 5x6)", "black's starting moves")
     assert(board.moves(White).toString == "Vector(5x3, 6x4, 3x5, 4x6)", "white's starting moves")
-    assert(board.neighborsToFlip(Room(3, 2), Black, White) == List(Neighbor(E, Room(3, 3))), "neighbors")
+    assert(board.neighborsToFlip(Room(3, 2), Black) == List(Neighbor(E, Room(3, 3))), "neighbors")
     assert(board.moveCore(Black, Room(3, 2)) == List(Room(3, 2), Room(3, 3)), "stones to flip")
 }
-test_eboard
+if (runUnitTests)
+    test_eboard

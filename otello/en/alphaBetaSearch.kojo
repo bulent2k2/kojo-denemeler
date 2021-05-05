@@ -101,7 +101,8 @@ def test_alpha_beta = {
     ABS.maxDepth = 12
     val t0 = epochTime
     g.play
-    println(f"Alpha-beta search took ${epochTime - t0}%.3f seconds")
+    println(f"Alpha-beta game with depth=${ABS.maxDepth} took ${epochTime - t0}%.3f seconds")
 }
-test_alpha_beta
+if (runUnitTests)
+    test_alpha_beta
 

@@ -23,12 +23,12 @@ class Board(val size: Int, var board: Vector[Int]) extends CoreBoard {
     }
     def print(msg: String = "", lineHeader: String = "") = {
         for (y <- range.reverse) {
-            val row = for (x <- range) yield n2s(board(y * size + x))
+            val row = for (x <- range) yield stone(Room(y, x))
             println(row.mkString(lineHeader, " ", ""))
         }
         if (msg.size > 0) println(lineHeader + msg)
         for (p <- List(White, Black))
-            println(s"$lineHeader ${p.name.capitalize}: ${count(p)} score: ${score(p)}")
+            println(s"$lineHeader ${p.name.capitalize}: ${count(p)}}")
     }
 
     def placeSeq(rooms: Seq[(Int, Int)])(stone: Stone): Unit = {
@@ -40,7 +40,7 @@ class Board(val size: Int, var board: Vector[Int]) extends CoreBoard {
 
 def newBoard(size: Int, variant: Int = 0): Board = {
     var b = new Board(size, Vector.fill(size * size)(0))
-    CoreBoard.newBoard(b, size, variant)
+    CoreBoard.newBoard(b, variant)
     b
 }
 
@@ -66,10 +66,9 @@ def test_board = {
     ) {
         val payoffs = ArrayBuffer.empty[Int]
         for (move <- moves) {
-            val opp = if (turn == Black) White else Black
-            payoffs += b.movePayoff(move, turn, opp)
+            payoffs += b.movePayoff(move, turn)
             b = b.move(turn, move)
-            turn = opp
+            turn = if (turn == Black) White else Black
         }
         //println(payoffs)
         assert(payoffs == ArrayBuffer(1, 1, 2), "payoffs $i")
@@ -81,7 +80,8 @@ def test_board = {
     }
     // println("Board is functional.")
 }
-test_board
+if (runUnitTests)
+    test_board
 
 def test_newBoard = {
     for (
@@ -97,5 +97,6 @@ def test_newBoard = {
     }
     // println("New board test passed.")
 }
-test_newBoard
+if (runUnitTests)
+    test_newBoard
 

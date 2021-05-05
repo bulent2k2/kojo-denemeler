@@ -46,64 +46,6 @@ class ETahta() {
 }
 
 class Arayüz {
-    private def kareyiTanımla(k: Resim) = {
-        val oda = kareninOdası(k)
-        k.fareyeTıklayınca { (_, _) =>
-            tahta.taş(oda) match {
-                case Yok =>
-                    val yasal = tahta.hamleyiDene(oda)
-                    if (yasal.size > 0) {
-                        hamleyiYap(yasal, oda)
-                        if (bittiMi) bittiKaçKaç(tahta)
-                        else if (tahta.hamleYoksa) {
-                            sırayıÖbürOyuncuyaGeçir
-                            satıryaz(s"Yasal hamle yok. Sıra yine ${tahta.oyuncu().adı}ın")
-                            skoruGüncelle
-                        }
-                        else {
-                            if (tahta.oyuncu() == bilgisayar && !tahta.hamleYoksa) {
-                                skorBilgisayarHamleArıyor
-                                /* burada yaparsak abArama sırasında herşey donuyor ve bizim
-                                   aldığımız taşlar abArama hamlesini yapana kadar dönmüyor */
-                                // öneri // todo
-                            }
-                        }
-                    }
-                case _ =>
-            }
-        }
-        def odaRengi = taşınRengi(tahta.taş(oda))
-        def renk = taşınRengi(tahta.oyuncu())
-        k.fareGirince { (x, y) =>
-            ipucu.konumuKur(odanınNoktası(oda, yanlış) - Nokta(b2, -b2))
-            tahta.taş(oda) match {
-                case Yok => if (tahta.hamleyiDene(oda).size > 0) {
-                    k.boyamaRenginiKur(renk)
-                    ipucu.güncelle(s"${tahta.hamleGetirisi(oda)}")
-                }
-                else {
-                    ipucu.güncelle(s"$oda")
-                }
-                case _ => ipucu.güncelle(s"$oda")
-            }
-            ipucu.göster()
-            ipucu.öneAl()
-            ipucu.girdiyiAktar(k)
-        }
-        k.fareÇıkınca { (_, _) =>
-            k.boyamaRenginiKur(odaRengi)
-            ipucu.gizle()
-            // todo: çıkmadan, ya da tekrar tıklamadan çalışmıyor!
-            if (tahta.oyuncu() == bilgisayar && !tahta.hamleYoksa) öneri
-        }
-    }
-
-    def bittiKaçKaç(tahta: ETahta) = if (!tahta.oyunBitti) {
-        tahta.oyunBitti = doğru
-        skorBitiş
-        satıryaz(s"Oyun bitti.\n${tahta.kaçkaç()}")
-    }
-
     def hamleyiGöster(oda: Oda) = {
         hamleResminiSil
         if (hamleResmiAçık) {
@@ -125,26 +67,6 @@ class Arayüz {
         }
     }
 
-    def seçenekleriGöster = {
-        seçenekResimleri.foreach { r => r.sil() }
-        if (seçeneklerAçık) {
-            val sıralı = tahta.yasallar.map { oda => (oda, tahta.hamleGetirisi(oda)) }.sortBy { p => p._2 }.reverse
-            if (sıralı.size > 0) {
-                val enİriGetiri = sıralı.head._2
-                seçenekResimleri = sıralı map {
-                    case (oda, getirisi) =>
-                        val renk = if (getirisi == enİriGetiri) sarı else turuncu
-                        val göster = götür(odanınNoktası(oda, yanlış)) * kalemRengi(renk) * kalemBoyu(3) *
-                            boyaRengi(renksiz) -> Resim.daire(b4)
-                        göster.girdiyiAktar(odanınKaresi(oda))
-                        göster.çiz()
-                        göster
-                }
-            }
-        }
-    }
-    private var seçenekResimleri: Dizi[Resim] = Dizi()
-    private var seçeneklerAçık = yanlış
     private def seçenekleriAçKapa(d: Resim) = {
         seçeneklerAçık = !seçeneklerAçık
         seçenekleriGöster
@@ -156,44 +78,6 @@ class Arayüz {
         seçenekResimleri.foreach { r => r.sil() }
         düğmeTepkisi(d)
         d.kalemRenginiKur(renksiz)
-    }
-
-    def ileri = {
-        bellek.ileriGit
-        taşlarıGüncelle
-        bittiMi
-    }
-    def geri = {
-        bellek.geriAl
-        taşlarıGüncelle
-    }
-    def taşlarıGüncelle = {
-        for (y <- tahta.satırAralığı; x <- tahta.satırAralığı)
-            boya(Oda(y, x), tahta.taş(y, x))
-        skoruGüncelle
-        tahta.sonHamle match {
-            case Biri(hane) => hamleyiGöster(hane)
-            case _          => hamleResminiSil
-        }
-        seçenekleriGöster
-    }
-    def bittiMi =
-      if (tahta.hamleYoksa) {
-        sırayıÖbürOyuncuyaGeçir
-        if (tahta.hamleYoksa) {
-          skorBitiş
-          doğru
-        }
-        else {
-          sırayıÖbürOyuncuyaGeçir
-          yanlış
-        }
-      }
-      else yanlış
-
-    def sırayıÖbürOyuncuyaGeçir = { // obsolete!? todo- confirm
-        tahta.oyuncu.değiştir()
-        seçenekleriGöster
     }
 
     def özdevin(süre: Kesir = 0.0) = zamanTut("Özdevinimli oyun") {
@@ -234,33 +118,7 @@ class Arayüz {
 
     def abArama(yasallar: Dizi[Oda]): Belki[Oda] = // yasallar yerine tahtadanTahta işlevini girdi olarak kullanıyor
         ABa.hamleYap(new Durum(tahtadanTahta, tahta.oyuncu()))
-    def öneri: Birim = {
-        val aTahta = tahtadanTahta
-        val durum = new Durum(aTahta, tahta.oyuncu())
-        if (durum.bitti) bittiKaçKaç(tahta)
-        else {
-            val hamle = ABa.hamleYap(durum) match {
-                case Biri(oda) => oda
-                case _ =>
-                    sırayıÖbürOyuncuyaGeçir
-                    ABa.hamleYap(new Durum(durum.tahta, durum.karşıTaş)) match {
-                        case Biri(oda) => oda
-                        case _         => throw new Exception("Burada olmamalı")
-                    }
 
-            }
-            hamleyiYap(tahta.hamleyiDene(hamle), hamle)
-            bittiMi
-        }
-    }
-    def tahtadanTahta: Tahta = { // elektronik tahtadan arama tahtası oluşturalım
-        val tane = odaSayısı
-        var t = new Tahta(tane, Vector.fill(tane * tane)(0))
-        def diziden(dizi: Dizi[(Sayı, Sayı)])(taş: Taş) = t = t.koy(dizi.map(p => Oda(p._1, p._2)), taş)
-        for (t <- Dizi(Beyaz, Siyah))
-            diziden(for (y <- 0 until tane; x <- 0 until tane; if (t == tahta.taş(y, x))) yield (y, x))(t)
-        t
-    }
     def köşeYaklaşımı(yasallar: Dizi[Oda]): Belki[Oda] = rastgeleSeç(yasallar.filter(tahta.köşeMi(_))) match {
         case Biri(oda) => Biri(oda) // köşe bulduk!
         case _ => rastgeleSeç(yasallar.filter(tahta.içKöşeMi(_))) match {
@@ -358,19 +216,5 @@ class Arayüz {
     def skoruGüncelle = skorYazısı.güncelle(s"${tahta.hamleSayısı()}. hamle${if (bellek.sıraGeriDöndüMü) " yine " else " "}${tahta.oyuncu().adı}ın\n${tahta.kaçkaç(doğru)}")
     def skorBilgisayarHamleArıyor = skorYazısı.güncelle(s"${tahta.hamleSayısı()}. hamle. Bilgisayar arıyor...\n${tahta.kaçkaç(doğru)}")
     skorBaşlangıç
-
-    private val ipucu = Resim.yazıRenkli("", 20, kırmızı)
-    ipucu.çiz()
-
-    tuşaBasınca { t =>
-        t match {
-            case tuşlar.VK_RIGHT => ileri
-            case tuşlar.VK_LEFT  => geri
-            case tuşlar.VK_UP    => öneri
-            case _               =>
-        }
-    }
-
-    if (tahta.oyuncu() == bilgisayar && !tahta.hamleYoksa) öneri
 
 }
