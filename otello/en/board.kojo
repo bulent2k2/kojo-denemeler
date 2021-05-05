@@ -1,4 +1,4 @@
-//#include types
+//#include cboard
 
 // this board is used only in alpha-beta search
 class Board(val size: Int, var board: Vector[Int]) extends CoreBoard {

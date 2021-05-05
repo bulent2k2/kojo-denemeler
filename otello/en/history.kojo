@@ -37,6 +37,9 @@ class History(board: EBoard) {
             board.setStone(y)(x)(old(y)(x))
         board.player.set(players(move))
         board.lastMove = moves(move)
+        board.skippedTurn =
+            if (move > 1) board.player() == players(move - 1)
+            else false
     }
 
     def saveBoard(isNewMove: Boolean, move: Option[Room]) = {

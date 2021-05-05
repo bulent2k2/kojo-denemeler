@@ -1,12 +1,13 @@
 //#include history
 //#include alphaBetaSearch
+//#include ui_test
 
 class UI(
     board:         EBoard,
     history:       History,
     computerPlays: Stone) {
 
-    val length = 50 // size of squares on the board
+    val length = 90 // size of squares on the board
     val (llx, lly) = (-board.size / 2 * length, -board.size / 2 * length)
     val (l2, l3, l4) = (length / 2, length / 3, length / 4)
 
@@ -69,28 +70,33 @@ class UI(
                     if (makeTheMove(room)) {
                         clearHilites
                         if (board.isGameOver) endTheGame
-                        else if (computerInPlay) searchScore
-                        else updateScore
+                        else if (computerInPlay) refreshScoreBoard
                     }
                 case _ =>
             }
         }
         def roomColor = stone2color(board.stone(room))
         def playerColor = stone2color(board.player())
+        def playerColorHilite = board.player() match {
+            case White => Color(244, 213, 244) // light noble purple
+            case Black => Color(98, 8, 97) // dark noble purple
+            case _ => stone2color(Empty)
+        }
         def oppColor = stone2color(board.player.opponent)
-        def hiliteMoveOutcome = {
+        def hiliteMoveOutcome = if (hintsOn) {
             stonesToBeFlipped = board.pretendMove(room)
             stonesToBeFlipped.map { r =>
-                room2pic(r).setFillColor(playerColor)
-                room2pic(r).setOpacity(0.6)
+                room2pic(r).setFillColor(playerColorHilite)
+                room2pic(r).opacityMod(0.8)
             }
         }
-        def clearHilites = {
+        def clearHilites = if (hintsOn) {
             stonesToBeFlipped.map { r =>
                 room2pic(r).setFillColor(oppColor)
-                room2pic(r).setOpacity(1)
+                room2pic(r).opacityMod(1)
             }
             pic.setFillColor(roomColor) // room of pic is in stonesToBeFlipped
+            pic.opacityMod(1)
             stonesToBeFlipped = Seq()
         }
     }
@@ -106,10 +112,10 @@ class UI(
             board.lastMove = Some(room)
             val player = board.player() // move changes the player, in general
             board.move(room).foreach { paint(_, player) }
+            refreshScoreBoard
             board.print
-            updateScore
             showMoves
-            drawLastMove
+            showLastMove
             if (pauseDuration > 0) pause(pauseDuration)
             if (board.isGameOver) endTheGame
             true
@@ -121,7 +127,6 @@ class UI(
         for (x <- board.range; y <- board.range)
             paint(Room(y, x), board.stone(y, x))
         history.reset()
-        resetScore
         clearLastMove
         showMoves
         endedTheGame = false
@@ -129,10 +134,10 @@ class UI(
     }
 
     var movePics: Seq[Picture] = Seq()
-    var showMovesOn = true
+    def clearMoves = movePics.foreach { _.erase() }
     def showMoves = {
-        movePics.foreach { _.erase() }
-        if (showMovesOn) {
+        clearMoves
+        if (hintsOn) {
             val ordered = moves.map { r =>
                 (r, board.movePayoff(r, board.player()))
             }.sortBy { p => p._2 }.reverse
@@ -152,21 +157,30 @@ class UI(
         }
     }
 
+    var lastMovePic: Picture = Picture.circle(l4)
+    def showLastMove = {
+        clearLastMove
+        if (hintsOn) {
+            board.lastMove match {
+                case Some(room) =>
+                    lastMovePic = penColor(blue) * penThickness(3) * fillColor(noColor) ->
+                        Picture.circle(l4)
+                    lastMovePic.setPosition(room2point(room, false))
+                    lastMovePic.forwardInputTo(room2pic(room))
+                    lastMovePic.draw()
+                case _ =>
+            }
+        }
+    }
+    def clearLastMove = lastMovePic.erase()
+
     var endedTheGame = false
     def endTheGame = if (!endedTheGame) {
         endedTheGame = true
         assert(board.isGameOver == true)
         println(s"The game is over.")
         for (s <- Seq(White, Black)) println(s"${s.name.capitalize}: ${board.count(s)}")
-        finishScore
     }
-    def resetScore = {} // todo skorBaşlangıç
-    def updateScore = {} // todo skoruGüncelle
-    def searchScore = {} // todo skorBilgisayarHamleArıyor
-    def finishScore = {} // todo skorBitiş
-
-    def drawLastMove = {} // todo hamleyiGöster (use board.lastMove? instead of room?)
-    def clearLastMove = {} // hamleResminiSil
 
     def computerInPlay = board.player() == computerPlays
     def computerToMove: Unit = {
@@ -192,9 +206,10 @@ class UI(
     def defineKeys = {
         onKeyPress { k =>
             k match {
-                case Kc.VK_LEFT => mem.undo
+                case Kc.VK_LEFT  => mem.undo
                 case Kc.VK_RIGHT => mem.redo
-                case Kc.VK_UP => computerToMove
+                case Kc.VK_UP    => computerToMove
+                case _           =>
             }
         }
     }
@@ -204,51 +219,115 @@ class UI(
             history.undo
             endedTheGame = false
             repaint
+            if (computerInPlay) computerToMove
         }
         def redo = {
             history.redo
             repaint
             if (board.isGameOver) endTheGame
+            if (computerInPlay) computerToMove
         }
         def repaint {
+            refreshScoreBoard
             for (x <- board.range; y <- board.range)
-            paint(Room(y, x), board.stone(y, x))
-            updateScore
-            drawLastMove // draw or show or paint - todo
+                paint(Room(y, x), board.stone(y, x))
+            showLastMove
             showMoves
         }
     }
 
+    var hintsOn = true
+    def toggleHints = {
+        hintsOn = if (hintsOn) false else true
+        if (hintsOn) {
+            showMoves
+            showLastMove
+            hintPics.turnOn
+        }
+        else {
+            clearMoves
+            clearLastMove
+            hintPics.turnOff
+        }
+    }
+
+    def defineButtons = {
+        val scoreboard = scoreBoard.map(Label(_))
+        draw(
+            trans(llx + length * board.size + 10, lly) ->
+                Picture.widget(
+                    ColPanel(
+                        scoreboard(0),
+                        scoreboard(1),
+                        scoreboard(2),
+                        Label(""),
+                        Label(""),
+                        Button("Toggle Hints On/Off") { toggleHints },
+                        Button("Engine") { computerToMove },
+                        Button("Undo") { mem.undo },
+                        Button("Redo") { mem.redo },
+                        Button("New Game") { newGame })
+                )
+        )
+        scoreboard
+    }
+    def scoreBoard: Seq[String] = { // make sure to have 3 elements for three lines in the scoreBoard
+        def score: Seq[String] = for (s <- Seq(White, Black))
+            yield s"${s.cname}: ${board.count(s)}"
+        if (board.isGameOver) Seq("Game is over") ++ score
+        else if (board.moveCount == 1) Seq(
+            s"${board.startingPlayer.cname} to play", "", ""
+        )
+        else if (computerInPlay)
+            Seq(s"Computer computing next move...") ++ score
+        else
+            Seq(s"Move ${board.moveCount()}. ${board.player().cname} to play" +
+                (if (board.skippedTurn) " again" else "")) ++ score
+    }
+    def refreshScoreBoard =
+        scoreboard.zipWithIndex.foreach {
+            case (l, i) => l.setText(scoreBoard(i))
+        }
+
     cleari()
     clearOutput()
-    //toggleFullScreenCanvas()
+    toggleFullScreenCanvas()
     setBackground(darkGrayClassic)
     drawTheBoard
     showMoves
     defineKeys
+    val scoreboard = defineButtons
+    activateCanvas
+    refreshScoreBoard
 
     val hintPics = new HintPics(length)
 
-    if (computerInPlay) computerToMove
+    //if (computerInPlay) computerToMove // todo: we get an empty screen while the computer computes the first move!
 }
 
 class HintPics(length: Int) {
+    var show = true
+    def turnOn = { show = true }
+    def turnOff = {
+        show = false
+        pics.map(_.invisible)
+    }
     val hintPayoff = Picture.textu("", 20, red)
     val hintCoord = Picture.textu("", 20, pink)
-    def update(payoff: Int, room: Room) {
+    def update(payoff: Int, room: Room) = {
         hintPayoff.update(if (payoff > 0) payoff.toString else "")
         hintCoord.update(room.toString)
     }
     val pics = List(hintPayoff, hintCoord)
     def draw = pics.map(_.draw)
-    def toggleV = pics.map(_.toggleV)
+    def toggleV = if (show) pics.map(_.toggleV)
     def setPosition(p: Point) = {
         hintPayoff.setPosition(p)
         hintCoord.setPosition(p - Point(0, length / 2))
     }
     def moveToFront() = pics.map(_.moveToFront())
     def forwardInputTo(p: Picture) = pics.map(_.forwardInputTo(p))
-    def refresh(picture: Picture, newPosition: Point) {
+    def refresh(picture: Picture, newPosition: Point) = {
         this.setPosition(newPosition)
         this.toggleV
         this.moveToFront()
@@ -258,62 +337,10 @@ class HintPics(length: Int) {
     toggleV
 }
 
-def test_basic_board_drawing(dur: Double): Unit = {
-    val board = new EBoard(8, Black, 0)
-    val history = new History(board)
-    val computerPlays = Empty
-    val ui = new UI(board, history, computerPlays)
-    board.print
-    pause(dur)
-    ui.makeTheMove(Room(3, 2)); pause(dur)
-    ui.makeTheMove(Room(4, 2)); pause(dur)
-    assert(ui.makeTheMove(Room(2, 2)) == false, "illegal move")
-    assert(ui.makeTheMove(Room(5, 2)) == true, "good move"); pause(dur)
-    assert(ui.makeTheMove(Room(4, 2)) == false, "another kind of illegal move")
-    assert(ui.makeTheMove(Room(2, 2)) == true, "good move 2"); pause(dur)
-    ui.newGame
-    ui.makeTheMove(Room(2, 3))
-    ui.newGame
-}
-
-def test_game_play = {
-    val board = new EBoard(4, Black, 0)
-    val history = new History(board)
-    val computerPlays = Empty
-    val ui = new UI(board, history, computerPlays)
-    for (
-        move <- List(
-            Room(1, 0), Room(2, 0),
-            Room(3, 0), Room(0, 2),
-            Room(0, 3), Room(0, 0)
-        )
-    ) ui.makeTheMove(move)
-    // now B to make two moves back to back:
-    assert(board.player() == Black, "black back-to-back moves 1")
-    ui.makeTheMove(Room(0, 1))
-    assert(board.player() == Black, "black back-to-back moves 2")
-    ui.makeTheMove(Room(2, 3))
-    assert(board.player() == White, "finally white to move")
-    for (move <- List(Room(3, 3), Room(3, 2))) ui.makeTheMove(move)
-    // move W to make two back-to-back moves:
-    assert(board.player() == White, "w1")
-    ui.makeTheMove(Room(1, 3))
-    assert(board.player() == White, "w2")
-    ui.makeTheMove(Room(3, 1))
-    assert(board.isGameOver == true, "the happy end")
-    assert(board.score(White) == 10, "w=10")
-    assert(board.score(Black) == 6, "b=6")
-    ui.newGame
-}
-def test_computer_play = {
-    val board = new EBoard(4, Black, 0)
-    val history = new History(board)
-    val computerPlays = Black
-    val ui = new UI(board, history, computerPlays)
-}
-if (runUnitTests) {
+val ui_wip = false
+if (runUnitTests || ui_wip) {
+    println("Here!")
     test_basic_board_drawing(0.1)
     test_game_play
     test_computer_play
 }
-

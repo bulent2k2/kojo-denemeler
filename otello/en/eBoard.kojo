@@ -1,4 +1,4 @@
-//#include types
+//#include cboard
 
 class MoveCount { // the count of the next move counting from 1, 2, 3...
     private var count: Int = _
@@ -31,6 +31,7 @@ class EBoard(
     val player = new Player(startingPlayer)
     val moveCount = new MoveCount
     var lastMove: Option[Room] = _
+    var skippedTurn = false
 
     def stone(y: Int, x: Int) = board(y)(x)
     def stone(room: Room) = board(room.y)(room.x)
@@ -44,8 +45,10 @@ class EBoard(
         if (touched.size > 0) {
             player.change()
             moveCount.incr()
+            skippedTurn = false
             if (moves(player()).isEmpty && !isGameOver) {
-                println(s"There are no moves for ${player().name.capitalize}. ${player.opponent.name.capitalize} to play again")
+                skippedTurn = true
+                println(s"There are no moves for ${player().cname}. ${player.opponent.cname} to play again")
                 player.change()
             }
         }

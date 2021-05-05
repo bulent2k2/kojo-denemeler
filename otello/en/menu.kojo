@@ -3,9 +3,9 @@
 val welcome = <html> Welcome to Kojothello! </html>.toString
 
 val ui_variant = DropDown("Traditional", "Variation")
-val ui_board = DropDown(4, 5, 6, 7, 8, 9, 10, 11, 12)
+val ui_board = DropDown(8, 4, 5, 6, 7, 8, 9, 10, 11, 12)
 val ui_toPlay = DropDown("Black", "White")
-val ui_level = DropDown(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+val ui_level = DropDown(4, 1, 2, 3, 4, 5, 6, 7, 8)
 val ui_computer = DropDown("Two Players", "Computer plays Black", "Computer plays White")
 
 def menu = {

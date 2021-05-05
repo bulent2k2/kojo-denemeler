@@ -19,7 +19,7 @@ object ABa { // alfa-beta arama
     // todo: yasal hamle olmadığı zaman arama kısa kesilmemeli!
     def abHamle(durum: Durum, derinlik: Sayı): Sayı =
         if (durum.bitti || derinlik == 0 || durum.seçenekler.isEmpty) durum.skor
-        else azalt(durum, derinlik, Int.MinValue, Int.MaxValue)
+        else azalt(durum, derinlik, Int.MinValue, Int.MaxValue) // todo
 
     def azalt(durum: Durum, derinlik: Sayı, alfa: Sayı, beta: Sayı): Sayı =
         if (durum.bitti || derinlik == 0 || durum.seçenekler.isEmpty) durum.skor
@@ -244,7 +244,8 @@ def yeniTahta(tane: Sayı, çeşni: Sayı = 0): Tahta = {
             dörtTane(Oda(son - 2, 1))
         case _ =>
             val çiftse = tane % 2 == 0
-            if (çiftse) dörtTane(Oda(orta - 1, orta - 1)) else {
+        if (çiftse) dörtTane(Oda(orta - 1, orta - 1))
+        else {
                 val (a, b) = (orta - 1, orta + 1)
                 diziden(Dizi(a -> a, b -> b))(Beyaz)
                 diziden(Dizi((a, b), (b, a)))(Siyah)
