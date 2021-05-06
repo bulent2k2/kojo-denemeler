@@ -78,9 +78,9 @@ class UI(
         def roomColor = stone2color(board.stone(room))
         def playerColor = stone2color(board.player())
         def playerColorHilite = board.player() match {
-            case White => Color(244, 213, 244) // light noble purple
-            case Black => Color(98, 8, 97) // dark noble purple
-            case _ => stone2color(Empty)
+            case White => Color(244, 213, 244) // light purple
+            case Black => Color(98, 8, 97) // dark purple
+            case _     => stone2color(Empty)
         }
         def oppColor = stone2color(board.player.opponent)
         def hiliteMoveOutcome = if (hintsOn) {
@@ -219,13 +219,11 @@ class UI(
             history.undo
             endedTheGame = false
             repaint
-            if (computerInPlay) computerToMove
         }
         def redo = {
             history.redo
             repaint
             if (board.isGameOver) endTheGame
-            if (computerInPlay) computerToMove
         }
         def repaint {
             refreshScoreBoard
@@ -263,14 +261,16 @@ class UI(
                         Label(""),
                         Label(""),
                         Button("Toggle Hints On/Off") { toggleHints },
-                        Button("Engine") { computerToMove },
+                        Button("Suggest Move") { computerToMove },
                         Button("Undo") { mem.undo },
                         Button("Redo") { mem.redo },
+                        Button("Toggle Full Screen") { toggleFullScreenCanvas() },
                         Button("New Game") { newGame })
                 )
         )
         scoreboard
     }
+
     def scoreBoard: Seq[String] = { // make sure to have 3 elements for three lines in the scoreBoard
         def score: Seq[String] = for (s <- Seq(White, Black))
             yield s"${s.cname}: ${board.count(s)}"
