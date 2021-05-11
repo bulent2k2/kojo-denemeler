@@ -15,7 +15,7 @@ object ABS {
         if (state.moves.isEmpty) None
         else Some((for (move <- state.moves) yield move ->
             abMove(state.move(move), maxDepth)).minBy(_._2)._1)
-    // todo: maxDepth must be adaptive, or better just jind out how many branches we can process...
+    // todo: maxDepth must be adaptive, or better just find out how many branches we can process...
     def abMove(state: State, depth: Int): Int =
         if (state.isGameOver || depth == 0 || state.moves.isEmpty) state.score
         else minimize(state, depth, Int.MinValue, Int.MaxValue)
@@ -26,7 +26,7 @@ object ABS {
             var newBeta = beta
             state.moves.foreach { move =>
                 val newState = state.move(move)
-                newBeta = math.min(beta, maximize(newState, depth - 1, alpha, newBeta))
+                newBeta = math.min(newBeta, maximize(newState, depth - 1, alpha, newBeta))
                 if (alpha >= newBeta) return alpha
             }
             newBeta
@@ -38,7 +38,7 @@ object ABS {
             state.moves.foreach { move =>
                 val newState = state.move(move)
                 newAlpha = math.max(newAlpha, minimize(newState, depth - 1, newAlpha, beta))
-                if (newAlpha > beta) return beta
+                if (newAlpha >= beta) return beta
             }
             newAlpha
         }

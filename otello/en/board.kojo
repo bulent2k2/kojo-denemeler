@@ -28,7 +28,7 @@ class Board(val size: Int, var board: Vector[Int]) extends CoreBoard {
         }
         if (msg.size > 0) println(lineHeader + msg)
         for (p <- List(White, Black))
-            println(s"$lineHeader ${p.name.capitalize}: ${count(p)}}")
+            println(s"$lineHeader ${p.name.capitalize}: ${count(p)}")
     }
 
     def placeSeq(rooms: Seq[(Int, Int)])(stone: Stone): Unit = {
