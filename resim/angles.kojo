@@ -1,4 +1,5 @@
-/* cp /var/folders/_c/zxkfxptj7vz2rz11xwtx0vg40000gn/T/*.png ~/src/kojo/resim/angles
+/* Moved to kojo-creations
+cp /var/folders/_c/zxkfxptj7vz2rz11xwtx0vg40000gn/T/*.png ~/src/kojo/resim/angles
 Image saved in: /var/folders/_c/zxkfxptj7vz2rz11xwtx0vg40000gn/T/açılar-1-532830167679829704.png
 Image saved in: /var/folders/_c/zxkfxptj7vz2rz11xwtx0vg40000gn/T/açılar-2-12137891797112760154.png
 Image saved in: /var/folders/_c/zxkfxptj7vz2rz11xwtx0vg40000gn/T/açılar-3-8221133494173538837.png
