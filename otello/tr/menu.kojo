@@ -4,7 +4,9 @@
 //#include alfabeta
 
 val açıklama = <html> 
- Otello'ya hoşgeldin!
+ <em> KojOtello'ya hoşgeldin! </em> <br/>
+ Daha çok bilgi için: <a href="https://tr.wikipedia.org/wiki/Reversi">Tr Viki</a>
+ ve <a href="https://en.wikipedia.org/wiki/Reversi">Wiki</a> maddeleri var.
   </html>.toString
 
 val ay_çeşniler = ay.Salındıraç("geleneksel", "bir çeşni")
@@ -65,8 +67,8 @@ def menu: Birim = {
                         val tahta = new ETahta(odaSayısı, kimBaşlar, çeşni)
                         val bellek = new Bellek(tahta)
                         çıktıyıSil
-                        new Arayüz(tahta, bellek, bilgisayar)
                         ABa.ustalık(düzey)
+                        new Arayüz(tahta, bellek, bilgisayar)
                     }
                 })
             )
@@ -74,4 +76,3 @@ def menu: Birim = {
     )
 }
 menu
-

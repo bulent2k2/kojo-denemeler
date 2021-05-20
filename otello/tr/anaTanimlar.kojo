@@ -50,8 +50,8 @@ class Oyuncu(val kimBaşlar: Taş) {
     def apply() = oyuncu
     def karşı: Taş = if (oyuncu == Beyaz) Siyah else Beyaz
     def başaAl() = oyuncu = kimBaşlar
-    def değiştir() = oyuncu = if (oyuncu == Beyaz) Siyah else Beyaz
+    def değiştir() = oyuncu = karşı
     def kur(o: Taş) = oyuncu = o
-    private var oyuncu = kimBaşlar
+    private var oyuncu: Taş = _
     başaAl()
 }

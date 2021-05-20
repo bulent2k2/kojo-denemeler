@@ -11,13 +11,17 @@ val bilgisayar = Siyah // Siyah ya da Beyaz oynar ya da Yok (yani oynamaz)
 
 val tahta = new ETahta(odaSayısı, kimBaşlar, çeşni)
 val bellek = new Bellek(tahta)
-val araYüz = new Arayüz(tahta, bellek, bilgisayar)
-
 val düzey = Usta
-//özdevin(0.02) // bilgisayar çabucak bir oyunla başlayabilir istersen
 ABa.ustalık(düzey)
-/*
+val araYüz = new Arayüz(tahta, bellek, bilgisayar)
+// 1) istersen bilgisayar çabucak bir oyunla başlayabilir
+// araYüz.özdevin(0.02) 
+
+// 2) Burada ise daha ciddi bir bilgisayar motorunu kullanıyoruz. 
+// Epey çok zaman alıyor. Hamle başına 1, 3, 5 hatta 10 saniyeden çok bile 
+// sürebilir. Hızlandırmak için Usta yerine Er, Çırak ya da Kalfa kurabilirsin:
+/* 
 zamanTut(s"$odaSayısı x $odaSayısı ustalık: $düzey") {
-    özdevinimliOyun(abArama, 0.1)
+    araYüz.özdevinimliOyun(araYüz.abArama, 0.1)
 }("sürdü")
 */

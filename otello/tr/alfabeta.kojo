@@ -27,7 +27,7 @@ object ABa { // alfa-beta arama
             var yeniBeta = beta
             durum.seçenekler.foreach { hamle => // onun hamleleri
                 val yeniDurum = durum.oyna(hamle)
-                yeniBeta = enUfağı(beta, artır(yeniDurum, derinlik - 1, alfa, yeniBeta))
+                yeniBeta = enUfağı(yeniBeta, artır(yeniDurum, derinlik - 1, alfa, yeniBeta))
                 if (alfa >= yeniBeta) return alfa
             }
             yeniBeta
