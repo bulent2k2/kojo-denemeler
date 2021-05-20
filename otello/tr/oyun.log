@@ -1,0 +1,586 @@
+* Bazen biraz daha hızlı. Ama hamleler değişmedi!
+* alfa-beta hatasını düzelttikten sonra:
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . S B . . .
+. . . B S . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+Alfa-beta Usta arama 0.372 saniye sürdü
+Hamle 1 S 4x3:
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . S B . . .
+. . . S S . . .
+. . . S . . . .
+. . . . . . . .
+. . . . . . . .
+Alfa-beta Usta arama 0.332 saniye sürdü
+Hamle 2 B 3x3:
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . S B . . .
+. . . B S . . .
+. . B S . . . .
+. . . . . . . .
+. . . . . . . .
+Alfa-beta Usta arama 0.512 saniye sürdü
+Hamle 3 S 2x3:
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . S B . . .
+. . . B S . . .
+. S S S . . . .
+. . . . . . . .
+. . . . . . . .
+Alfa-beta Usta arama 0.643 saniye sürdü
+Hamle 4 B 3x5:
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . B B B . . .
+. . . B S . . .
+. S S S . . . .
+. . . . . . . .
+. . . . . . . .
+Alfa-beta Usta arama 0.904 saniye sürdü
+Hamle 5 S 3x6:
+. . . . . . . .
+. . . . . . . .
+. . S . . . . .
+. . B S B . . .
+. . . B S . . .
+. S S S . . . .
+. . . . . . . .
+. . . . . . . .
+Alfa-beta Usta arama 1.001 saniye sürdü
+Hamle 6 B 3x7:
+. . . . . . . .
+. . B . . . . .
+. . B . . . . .
+. . B S B . . .
+. . . B S . . .
+. S S S . . . .
+. . . . . . . .
+. . . . . . . .
+Alfa-beta Usta arama 1.197 saniye sürdü
+Hamle 7 S 2x5:
+. . . . . . . .
+. . B . . . . .
+. . B . . . . .
+. S S S B . . .
+. . . B S . . .
+. S S S . . . .
+. . . . . . . .
+. . . . . . . .
+Alfa-beta Usta arama 3.037 saniye sürdü
+Hamle 8 B 1x5:
+. . . . . . . .
+. . B . . . . .
+. . B . . . . .
+B B B B B . . .
+. . . B S . . .
+. S S S . . . .
+. . . . . . . .
+. . . . . . . .
+Alfa-beta Usta arama 1.044 saniye sürdü
+Hamle 9 S 4x6:
+. . . . . . . .
+. . B . . . . .
+. . B S . . . .
+B B B S B . . .
+. . . S S . . .
+. S S S . . . .
+. . . . . . . .
+. . . . . . . .
+Alfa-beta Usta arama 1.909 saniye sürdü
+Hamle 10 B 2x2:
+. . . . . . . .
+. . B . . . . .
+. . B S . . . .
+B B B S B . . .
+. . . B S . . .
+. S B S . . . .
+. B . . . . . .
+. . . . . . . .
+Alfa-beta Usta arama 4.027 saniye sürdü
+Hamle 11 S 2x1:
+. . . . . . . .
+. . B . . . . .
+. . B S . . . .
+B B B S B . . .
+. . . B S . . .
+. S B S . . . .
+. S . . . . . .
+. S . . . . . .
+Alfa-beta Usta arama 1.926 saniye sürdü
+Hamle 12 B 5x3:
+. . . . . . . .
+. . B . . . . .
+. . B S . . . .
+B B B S B . . .
+. . . B B . . .
+. S B B B . . .
+. S . . . . . .
+. S . . . . . .
+Alfa-beta Usta arama 4.781 saniye sürdü
+Hamle 13 S 6x3:
+. . . . . . . .
+. . B . . . . .
+. . B S . . . .
+B B B S B . . .
+. . . B S . . .
+. S S S S S . .
+. S . . . . . .
+. S . . . . . .
+Alfa-beta Usta arama 5.021 saniye sürdü
+Hamle 14 B 7x2:
+. . . . . . . .
+. . B . . . . .
+. . B S . . . .
+B B B B B . . .
+. . . B B . . .
+. S S S S B . .
+. S . . . . B .
+. S . . . . . .
+Alfa-beta Usta arama 4.407 saniye sürdü
+Hamle 15 S 2x6:
+. . . . . . . .
+. . B . . . . .
+. S S S . . . .
+B B S B B . . .
+. . . S B . . .
+. S S S S B . .
+. S . . . . B .
+. S . . . . . .
+Alfa-beta Usta arama 4.731 saniye sürdü
+Hamle 16 B 1x3:
+. . . . . . . .
+. . B . . . . .
+. S S S . . . .
+B B S B B . . .
+. . . S B . . .
+B B B B B B . .
+. S . . . . B .
+. S . . . . . .
+Alfa-beta Usta arama 5.283 saniye sürdü
+Hamle 17 S 8x1:
+. . . . . . . .
+. . B . . . . .
+. S S S . . . .
+B B S S B . . .
+. . . S S . . .
+B B B B B S . .
+. S . . . . S .
+. S . . . . . S
+Alfa-beta Usta arama 4.492 saniye sürdü
+Hamle 18 B 4x7:
+. . . . . . . .
+. . B B . . . .
+. S B B . . . .
+B B S B B . . .
+. . . B S . . .
+B B B B B S . .
+. S . . . . S .
+. S . . . . . S
+Alfa-beta Usta arama 5.825 saniye sürdü
+Hamle 19 S 6x2:
+. . . . . . . .
+. . B B . . . .
+. S B B . . . .
+B B S B B . . .
+. . . S S . . .
+B B B B S S . .
+. S . . . S S .
+. S . . . . . S
+Alfa-beta Usta arama 3.108 saniye sürdü
+Hamle 20 B 5x2:
+. . . . . . . .
+. . B B . . . .
+. S B B . . . .
+B B S B B . . .
+. . . S B . . .
+B B B B B S . .
+. S . . B S S .
+. S . . . . . S
+Alfa-beta Usta arama 9.906 saniye sürdü
+Hamle 21 S 4x8:
+. . . S . . . .
+. . S S . . . .
+. S B S . . . .
+B B S S B . . .
+. . . S B . . .
+B B B B B S . .
+. S . . B S S .
+. S . . . . . S
+Alfa-beta Usta arama 9.445 saniye sürdü
+Hamle 22 B 1x7:
+. . . S . . . .
+B . S S . . . .
+. B B S . . . .
+B B B S B . . .
+. . . B B . . .
+B B B B B S . .
+. S . . B S S .
+. S . . . . . S
+Alfa-beta Usta arama 12.708 saniye sürdü
+Hamle 23 S 4x2:
+. . . S . . . .
+B . S S . . . .
+. B B S . . . .
+B B B S B . . .
+. . . S B . . .
+B B B S B S . .
+. S . S S S S .
+. S . . . . . S
+Alfa-beta Usta arama 10.278 saniye sürdü
+Hamle 24 B 3x1:
+. . . S . . . .
+B . S S . . . .
+. B B S . . . .
+B B B S B . . .
+. . . S B . . .
+B B B S B S . .
+. B . B S S S .
+. S B . . . . S
+Alfa-beta Usta arama 11.692 saniye sürdü
+Hamle 25 S 2x4:
+. . . S . . . .
+B . S S . . . .
+. B B S . . . .
+B B S S B . . .
+. S . S B . . .
+B S B S B S . .
+. S . B S S S .
+. S B . . . . S
+Alfa-beta Usta arama 11.934 saniye sürdü
+Hamle 26 B 2x4:
+. . . S . . . .
+B . S S . . . .
+. B B S . . . .
+B B S S B . . .
+. B . S B . . .
+B S B S B S . .
+. S . B S S S .
+. S B . . . . S
+Alfa-beta Usta arama 7.594 saniye sürdü
+Hamle 27 S 8x2:
+. . . S . . . .
+B . S S . . . .
+. B B S . . . .
+B B S S B . . .
+. B . S B . . .
+B S B S B S . .
+. S . B S S S S
+. S B . . . . S
+Alfa-beta Usta arama 5.082 saniye sürdü
+Hamle 28 B 5x6:
+. . . S . . . .
+B . S S . . . .
+. B B B B . . .
+B B S S B . . .
+. B . S B . . .
+B S B S B S . .
+. S . B S S S S
+. S B . . . . S
+Alfa-beta Usta arama 5.491 saniye sürdü
+Hamle 29 S 1x1:
+. . . S . . . .
+B . S S . . . .
+. B B B B . . .
+B B S S B . . .
+. B . S B . . .
+B S B S B S . .
+. S . B S S S S
+S S B . . . . S
+Alfa-beta Usta arama 5.840 saniye sürdü
+Hamle 30 B 5x7:
+. . . S . . . .
+B . S S B . . .
+. B B B B . . .
+B B S S B . . .
+. B . S B . . .
+B S B S B S . .
+. S . B S S S S
+S S B . . . . S
+Alfa-beta Usta arama 3.162 saniye sürdü
+Hamle 31 S 3x8:
+. . S S . . . .
+B . S S B . . .
+. B B B B . . .
+B B S S B . . .
+. B . S B . . .
+B S B S B S . .
+. S . B S S S S
+S S B . . . . S
+Alfa-beta Usta arama 2.594 saniye sürdü
+Hamle 32 B 2x7:
+. . S S . . . .
+B B B B B . . .
+. B B B B . . .
+B B S S B . . .
+. B . S B . . .
+B S B S B S . .
+. S . B S S S S
+S S B . . . . S
+Alfa-beta Usta arama 5.074 saniye sürdü
+Hamle 33 S 5x8:
+. . S S S . . .
+B B B B S . . .
+. B B B S . . .
+B B S S S . . .
+. B . S S . . .
+B S B S S S . .
+. S . B S S S S
+S S B . . . . S
+Alfa-beta Usta arama 3.859 saniye sürdü
+Script Stopped.
+* alfa-beta hatasını düzeltmeden önce:
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . S B . . .
+. . . B S . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+Alfa-beta Usta arama 0.430 saniye sürdü
+Hamle 1 S 4x3:
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . S B . . .
+. . . S S . . .
+. . . S . . . .
+. . . . . . . .
+. . . . . . . .
+Alfa-beta Usta arama 0.506 saniye sürdü
+Hamle 2 B 3x3:
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . S B . . .
+. . . B S . . .
+. . B S . . . .
+. . . . . . . .
+. . . . . . . .
+Alfa-beta Usta arama 0.561 saniye sürdü
+Hamle 3 S 2x3:
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . S B . . .
+. . . B S . . .
+. S S S . . . .
+. . . . . . . .
+. . . . . . . .
+Alfa-beta Usta arama 0.622 saniye sürdü
+Hamle 4 B 3x5:
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . B B B . . .
+. . . B S . . .
+. S S S . . . .
+. . . . . . . .
+. . . . . . . .
+Alfa-beta Usta arama 0.877 saniye sürdü
+Hamle 5 S 3x6:
+. . . . . . . .
+. . . . . . . .
+. . S . . . . .
+. . B S B . . .
+. . . B S . . .
+. S S S . . . .
+. . . . . . . .
+. . . . . . . .
+Alfa-beta Usta arama 0.997 saniye sürdü
+Hamle 6 B 3x7:
+. . . . . . . .
+. . B . . . . .
+. . B . . . . .
+. . B S B . . .
+. . . B S . . .
+. S S S . . . .
+. . . . . . . .
+. . . . . . . .
+Alfa-beta Usta arama 1.214 saniye sürdü
+Hamle 7 S 2x5:
+. . . . . . . .
+. . B . . . . .
+. . B . . . . .
+. S S S B . . .
+. . . B S . . .
+. S S S . . . .
+. . . . . . . .
+. . . . . . . .
+Alfa-beta Usta arama 3.238 saniye sürdü
+Hamle 8 B 1x5:
+. . . . . . . .
+. . B . . . . .
+. . B . . . . .
+B B B B B . . .
+. . . B S . . .
+. S S S . . . .
+. . . . . . . .
+. . . . . . . .
+Alfa-beta Usta arama 1.117 saniye sürdü
+Hamle 9 S 4x6:
+. . . . . . . .
+. . B . . . . .
+. . B S . . . .
+B B B S B . . .
+. . . S S . . .
+. S S S . . . .
+. . . . . . . .
+. . . . . . . .
+Alfa-beta Usta arama 2.121 saniye sürdü
+Hamle 10 B 2x2:
+. . . . . . . .
+. . B . . . . .
+. . B S . . . .
+B B B S B . . .
+. . . B S . . .
+. S B S . . . .
+. B . . . . . .
+. . . . . . . .
+Alfa-beta Usta arama 4.070 saniye sürdü
+Hamle 11 S 2x1:
+. . . . . . . .
+. . B . . . . .
+. . B S . . . .
+B B B S B . . .
+. . . B S . . .
+. S B S . . . .
+. S . . . . . .
+. S . . . . . .
+Alfa-beta Usta arama 1.886 saniye sürdü
+Hamle 12 B 5x3:
+. . . . . . . .
+. . B . . . . .
+. . B S . . . .
+B B B S B . . .
+. . . B B . . .
+. S B B B . . .
+. S . . . . . .
+. S . . . . . .
+Alfa-beta Usta arama 4.551 saniye sürdü
+Hamle 13 S 6x3:
+. . . . . . . .
+. . B . . . . .
+. . B S . . . .
+B B B S B . . .
+. . . B S . . .
+. S S S S S . .
+. S . . . . . .
+. S . . . . . .
+Alfa-beta Usta arama 4.982 saniye sürdü
+Hamle 14 B 7x2:
+. . . . . . . .
+. . B . . . . .
+. . B S . . . .
+B B B B B . . .
+. . . B B . . .
+. S S S S B . .
+. S . . . . B .
+. S . . . . . .
+Alfa-beta Usta arama 4.314 saniye sürdü
+Hamle 15 S 2x6:
+. . . . . . . .
+. . B . . . . .
+. S S S . . . .
+B B S B B . . .
+. . . S B . . .
+. S S S S B . .
+. S . . . . B .
+. S . . . . . .
+Alfa-beta Usta arama 4.639 saniye sürdü
+Hamle 16 B 1x3:
+. . . . . . . .
+. . B . . . . .
+. S S S . . . .
+B B S B B . . .
+. . . S B . . .
+B B B B B B . .
+. S . . . . B .
+. S . . . . . .
+Alfa-beta Usta arama 5.277 saniye sürdü
+Hamle 17 S 8x1:
+. . . . . . . .
+. . B . . . . .
+. S S S . . . .
+B B S S B . . .
+. . . S S . . .
+B B B B B S . .
+. S . . . . S .
+. S . . . . . S
+Alfa-beta Usta arama 4.378 saniye sürdü
+Hamle 18 B 4x7:
+. . . . . . . .
+. . B B . . . .
+. S B B . . . .
+B B S B B . . .
+. . . B S . . .
+B B B B B S . .
+. S . . . . S .
+. S . . . . . S
+Alfa-beta Usta arama 5.804 saniye sürdü
+Hamle 19 S 6x2:
+. . . . . . . .
+. . B B . . . .
+. S B B . . . .
+B B S B B . . .
+. . . S S . . .
+B B B B S S . .
+. S . . . S S .
+. S . . . . . S
+Alfa-beta Usta arama 3.202 saniye sürdü
+Hamle 20 B 5x2:
+. . . . . . . .
+. . B B . . . .
+. S B B . . . .
+B B S B B . . .
+. . . S B . . .
+B B B B B S . .
+. S . . B S S .
+. S . . . . . S
+Alfa-beta Usta arama 9.950 saniye sürdü
+Hamle 21 S 4x8:
+. . . S . . . .
+. . S S . . . .
+. S B S . . . .
+B B S S B . . .
+. . . S B . . .
+B B B B B S . .
+. S . . B S S .
+. S . . . . . S
+Alfa-beta Usta arama 9.497 saniye sürdü
+Hamle 22 B 1x7:
+. . . S . . . .
+B . S S . . . .
+. B B S . . . .
+B B B S B . . .
+. . . B B . . .
+B B B B B S . .
+. S . . B S S .
+. S . . . . . S
+Alfa-beta Usta arama 11.538 saniye sürdü
+Hamle 23 S 4x2:
+. . . S . . . .
+B . S S . . . .
+. B B S . . . .
+B B B S B . . .
+. . . S B . . .
+B B B S B S . .
+. S . S S S S .
+. S . . . . . S
+Unable to stop script.
+Please restart the Kojo Environment unless you see a 'Script Stopped' message soon.
+Alfa-beta Usta arama 9.769 saniye sürdü
+Script Stopped.
+* Son
