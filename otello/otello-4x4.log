@@ -1,3 +1,68 @@
+* Two sets of back to back moves:
+Move 1. B on 1x2:
+. . . .
+. B W .
+B B B .
+. . . .
+Move 2. W on 1x3:
+. . . .
+W W W .
+B B B .
+. . . .
+Move 3. B on 1x4:
+B . . .
+B B W .
+B B B .
+. . . .
+Move 4. W on 3x1:
+B . . .
+B B W .
+B B W .
+. . W .
+Move 5. B on 4x1:
+B . . .
+B B W .
+B B B .
+. . W B
+Move 6. W on 1x1:
+B . . .
+B B W .
+B W B .
+W . W B
+Move 7. B on 2x1:
+There are no moves for white. B to play again
+B . . .
+B B W .
+B B B .
+W B B B
+Move 8. B on 4x3:
+B . . .
+B B B B
+B B B .
+W B B B
+Move 9. W on 4x4:
+B . . W
+B B W B
+B W B .
+W B B B
+Move 10. B on 3x4:
+B . B W
+B B B B
+B W B .
+W B B B
+Move 11. W on 4x2:
+There are no moves for black. W to play again
+B . B W
+B B B W
+B W W W
+W B B B
+Move 12. W on 2x4:
+B W W W
+B W W W
+B W W W
+W B B B
+Unable to format: expected class or object definition
+
 * Özdevinim. Siyah 16 taşla kazanır
 Oyun: 1. Sıra siyahın
 3 seçenek var.

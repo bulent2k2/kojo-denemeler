@@ -177,18 +177,19 @@ class Arayüz( // tahtayı ve taşları çizelim ve canlandıralım
         }
         seçenekleriGöster
     }
-    def bittiMi = if (tahta.hamleYoksa) {
-        sırayıÖbürOyuncuyaGeçir
+    def bittiMi =
         if (tahta.hamleYoksa) {
-            skorBitiş
-            doğru
-        }
-        else {
             sırayıÖbürOyuncuyaGeçir
-            yanlış
+            if (tahta.hamleYoksa) {
+                skorBitiş
+                doğru
+            }
+            else {
+                sırayıÖbürOyuncuyaGeçir
+                yanlış
+            }
         }
-    }
-    else yanlış
+        else yanlış
 
     def yeniOyun = if (tahta.hamleSayısı() != 1) {
         tahta.başaAl("Yeni oyun:")
@@ -201,6 +202,7 @@ class Arayüz( // tahtayı ve taşları çizelim ve canlandıralım
     }
 
     def hamleyiYap(yasal: Dizi[Komşu], hane: Oda, duraklamaSüresi: Kesir = 0.0): Birim = {
+        // todo: iyileştirmek için eTahta'da tanımla: def hamleYap(hane: Oda): Dizi[Oda]  çıktı olarak boyanması gereken odaları sun. İngilizce'ye tercüme ederken de öyle yaptım.
         def bütünTaşlarıÇevir = yasal.foreach { komşu =>
             val komşuTaş = tahta.taş(komşu.oda)
             tahta.gerisi(komşu).takeWhile { oda =>

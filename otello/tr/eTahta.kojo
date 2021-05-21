@@ -12,7 +12,7 @@ class ETahta(
     def say(t: Taş) = (for (x <- satırAralığı; y <- satırAralığı; if tahta(y)(x) == t) yield 1).size
     val hamleSayısı = new HamleSayısı
     var oyunBitti = yanlış
-    var sonHamle: Belki[Oda] = _ // sadece son hamleyi tuvalde göstermek için gerekli
+    var sonHamle: Belki[Oda] = _ // son hamleyi tuvalde göstermek ve geri/ileri için gerekli
     def yasallar = (for {
         x <- satırAralığı; y <- satırAralığı; if tahta(y)(x) == Yok
     } yield Oda(y, x)) filter { hamleyiDene(_).size > 0 }
