@@ -141,7 +141,7 @@ pages += Page(
     <a href={link("GAG")}>Çizim ve Oyun</a> <br/>
     <a href={link("LM")}>Daha Çok Öğrenelim</a> <br/>
     <br/>
-    <p>Not: Bu kılavuzcuk Anthony Bagwell'in simplyscala.com sitesinden Kojo'ya uyarlanarak yazılmıştır. O sites ne yazık ki artık çalışmıyor. Arşivini şurada bulabilirsin: <a href="http://web.archive.org/web/20130305041026/http://www.simplyscala.com">web.archive.org'dan simplyscala.com</a>.</p>
+    <p>Not: Bu kılavuzcuk Anthony Bagwell'in simplyscala.com sitesinden Kojo'ya uyarlanarak yazılmıştır. O site artık ne yazık ki çalışmıyor. Arşivini şurada bulabilirsin: <a href="http://web.archive.org/web/20130305041026/http://www.simplyscala.com">web.archive.org'dan simplyscala.com</a>.</p>
     </div>
     </body>
 )
@@ -164,9 +164,9 @@ sağ(120)
 ileri(100)
 sağ(120)
 """.c,
-    "Bu kılavuzcuğun kaplumbağacığın kullanılışı başlıklı (sondan üçüncü) bölümünde daha pek çok örnek yazılımcık ve kaplumbağanın anladığı komutların bir listesini bulabilirsin.".p,
-    "Scala dili tam anlamıyla genel ve güçlü bir bilgisayar programla dilidir. Özelliklerinin çoğunluğu uzman programcılara ve bilgisayar mühendislerine tanıdık gelecektir. Bu kılavuzcuktan faydalanmak için programlama dili bilmesen de olur, ama elbette daha önce başka bir programlama diliyle deneyimin olduysa daha hızlı ilerleyebilirsin. Onun için anladığın yerleri ve bölümleri hızlı geçmen hatta atlaman bile doğal olur.".p,
-    "Öyleyse, başlayalım mı artık?".p,
+    "Bu kılavuzcuktaki Kaplumbağacığın Kullanılışı başlıklı (sondan üçüncü) bölümde daha pek çok örnek yazılımcık ve kaplumbağacığın anladığı komutların bir listesini bulabilirsin.".p,
+    "Scala dili tam anlamıyla genel ve güçlü bir bilgisayar programla dilidir. Özelliklerinin çoğunluğu uzman programcılara ve bilgisayar mühendislerine tanıdık gelecektir. Bu kılavuzcuktan faydalanmak için programlama dili bilmesen de olur, ama elbette daha önce başka bir programlama dili kullandıysan daha hızlı ilerleyebilirsin. Onun için anladığın yerleri ve bölümleri hızlı geçmen hatta atlaman bile doğal olur.".p,
+    "Öyleyse başlayalım mı artık?".p,
     "Deyişler".h2,
     "Basit matematiksel deyişler pek şaşırtıcı gelmeyecektir. Tanıdık matematik işlemleri ve öncelikleri Scala'da da geçerlidir. İşlemleri daha açık açık sıralamak için parantez kullanılır.".p,
     "1+2".c,
