@@ -8,8 +8,9 @@ kojoVarsayılanİkinciBakışaçısınıKur()
 silVeSakla()
 çizSahne(siyah)
 // ekranTazelemeHızınıKur(50)
+val oyunSüresi = 60
 
-val cb = canvasBounds
+val ta = tuvalAlanı
 val carHeight = 100
 val markerHeight = 80
 //  car1.png ve car2.png yani araba resimlerinin boyutlarına epey yakın bir çokkenarlı biçim çizelim
@@ -31,7 +32,7 @@ val bplayer = newMp3Player
 val cplayer = newMp3Player
 
 def createCar() {
-    val c = trans(player.position.x + randomNormalDouble * cb.width / 10, cb.y + cb.height) ->
+    val c = trans(player.position.x + randomNormalDouble * ta.eni / 10, ta.y + ta.boyu) ->
         car("/media/car-ride/car2.png")
     draw(c)
     cars += c -> Vector2D(0, -carSpeed)
@@ -40,7 +41,7 @@ val markers = collection.mutable.Set.empty[Picture]
 def createMarker() {
     val mwidth = 20
     val m = fillColor(white) * penColor(white) *
-        trans(cb.x + cb.width / 2 - mwidth / 2, cb.y + cb.height) -> Picture.rect(markerHeight, mwidth)
+        trans(ta.x + ta.eni / 2 - mwidth / 2, ta.y + ta.boyu) -> Picture.rect(markerHeight, mwidth)
     draw(m)
     markers += m
 }
@@ -94,7 +95,7 @@ canlandır {
     if (player.collidesWith(stageLeft) || player.collidesWith(stageRight)) {
         cplayer.playMp3Sound("/media/car-ride/car-crash.mp3")
         player.setOpacity(0.5)
-        drawCenteredMessage("Yoldan çıktın. Yine dene.", red, 30)
+        drawCenteredMessage2("Yoldan çıktın. Yine dene.", red, 30)
         durdur()
     }
     else if (player.collidesWith(stageTop)) {
@@ -124,14 +125,14 @@ canlandır {
             cars += c -> newVel
             c.translate(newVel)
         }
-        if (c.position.y + carHeight < cb.y) {
+        if (c.position.y + carHeight < ta.y) {
             c.erase()
             cars -= c
         }
     }
     markers.foreach { m =>
         m.translate(0, -carSpeed * 2)
-        if (m.position.y + markerHeight < cb.y) {
+        if (m.position.y + markerHeight < ta.y) {
             m.erase()
             markers -= m
         }
@@ -141,7 +142,7 @@ canlandır {
 var energyLevel = 0
 def energyText = s"Enerji: $energyLevel"
 val energyLabel = Picture.textu(energyText, 20, ColorMaker.aquamarine)
-energyLabel.translate(cb.x + 10, cb.y + cb.height - 10)
+energyLabel.translate(ta.x + 10, ta.y + ta.boyu - 10)
 def updateEnergyTick() {
     energyLevel += 2
     energyLabel.update(energyText)
@@ -150,15 +151,15 @@ def updateEnergyCrash() {
     energyLevel -= 10
     energyLabel.update(energyText)
     if (energyLevel < 0) {
-        drawCenteredMessage("Enerji bitti. Yine dene.", red, 30)
+        drawCenteredMessage2("Enerji bitti. Yine dene.", red, 30)
         durdur()
     }
 }
 
-def manageGameScore() {
+def manageGameScore(oyunSüresi: Sayı) {
     var gameTime = 0
     val timeLabel = Picture.textu(gameTime, 20, ColorMaker.azure)
-    timeLabel.translate(cb.x + 10, cb.y + 50)
+    timeLabel.translate(ta.x + 10, ta.y + 50)
     draw(timeLabel)
     draw(energyLabel)
     timeLabel.forwardInputTo(stageArea)
@@ -168,18 +169,30 @@ def manageGameScore() {
         timeLabel.update(gameTime)
         updateEnergyTick()
 
-        if (gameTime == 60) {
-            drawCenteredMessage("Bir dakika doldu. Tebrikler!", green, 30)
+        if (gameTime == oyunSüresi) {
+            drawCenteredMessage2("Süre doldu. Tebrikler!", green, 30)
             durdur()
         }
     }
 }
 
-manageGameScore()
+def drawCenteredMessage2(message: String, color: Color = black, fontSize: Int = 15): Unit = {
+    val cb = canvasBounds
+    val te = textExtent(message, fontSize)
+    val pic = penColor(color) *
+        trans(cb.x + (cb.width - te.width) / 2, cb.y + (cb.height - te.height) / 2 + te.height) ->
+        Picture.text(message, fontSize)
+    draw(pic)
+    // drawCenteredMessage komutunun yazdığı yazılar bazen arabaların arkasında kalıyor, 
+    // onun için şunu ekledik:
+    pic.moveToFront()
+}
+
+manageGameScore(oyunSüresi)
 playMp3Loop("/media/car-ride/car-move.mp3")
 activateCanvas()
 
-// Araba resimleri  google aracılığıyla şunlardan: 
+// Araba resimleri  google aracılığıyla şunlardan:
 //    http://motor-kid.com/race-cars-top-view.html  ve
 //    www.carinfopic.com
 // Araba sesleri şurdan: http://soundbible.com
