@@ -4,13 +4,13 @@
 //#include alfabeta
 
 val açıklama = <html> 
- <em> KojOtello'ya hoşgeldin! </em> <br/>
- Daha çok bilgi için: <a href="https://tr.wikipedia.org/wiki/Reversi">Tr Viki</a>
- ve <a href="https://en.wikipedia.org/wiki/Reversi">Wiki</a> maddeleri var.
+ <em> KojOtello'ya hoşgeldin! </em> Bu güzel oyun hakkında bilgi edinmek için
+ <br/>
+ internette "wiki reversi" diye arama yapabilirsin.
   </html>.toString
 
 val ay_çeşniler = ay.Salındıraç("geleneksel", "bir çeşni")
-val ay_tahta = ay.Salındıraç(4, 5, 6, 7, 8, 9, 10, 11, 12)
+val ay_tahta = ay.Salındıraç(8, 4, 5, 6, 7, 8, 9, 10, 11, 12)
 val ay_tahta2 = ay.Salındıraç(7, 8, 9, 10, 11, 12) // todo
 val ay_ilk = ay.Salındıraç("Siyah", "Beyaz")
 val ay_düzey = ay.Salındıraç("Er", "Çırak", "Kalfa", "Usta", "Doktor", "Deha")
@@ -22,7 +22,7 @@ val ay_bilgisayar = ay.Salındıraç(
 
 def menu: Birim = {
     silVeSakla
-    çizMerkezde(büyüt(2.0) ->
+    çizMerkezde(büyüt(1.8) ->
         Resim.arayüz(
             ay.Sütun(
                 ay.Sıra(ay.Tanıt(açıklama)),
