@@ -1,3 +1,5 @@
+// şuradan oyna: ~/src/kojo/git/kojo/src/main/resources/samples/tr/car-ride.kojo
+
 // Arabayı sürmek için dört ok tuşunu kullan
 // Mavi arabalara çarpma
 // Her çarpışmayla enerji kaybeder, her saniye enerji kazanırsın
@@ -11,186 +13,192 @@ silVeSakla()
 val oyunSüresi = 60
 
 val ta = tuvalAlanı
-val carHeight = 100
-val markerHeight = 80
+val arabaBoyu = 100
+val çizgiBoyu = 80
+
 //  car1.png ve car2.png yani araba resimlerinin boyutlarına epey yakın bir çokkenarlı biçim çizelim
-val carE = trans(2, 14) -> Picture {
-    repeat(2) {
-        forward(70); right(45); forward(20); right(45)
-        forward(18); right(45); forward(20); right(45)
+val arabayaZarf = götür(48, 14) -> Resim {  //todo: 2 -> 48
+    yinele (2) {
+        ileri(70); sol(45); ileri(20); sol(45)
+        ileri(18); sol(45); ileri(20); sol(45)
     }
 }
-def car(img: String) = Picture.image(img, carE)
+def araba(imge: Yazı) = Resim.imge(imge, arabayaZarf)
 
-val cars = collection.mutable.Map.empty[Picture, Vector2D]
-val carSpeed = 3
-val pResponse = 3
-var pVel = Vector2D(0, 0)
-var disabledTime = 0L
+val arabalar = Eşlem.boş[Resim, Yöney2B]
+val arabaHızı = 3
+val sürücüTepkiHızı = 3
+var sürücüHızı = Yöney2B(0, 0)
+// çarpma anından sonra 0.3 saniye boyunca direksiyon, hız ve fren yani
+// ileri geri sağ sol okları çalışmasın
+var etkisizlikSüresi = 0L
 
-val bplayer = newMp3Player
-val cplayer = newMp3Player
-
-def createCar() {
-    val c = trans(player.position.x + randomNormalDouble * ta.eni / 10, ta.y + ta.boyu) ->
-        car("/media/car-ride/car2.png")
-    draw(c)
-    cars += c -> Vector2D(0, -carSpeed)
+// todo
+def yeniMp3Çalar = new Mp3Çalar(newMp3Player)
+class Mp3Çalar(p: net.kogics.kojo.music.KMp3) {
+    def çalıyorMu = p.isMp3Playing
+    def sesMp3üÇal(mp3dosyası: Yazı) = p.playMp3Sound(mp3dosyası)
+    def çal(mp3dosyası: Yazı) = p.playMp3(mp3dosyası)
+    def durdur() = p.stopMp3()
+    
+    def önyükle(mp3dosyası: Yazı) = p.preloadMp3(mp3dosyası)
+    
+    def döngülüÇal(mp3dosyası: Yazı) = p.playMp3Loop(mp3dosyası)
+    def döngüyüDurdur() = p.stopMp3Loop()
 }
-val markers = collection.mutable.Set.empty[Picture]
-def createMarker() {
-    val mwidth = 20
-    val m = fillColor(white) * penColor(white) *
-        trans(ta.x + ta.eni / 2 - mwidth / 2, ta.y + ta.boyu) -> Picture.rect(markerHeight, mwidth)
-    draw(m)
-    markers += m
+val frenSesiÇalar = yeniMp3Çalar
+val çarpışmaSesiÇalar = yeniMp3Çalar
+
+def arabaYap() {
+    val a = götür(oyuncu.konum.x + rastgeleDoğalKesir * ta.eni / 10, ta.y + ta.boyu) ->
+        araba("/media/car-ride/car2.png")
+    a.çiz
+    arabalar += a -> Yöney2B(0, -arabaHızı)
+}
+var yolÇizgileri = Küme.boş[Resim]
+def yolÇizgisiYap() {
+    val eni = 20
+    val yç = boyaRengi(beyaz) * kalemRengi(beyaz) *
+        götür(ta.x + ta.eni / 2 - eni / 2, ta.y + ta.boyu) -> Resim.dikdörtgen(eni, çizgiBoyu)
+    yç.çiz
+    yolÇizgileri += yç
 }
 
-val player = car("/media/car-ride/car1.png")
-draw(player)
-drawAndHide(carE)
+val oyuncu = araba("/media/car-ride/car1.png")
+çiz(oyuncu)
+çizVeSakla(arabayaZarf)
 
+// 0.8 saniyede bir yeni araba ve çizgi gelsin yukarıdan
 yineleSayaçla(800) {
-    createMarker()
-    createCar()
+    yolÇizgisiYap()
+    arabaYap()
 }
 
 canlandır {
-    player.moveToFront()
-    val enabled = epochTimeMillis - disabledTime > 300
-    if (enabled) {
-        if (isKeyPressed(Kc.VK_LEFT)) {
-            pVel = Vector2D(-pResponse, 0)
-            player.translate(pVel)
+    oyuncu.öneAl()
+    val aktifMi = buAn - etkisizlikSüresi > 300
+    if (aktifMi) {
+        if (tuşaBasılıMı(tuşlar.VK_LEFT)) {
+            sürücüHızı = Yöney2B(-sürücüTepkiHızı, 0)
+            oyuncu.götür(sürücüHızı)
         }
-        if (isKeyPressed(Kc.VK_RIGHT)) {
-            pVel = Vector2D(pResponse, 0)
-            player.translate(pVel)
+        if (tuşaBasılıMı(tuşlar.VK_RIGHT)) {
+            sürücüHızı = Yöney2B(sürücüTepkiHızı, 0)
+            oyuncu.götür(sürücüHızı)
         }
-        if (isKeyPressed(Kc.VK_UP)) {
-            pVel = Vector2D(0, pResponse)
-            player.translate(pVel)
-            if (!isMp3Playing) {
-                playMp3Sound("/media/car-ride/car-accel.mp3")
+        if (tuşaBasılıMı(tuşlar.VK_UP)) {
+            sürücüHızı = Yöney2B(0, sürücüTepkiHızı)
+            oyuncu.götür(sürücüHızı)
+            if (!müzikMp3üÇalıyorMu) {  // todo: Mp3ÇalıyorMu
+                sesMp3üÇal("/media/car-ride/car-accel.mp3")
             }
         }
         else {
-            stopMp3()
+            müzikMp3üKapat() // todo: Mp3üDurdur
         }
-        if (isKeyPressed(Kc.VK_DOWN)) {
-            pVel = Vector2D(0, -pResponse)
-            player.translate(pVel)
-            if (!bplayer.isMp3Playing) {
-                bplayer.playMp3Sound("/media/car-ride/car-brake.mp3")
+        if (tuşaBasılıMı(tuşlar.VK_DOWN)) {
+            sürücüHızı = Yöney2B(0, -sürücüTepkiHızı)
+            oyuncu.götür(sürücüHızı)
+            if (!frenSesiÇalar.çalıyorMu) {
+                frenSesiÇalar.sesMp3üÇal("/media/car-ride/car-brake.mp3")
             }
         }
         else {
-            bplayer.stopMp3()
+            frenSesiÇalar.durdur()
         }
     }
     else {
-        player.translate(pVel)
+        oyuncu.götür(sürücüHızı)
     }
 
-    if (player.collidesWith(stageLeft) || player.collidesWith(stageRight)) {
-        cplayer.playMp3Sound("/media/car-ride/car-crash.mp3")
-        player.setOpacity(0.5)
-        drawCenteredMessage2("Yoldan çıktın. Yine dene.", red, 30)
+    if (oyuncu.çarptıMı(Resim.tuvalinSolu) || oyuncu.çarptıMı(Resim.tuvalinSağı)) {
+        çarpışmaSesiÇalar.sesMp3üÇal("/media/car-ride/car-crash.mp3")
+        oyuncu.saydamlığıKur(0.5)
+        çizMerkezdeYazı("Yoldan çıktın. Yine dene.", red, 30)
         durdur()
     }
-    else if (player.collidesWith(stageTop)) {
-        pVel = Vector2D(0, -pResponse)
-        player.translate(pVel * 2)
-        disabledTime = epochTimeMillis
+    else if (oyuncu.çarptıMı(Resim.tuvalinTavanı)) {
+        sürücüHızı = Yöney2B(0, -sürücüTepkiHızı)
+        oyuncu.götür(sürücüHızı * 2)
+        etkisizlikSüresi = buAn
     }
-    else if (player.collidesWith(stageBot)) {
-        pVel = Vector2D(0, pResponse)
-        player.translate(pVel * 2)
-        disabledTime = epochTimeMillis
+    else if (oyuncu.çarptıMı(Resim.tuvalinTabanı)) {
+        sürücüHızı = Yöney2B(0, sürücüTepkiHızı)
+        oyuncu.götür(sürücüHızı * 2)
+        etkisizlikSüresi = buAn
     }
 
-    cars.foreach { cv =>
-        val (c, vel) = cv
-        c.moveToFront()
-        if (player.collidesWith(c)) {
-            cplayer.playMp3Sound("/media/car-ride/car-crash.mp3")
-            pVel = bouncePicVectorOffPic(player, pVel - vel, c) / 2
-            player.translate(pVel * 3)
-            c.translate(-pVel * 3)
-            disabledTime = epochTimeMillis
-            updateEnergyCrash()
+    arabalar.m.foreach { arabaVeHız =>  // todo
+        val (araba, hız) = arabaVeHız
+        //araba.öneAl()   // todo needed?
+        if (oyuncu.çarptıMı(araba)) {
+            çarpışmaSesiÇalar.sesMp3üÇal("/media/car-ride/car-crash.mp3")
+            sürücüHızı = engeldenYansıtma(oyuncu, sürücüHızı - hız, araba) / 2
+            oyuncu.götür(sürücüHızı * 3)
+            araba.götür(-sürücüHızı * 3)
+            etkisizlikSüresi = buAn
+            dermanıAzalt()
         }
         else {
-            val newVel = Vector2D(vel.x + randomDouble(1) / 2 - 0.25, vel.y)
-            cars += c -> newVel
-            c.translate(newVel)
+            val yeniHız = Yöney2B(hız.x + rastgeleKesir(1) / 2 - 0.25, hız.y)
+            arabalar += araba -> yeniHız
+            araba.götür(yeniHız)
         }
-        if (c.position.y + carHeight < ta.y) {
-            c.erase()
-            cars -= c
+        if (araba.konum.y + arabaBoyu < ta.y) {
+            araba.sil()
+            arabalar.m -= araba  // todo
         }
     }
-    markers.foreach { m =>
-        m.translate(0, -carSpeed * 2)
-        if (m.position.y + markerHeight < ta.y) {
-            m.erase()
-            markers -= m
+    // foreach kümenin her bir elemanı için, yani her çizgi için bir dizi komut verir
+    yolÇizgileri.foreach { yç => 
+        yç.götür(0, -arabaHızı * 2)
+        if (yç.konum.y + çizgiBoyu < ta.y) {
+            yç.sil()
+            yolÇizgileri -= yç
         }
     }
 }
 
-var energyLevel = 0
-def energyText = s"Enerji: $energyLevel"
-val energyLabel = Picture.textu(energyText, 20, ColorMaker.aquamarine)
-energyLabel.translate(ta.x + 10, ta.y + ta.boyu - 10)
-def updateEnergyTick() {
-    energyLevel += 2
-    energyLabel.update(energyText)
+var derman = 0
+def dermanYazısı = s"Derman: $derman"
+val dermanÇizimi = Resim.yazıRenkli(dermanYazısı, 20, renkler.aquamarine)
+dermanÇizimi.götür(ta.x + 10, ta.y + ta.boyu - 10)
+def dermanıArtır() {
+    derman += 2
+    dermanÇizimi.güncelle(dermanYazısı)
 }
-def updateEnergyCrash() {
-    energyLevel -= 10
-    energyLabel.update(energyText)
-    if (energyLevel < 0) {
-        drawCenteredMessage2("Enerji bitti. Yine dene.", red, 30)
+def dermanıAzalt() {
+    derman -= 10
+    dermanÇizimi.güncelle(dermanYazısı)
+    if (derman < 0) {
+        çizMerkezdeYazı("Enerji bitti. Yine dene.", kırmızı, 30)
         durdur()
     }
 }
 
-def manageGameScore(oyunSüresi: Sayı) {
-    var gameTime = 0
-    val timeLabel = Picture.textu(gameTime, 20, ColorMaker.azure)
-    timeLabel.translate(ta.x + 10, ta.y + 50)
-    draw(timeLabel)
-    draw(energyLabel)
-    timeLabel.forwardInputTo(stageArea)
+def skorVeDermanıYönet(oyunSüresi: Sayı) {
+    var geçenSüre = 0
+    val geçenSüreGösterimi = Resim.yazıRenkli(geçenSüre, 20, renkler.azure)
+    geçenSüreGösterimi.götür(ta.x + 10, ta.y + 50)
+    çiz(geçenSüreGösterimi)
+    çiz(dermanÇizimi)
+    geçenSüreGösterimi.girdiyiAktar(Resim.tuvalBölgesi)
 
-    timer(1000) {
-        gameTime += 1
-        timeLabel.update(gameTime)
-        updateEnergyTick()
+    yineleSayaçla(1000) {
+        geçenSüre += 1
+        geçenSüreGösterimi.güncelle(geçenSüre)
+        dermanıArtır()
 
-        if (gameTime == oyunSüresi) {
-            drawCenteredMessage2("Süre doldu. Tebrikler!", green, 30)
+        if (geçenSüre == oyunSüresi) {
+            çizMerkezdeYazı("Süre doldu. Tebrikler!", yeşil, 30)
             durdur()
         }
     }
 }
 
-def drawCenteredMessage2(message: String, color: Color = black, fontSize: Int = 15): Unit = {
-    val cb = canvasBounds
-    val te = textExtent(message, fontSize)
-    val pic = penColor(color) *
-        trans(cb.x + (cb.width - te.width) / 2, cb.y + (cb.height - te.height) / 2 + te.height) ->
-        Picture.text(message, fontSize)
-    draw(pic)
-    // drawCenteredMessage komutunun yazdığı yazılar bazen arabaların arkasında kalıyor, 
-    // onun için şunu ekledik:
-    pic.moveToFront()
-}
-
-manageGameScore(oyunSüresi)
-playMp3Loop("/media/car-ride/car-move.mp3")
-activateCanvas()
+skorVeDermanıYönet(oyunSüresi)
+müzikMp3üÇalDöngülü("/media/car-ride/car-move.mp3")
+tuvaliEtkinleştir()
 
 // Araba resimleri  google aracılığıyla şunlardan:
 //    http://motor-kid.com/race-cars-top-view.html  ve
