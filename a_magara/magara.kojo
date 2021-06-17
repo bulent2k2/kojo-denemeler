@@ -4,219 +4,216 @@ silVeSakla()
 yaklaşmayaİzinVerme()
 
 satıryaz("Oyunu kazanmak için kırmızı yuvarlağı bul ve al. Sonra da başa dönüp yeşil yuvarlağı al.")
-satıryaz(s"\nKendi mağaranı kurmak için, '$kurulumDizini/examples/tiledgame/level1.tmx' dosyasını www.mapeditor.org sitesindeki Tiled düzenleyicisiyle değiştirebilirsin.")
-
+satıryaz(s"\nKendi mağaranı kurmak için, '$kurulumDizini/examples/tiledgame/level1.tmx' dosyasını www.mapeditor.org sitesindeki Tiled (çini) düzenleyicisiyle değiştirebilirsin.")
+satıryaz("Kendi mağaranı ikinci düzey olarak (level2.tmx) yazılımcığa ekleyebilir misin?")
 scroll(-tuvalAlanı.x, tuvalAlanı.y)  // todo: tuvaliKaydır
 artalanıKur(renkler.hsl(189, 0.03, 0.45))
 
-// Tiled map layer of tiles that you collide with
-val collisionLayer = 1
+// çini dünyasının düzeyleri var. Hangi düzeydeki çinilerle çarpışma olacak belirtelim:
+val çarpışmaDüzeyi = 1
 
-class Oyuncu(tx: Int, ty: Int, world: TileWorld) {
-    val playerPos = world.tileToKojo(TileXY(tx, ty))
-    val sheet = SpriteSheet("player.png", 30, 42)
+class Oyuncu(çiniX: Sayı, çiniY: Sayı, dünya: ÇiniDünyası) {
+    val oyuncununKonumu = dünya.çinidenKojoya(ÇiniXY(çiniX, çiniY))
+    val sayfa = BirSayfaKostüm("player.png", 30, 42)
 
-    // player images are 30x40
-    // scale the player down to fit into a 24 pixel wide tile
-    def playerPicture(img: Image) = büyüt(0.8) -> Resim.imge(img)
+    // oyuncunun kostüm resimlerinin boyutları 30x40 (nokta kare)
+    // biraz küçültelim ki 24x24 boyutlarındaki çinilere sığsın
+    def oyuncununResmi(img: İmge) = büyüt(0.8) -> Resim.imge(img)
 
-    val stillRight = Resim.küme(playerPicture(sheet.imageAt(0, 0)))
-    val stillLeft = Resim.küme(playerPicture(sheet.imageAt(0, 1)))
+    val sağaDönükDuruş = Resim.küme(oyuncununResmi(sayfa.resimSeç(0, 0)))
+    val solaDönükDuruş = Resim.küme(oyuncununResmi(sayfa.resimSeç(0, 1)))
 
-    val runningRight = Resim.küme(List(
-        sheet.imageAt(0, 2),
-        sheet.imageAt(1, 2),
-        sheet.imageAt(2, 2),
-        sheet.imageAt(3, 2),
-        sheet.imageAt(4, 2)
-    ).map(playerPicture))
+    val sağaKoşu = Resim.küme(Dizin(
+        sayfa.resimSeç(0, 2),
+        sayfa.resimSeç(1, 2),
+        sayfa.resimSeç(2, 2),
+        sayfa.resimSeç(3, 2),
+        sayfa.resimSeç(4, 2)
+    ).map(oyuncununResmi))
 
-    val runningLeft = Resim.küme(List(
-        sheet.imageAt(0, 3),
-        sheet.imageAt(1, 3),
-        sheet.imageAt(2, 3),
-        sheet.imageAt(3, 3),
-        sheet.imageAt(4, 3)
-    ).map(playerPicture))
+    val solaKoşu = Resim.küme(Dizin(
+        sayfa.resimSeç(0, 3),
+        sayfa.resimSeç(1, 3),
+        sayfa.resimSeç(2, 3),
+        sayfa.resimSeç(3, 3),
+        sayfa.resimSeç(4, 3)
+    ).map(oyuncununResmi))
 
-    val jumpingRight = Resim.küme(List(
-        sheet.imageAt(0, 0),
-        sheet.imageAt(1, 0),
-        sheet.imageAt(2, 0),
-        sheet.imageAt(3, 0)
-    ).map(playerPicture))
+    val sağaZıplayış = Resim.küme(Dizin(
+        sayfa.resimSeç(0, 0),
+        sayfa.resimSeç(1, 0),
+        sayfa.resimSeç(2, 0),
+        sayfa.resimSeç(3, 0)
+    ).map(oyuncununResmi))
 
-    val jumpingLeft = Resim.küme(List(
-        sheet.imageAt(0, 1),
-        sheet.imageAt(1, 1),
-        sheet.imageAt(2, 1),
-        sheet.imageAt(3, 1)
-    ).map(playerPicture))
+    val solaZıplayış = Resim.küme(Dizin(
+        sayfa.resimSeç(0, 1),
+        sayfa.resimSeç(1, 1),
+        sayfa.resimSeç(2, 1),
+        sayfa.resimSeç(3, 1)
+    ).map(oyuncununResmi))
 
-    var ancılResim = stillRight
-    def currentPic = ancılResim.p // todo
-    ancılResim.konumuKur(playerPos)
+    var ancılResim = sağaDönükDuruş  // bu andaki resim
+    ancılResim.konumuKur(oyuncununKonumu)
 
-    var facingRight = true
-    val gravity = -0.1
-    val speedX = 3.0
-    var speedY = -1.0
-    var inJump = false
+    var sağaMıBakıyor = doğru
+    val yerçekimi = -0.1
+    val yatayHız = 3.0
+    var dikeyHız = -1.0
+    var zıplıyorMu = yanlış
 
-    def step() {
-        stepCollisions()
-        stepFood()
+    def birAdımİleri() {
+        çarpışmalarBirAdımİleri()
+        hedefYuvarlaklarBirAdımİleri()
     }
 
-    var goalEnabled = false
-    def stepFood() {
-        if (ancılResim.çarptıMı(halfwayGoal)) {
-            halfwayGoal.sil()
-            goal.saydamlığıKur(1)
-            goalEnabled = true
+    var hedefEtkinMi = yanlış
+    def hedefYuvarlaklarBirAdımİleri() {
+        if (ancılResim.çarptıMı(ilkHedef)) {
+            ilkHedef.sil()
+            hedef.saydamlığıKur(1)
+            hedefEtkinMi = doğru
         }
-        if (goalEnabled) {
-            if (ancılResim.çarptıMı(goal)) {
-                goal.sil()
-                stopAnimation()
+        if (hedefEtkinMi) {
+            if (ancılResim.çarptıMı(hedef)) {
+                hedef.sil()
+                durdur()  // todo: varsa ikinci mağaraya geç!
                 çizMerkezdeYazı("Tebrikler!", yeşil, 30)
             }
         }
     }
 
-    def stepCollisions() {
-        if (isKeyPressed(Kc.VK_RIGHT)) {
-            facingRight = true
-            updateImage(runningRight)
-            ancılResim.götür(speedX, 0)
-            if (world.hasTileAtRight(currentPic, collisionLayer)) { // todo
-                world.moveToTileLeft(currentPic)
+    def çarpışmalarBirAdımİleri() {
+        if (tuşaBasılıMı(tuşlar.VK_RIGHT)) {
+            sağaMıBakıyor = doğru
+            resmiGüncelle(sağaKoşu)
+            ancılResim.götür(yatayHız, 0)
+            if (dünya.sağdaÇiniVarMı(ancılResim, çarpışmaDüzeyi)) {
+                dünya.soldakiÇiniyeTaşı(ancılResim)
             }
         }
-        else if (isKeyPressed(Kc.VK_LEFT)) {
-            facingRight = false
-            updateImage(runningLeft)
-            ancılResim.götür(-speedX, 0)
-            if (world.hasTileAtLeft(currentPic, collisionLayer)) {
-                world.moveToTileRight(currentPic)
+        else if (tuşaBasılıMı(tuşlar.VK_LEFT)) {
+            sağaMıBakıyor = yanlış
+            resmiGüncelle(solaKoşu)
+            ancılResim.götür(-yatayHız, 0)
+            if (dünya.soldaÇiniVarMı(ancılResim, çarpışmaDüzeyi)) {
+                dünya.sağdakiÇiniyeTaşı(ancılResim)
             }
-        }
-        else {
-            if (facingRight) {
-                updateImage(stillRight)
-            }
-            else {
-                updateImage(stillLeft)
-            }
-        }
-
-        if (isKeyPressed(Kc.VK_UP)) {
-            if (!inJump) {
-                speedY = 5
-            }
-        }
-
-        speedY += gravity
-        speedY = math.max(speedY, -10)
-        ancılResim.götür(0, speedY)
-
-        if (world.hasTileBelow(currentPic, collisionLayer)) {
-            inJump = false
-            world.moveToTileAbove(currentPic)
-            speedY = 0
         }
         else {
-            inJump = true
-            if (world.hasTileAbove(currentPic, collisionLayer)) {
-                world.moveToTileBelow(currentPic)
-                speedY = -1
+            if (sağaMıBakıyor) {
+                resmiGüncelle(sağaDönükDuruş)
+            }
+            else {
+                resmiGüncelle(solaDönükDuruş)
             }
         }
 
-        if (inJump) {
-            if (facingRight) {
-                updateImage(jumpingRight)
+        if (tuşaBasılıMı(tuşlar.VK_UP)) {
+            if (!zıplıyorMu) {
+                dikeyHız = 5
+            }
+        }
+
+        dikeyHız += yerçekimi
+        dikeyHız = math.max(dikeyHız, -10)
+        ancılResim.götür(0, dikeyHız)
+
+        if (dünya.aşağıdaÇiniVarMı(ancılResim, çarpışmaDüzeyi)) {
+            zıplıyorMu = yanlış
+            dünya.yukarıdakiÇiniyeTaşı(ancılResim)
+            dikeyHız = 0
+        }
+        else {
+            zıplıyorMu = doğru
+            if (dünya.yukarıdaÇiniVarMı(ancılResim, çarpışmaDüzeyi)) {
+                dünya.aşağıdakiÇiniyeTaşı(ancılResim)
+                dikeyHız = -1
+            }
+        }
+
+        if (zıplıyorMu) {
+            if (sağaMıBakıyor) {
+                resmiGüncelle(sağaZıplayış)
             }
             else {
-                updateImage(jumpingLeft)
+                resmiGüncelle(solaZıplayış)
             }
             ancılResim.sonrakiniGöster(200)
         }
         else {
             ancılResim.sonrakiniGöster()
         }
-        scrollIfNeeded()
+        gerektikçeTuvaliKaydır()
     }
 
-    var cb = canvasBounds
-    def scrollIfNeeded() {
-        val threshold = 200
-        val pos = ancılResim.konum
-        if (cb.x + cb.width - pos.x < threshold) {
-            scroll(speedX, 0)
-            cb = canvasBounds
+    var ta = tuvalAlanı
+    def gerektikçeTuvaliKaydır() {
+        val eşik = 200
+        val konum = ancılResim.konum
+        if (ta.x + ta.eni - konum.x < eşik) {
+            scroll(yatayHız, 0)  // todo
+            ta = tuvalAlanı
         }
-        else if (pos.x - cb.x < threshold) {
-            scroll(-speedX, 0)
-            cb = canvasBounds
+        else if (konum.x - ta.x < eşik) {
+            scroll(-yatayHız, 0)
+            ta = tuvalAlanı
         }
     }
 
-    def updateImage(newPic: Resim) {
-        if (newPic != ancılResim) {
+    def resmiGüncelle(yeniResim: Resim) {
+        if (yeniResim != ancılResim) {
             ancılResim.gizle()
-            newPic.göster()
-            newPic.konumuKur(ancılResim.konum)
-            ancılResim = newPic
+            yeniResim.göster()
+            yeniResim.konumuKur(ancılResim.konum)
+            ancılResim = yeniResim
         }
     }
 
     def çiz() {
-        çizVeSakla(stillLeft, runningRight, runningLeft, jumpingRight, jumpingLeft)
+        çizVeSakla(solaDönükDuruş, sağaKoşu, solaKoşu, sağaZıplayış, solaZıplayış)
         ancılResim.çiz()
     }
 }
 
-class İnenÇıkanTaşlar(tx: Int, ty: Int, world: TileWorld) {
-    val playerPos = world.tileToKojo(TileXY(tx, ty))
-    val sheet = SpriteSheet("tiles.png", 24, 24)
-    // make attacker slighty smaller than a tile - to prevent picture based collision
-    // with the player in an adjacent tile
-    def attackerPicture(img: Image) = büyüt(0.98) * götür(0.2, 0.2) -> Resim.imge(img)
+class İnenÇıkanTaşlar(çiniX: Sayı, çiniY: Sayı, dünya: ÇiniDünyası) {
+    val oyuncununKonumu = dünya.çinidenKojoya(ÇiniXY(çiniX, çiniY))
+    val sayfa = BirSayfaKostüm("tiles.png", 24, 24)
+    // inen çıkan taşları biraz küçültelim. Yoksa yan çinideki oyuncuya da çarparlar:
+    def taşınResmi(img: Image) = büyüt(0.98) * götür(0.2, 0.2) -> Resim.imge(img)
 
-    var ancılResim = Resim.küme(List(
-        sheet.imageAt(0, 6),
-        sheet.imageAt(1, 6)
-    ).map(attackerPicture))
-    def currentPic = ancılResim.p // todo
+    var ancılResim = Resim.küme(Dizin(
+        sayfa.resimSeç(0, 6),
+        sayfa.resimSeç(1, 6)
+    ).map(taşınResmi))
 
-    ancılResim.konumuKur(playerPos)
+    ancılResim.konumuKur(oyuncununKonumu)
 
-    val gravity = -0.03
-    //    var speedX = 0.0
-    var speedY = -2.0
+    val yerçekimi = -0.03
+    //    var yatayHız = 0.0
+    var dikeyHız = -2.0
 
-    def step() {
-        speedY += gravity
-        speedY = math.max(speedY, -10)
-        ancılResim.götür(0, speedY)
+    def birAdımİleri() {
+        dikeyHız += yerçekimi
+        dikeyHız = math.max(dikeyHız, -10)
+        ancılResim.götür(0, dikeyHız)
         ancılResim.sonrakiniGöster()
-        if (world.hasTileBelow(currentPic, collisionLayer)) {
-            world.moveToTileAbove(currentPic)
-            speedY = 5
+        if (dünya.aşağıdaÇiniVarMı(ancılResim, çarpışmaDüzeyi)) {
+            dünya.yukarıdakiÇiniyeTaşı(ancılResim)
+            dikeyHız = 5
         }
-        else if (world.hasTileAbove(currentPic, collisionLayer)) {
-            world.moveToTileBelow(currentPic)
-            speedY = -2
+        else if (dünya.yukarıdaÇiniVarMı(ancılResim, çarpışmaDüzeyi)) {
+            dünya.aşağıdakiÇiniyeTaşı(ancılResim)
+            dikeyHız = -2
         }
     }
 
-    def updateImage(newPic: Resim) {
-        if (newPic != ancılResim) {
+    def resmiGüncelle(yeniResim: Resim) {
+        if (yeniResim != ancılResim) {
             ancılResim.gizle()
-            newPic.göster()
-            newPic.konumuKur(ancılResim.konum)
-            ancılResim = newPic
+            yeniResim.göster()
+            yeniResim.konumuKur(ancılResim.konum)
+            ancılResim = yeniResim
         }
     }
 
@@ -225,41 +222,41 @@ class İnenÇıkanTaşlar(tx: Int, ty: Int, world: TileWorld) {
     }
 }
 
-val tileWorld =
-    new TileWorld("level1.tmx")
+val çiniDünyası =
+    new ÇiniDünyası("level1.tmx")
 
-// Create a player object and set the level it is in
-val player = new Oyuncu(9, 5, tileWorld)
-val attackers = Dizin(
-    new İnenÇıkanTaşlar(14, 2, tileWorld),
-    new İnenÇıkanTaşlar(17, 3, tileWorld),
-    new İnenÇıkanTaşlar(22, 9, tileWorld),
-    new İnenÇıkanTaşlar(32, 2, tileWorld),
-    new İnenÇıkanTaşlar(35, 3, tileWorld)
+// Yeni bir oyuncu kuralım ve hangi düzeyde olduğunu belirtelim
+val oyuncu = new Oyuncu(9, 5, çiniDünyası)
+val inenÇıkanTaşlar = Dizin(
+    new İnenÇıkanTaşlar(14, 2, çiniDünyası),
+    new İnenÇıkanTaşlar(17, 3, çiniDünyası),
+    new İnenÇıkanTaşlar(22, 9, çiniDünyası),
+    new İnenÇıkanTaşlar(32, 2, çiniDünyası),
+    new İnenÇıkanTaşlar(35, 3, çiniDünyası)
 )
 
-val goal = götür(12, 12) * boyaRengi(cm.greenYellow) * kalemRengi(black) -> Resim.daire(10)
-goal.konumuKur(tileWorld.tileToKojo(TileXY(9, 2)))
-goal.saydamlığıKur(0.2)
-çiz(goal)
+val hedef = götür(12, 12) * boyaRengi(cm.greenYellow) * kalemRengi(black) -> Resim.daire(10)
+hedef.konumuKur(çiniDünyası.çinidenKojoya(ÇiniXY(9, 2)))
+hedef.saydamlığıKur(0.2)
+çiz(hedef)
 
-val halfwayGoal = götür(12, 12) * boyaRengi(cm.red) * kalemRengi(black) -> Resim.daire(10)
-halfwayGoal.konumuKur(tileWorld.tileToKojo(TileXY(41, 15)))
-çiz(halfwayGoal)
+val ilkHedef = götür(12, 12) * boyaRengi(cm.red) * kalemRengi(black) -> Resim.daire(10)
+ilkHedef.konumuKur(çiniDünyası.çinidenKojoya(ÇiniXY(41, 15)))
+çiz(ilkHedef)
 
-tileWorld.draw()
-player.çiz()
-attackers.foreach { attacker =>
-    attacker.çiz()
+çiniDünyası.çiz()
+oyuncu.çiz()
+inenÇıkanTaşlar.foreach { inenÇıkanTaş =>
+    inenÇıkanTaş.çiz()
 }
 
 canlandır {
-    tileWorld.step()
-    player.step()
-    attackers.foreach { attacker =>
-        attacker.step()
-        if (player.ancılResim.çarptıMı(attacker.ancılResim)) {
-            player.ancılResim.döndür(30)
+    çiniDünyası.birAdımİleri()
+    oyuncu.birAdımİleri()
+    inenÇıkanTaşlar.foreach { inenÇıkanTaş =>
+        inenÇıkanTaş.birAdımİleri()
+        if (oyuncu.ancılResim.çarptıMı(inenÇıkanTaş.ancılResim)) {
+            oyuncu.ancılResim.döndür(30)
             durdur()
             çizMerkezdeYazı("Çarptın. Tekrar dene!", kırmızı, 30)
         }

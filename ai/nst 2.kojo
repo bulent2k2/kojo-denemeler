@@ -1,0 +1,1 @@
+resources/nst.kojo
