@@ -1,3 +1,587 @@
+* baba@tasucu (white) v baray@atlanta, Tue July 13, 2021
+ben@Bulents-MacBook-Pro ~ % cd src/kojo-lib 
+ben@Bulents-MacBook-Pro kojo-lib % ls
+LICENSE			lib			sbt.sh
+README.md		project			src
+build.sbt		sbt-launch-1.5.2.jar
+ben@Bulents-MacBook-Pro kojo-lib % sbt
+[info] welcome to sbt 1.5.2 (Oracle Corporation Java 1.8.0_271)
+[info] loading global plugins from /Users/ben/.sbt/1.0/plugins
+[info] loading settings for project kojo-lib-build from plugins.sbt ...
+[info] loading project definition from /Users/ben/Desktop/src/kojo-lib/project
+[info] loading settings for project dist from build.sbt ...
+[info] set current project to kojo-lib (in build file:/Users/ben/Desktop/src/kojo-lib/)
+[info] sbt server started at local:///Users/ben/.sbt/1.0/server/22d6939d83fc966c6587/sock
+[info] started sbt server
+sbt:kojo-lib> run
+
+Multiple main classes detected. Select one to run:
+ [1] driver.Main
+ [2] driver.Main4Java
+ [3] example.CarRide
+ [4] example.Collidium
+ [5] example.DemoPlatformer
+ [6] example.Fern
+ [7] example.InnerEye
+ [8] example.InnerEyeWithEffects
+ [9] example.MandelbrotSet
+ [10] example.TicTacToeUnbeatable
+ [11] game.othello.Othello
+
+Enter number: 11
+[info] running (fork) game.othello.Othello 
+[info] Move 1. B on 3x4:
+[info] . . . . . . . .
+[info] . . . . . . . .
+[info] . . . . . . . .
+[info] . . . B W . . .
+[info] . . B B B . . .
+[info] . . . . . . . .
+[info] . . . . . . . .
+[info] . . . . . . . .
+[info] Move 2. W on 3x3:
+[info] . . . . . . . .
+[info] . . . . . . . .
+[info] . . . . . . . .
+[info] . . . B W . . .
+[info] . . B W B . . .
+[info] . . W . . . . .
+[info] . . . . . . . .
+[info] . . . . . . . .
+[info] Move 3. B on 6x5:
+[info] . . . . . . . .
+[info] . . . . . . . .
+[info] . . . . . . . .
+[info] . . . B B B . .
+[info] . . B W B . . .
+[info] . . W . . . . .
+[info] . . . . . . . .
+[info] . . . . . . . .
+[info] Move 4. W on 6x6:
+[info] . . . . . . . .
+[info] . . . . . . . .
+[info] . . . . . W . .
+[info] . . . B W B . .
+[info] . . B W B . . .
+[info] . . W . . . . .
+[info] . . . . . . . .
+[info] . . . . . . . .
+[info] Move 5. B on 4x3:
+[info] . . . . . . . .
+[info] . . . . . . . .
+[info] . . . . . W . .
+[info] . . . B W B . .
+[info] . . B B B . . .
+[info] . . W B . . . .
+[info] . . . . . . . .
+[info] . . . . . . . .
+[info] Move 6. W on 5x3:
+[info] . . . . . . . .
+[info] . . . . . . . .
+[info] . . . . . W . .
+[info] . . . B W B . .
+[info] . . B B W . . .
+[info] . . W W W . . .
+[info] . . . . . . . .
+[info] . . . . . . . .
+[info] Move 7. B on 6x3:
+[info] . . . . . . . .
+[info] . . . . . . . .
+[info] . . . . . W . .
+[info] . . . B W B . .
+[info] . . B B B . . .
+[info] . . W W W B . .
+[info] . . . . . . . .
+[info] . . . . . . . .
+[info] Move 8. W on 3x5:
+[info] . . . . . . . .
+[info] . . . . . . . .
+[info] . . . . . W . .
+[info] . . W W W B . .
+[info] . . W W B . . .
+[info] . . W W W B . .
+[info] . . . . . . . .
+[info] . . . . . . . .
+[info] Move 9. B on 3x6:
+[info] . . . . . . . .
+[info] . . . . . . . .
+[info] . . B . . W . .
+[info] . . W B W B . .
+[info] . . W W B . . .
+[info] . . W W W B . .
+[info] . . . . . . . .
+[info] . . . . . . . .
+[info] Move 10. W on 6x4:
+[info] . . . . . . . .
+[info] . . . . . . . .
+[info] . . B . . W . .
+[info] . . W B W W . .
+[info] . . W W W W . .
+[info] . . W W W B . .
+[info] . . . . . . . .
+[info] . . . . . . . .
+[info] Move 11. B on 6x7:
+[info] . . . . . . . .
+[info] . . . . . B . .
+[info] . . B . . B . .
+[info] . . W B W B . .
+[info] . . W W W B . .
+[info] . . W W W B . .
+[info] . . . . . . . .
+[info] . . . . . . . .
+[info] Move 12. W on 7x3:
+[info] . . . . . . . .
+[info] . . . . . B . .
+[info] . . B . . B . .
+[info] . . W B W B . .
+[info] . . W W W W . .
+[info] . . W W W W W .
+[info] . . . . . . . .
+[info] . . . . . . . .
+[info] Move 13. B on 6x2:
+[info] . . . . . . . .
+[info] . . . . . B . .
+[info] . . B . . B . .
+[info] . . W B W B . .
+[info] . . W W W B . .
+[info] . . W W W B W .
+[info] . . . . . B . .
+[info] . . . . . . . .
+[info] Move 14. W on 4x6:
+[info] . . . . . . . .
+[info] . . . . . B . .
+[info] . . B W . B . .
+[info] . . W W W B . .
+[info] . . W W W B . .
+[info] . . W W W B W .
+[info] . . . . . B . .
+[info] . . . . . . . .
+[info] Move 15. B on 8x3:
+[info] . . . . . . . .
+[info] . . . . . B . .
+[info] . . B W . B . .
+[info] . . W W W B . .
+[info] . . W W W B . .
+[info] . . W W W B B B
+[info] . . . . . B . .
+[info] . . . . . . . .
+[info] Move 16. W on 7x5:
+[info] . . . . . . . .
+[info] . . . . . B . .
+[info] . . B W . B . .
+[info] . . W W W W W .
+[info] . . W W W W . .
+[info] . . W W W B B B
+[info] . . . . . B . .
+[info] . . . . . . . .
+[info] Move 17. B on 8x4:
+[info] . . . . . . . .
+[info] . . . . . B . .
+[info] . . B W . B . .
+[info] . . W W W W B .
+[info] . . W W W W . B
+[info] . . W W W B B B
+[info] . . . . . B . .
+[info] . . . . . . . .
+[info] Move 18. W on 8x6:
+[info] . . . . . . . .
+[info] . . . . . B . .
+[info] . . B W . B . W
+[info] . . W W W W W .
+[info] . . W W W W . B
+[info] . . W W W B B B
+[info] . . . . . B . .
+[info] . . . . . . . .
+[info] Move 19. B on 3x2:
+[info] . . . . . . . .
+[info] . . . . . B . .
+[info] . . B W . B . W
+[info] . . B W W W W .
+[info] . . B W W W . B
+[info] . . B W W B B B
+[info] . . B . . B . .
+[info] . . . . . . . .
+[info] Move 20. W on 6x1:
+[info] . . . . . . . .
+[info] . . . . . B . .
+[info] . . B W . B . W
+[info] . . B W W W W .
+[info] . . B W W W . B
+[info] . . B W W W B B
+[info] . . B . . W . .
+[info] . . . . . W . .
+[info] Move 21. B on 5x6:
+[info] . . . . . . . .
+[info] . . . . . B . .
+[info] . . B B B B . W
+[info] . . B B W W W .
+[info] . . B W W W . B
+[info] . . B W W W B B
+[info] . . B . . W . .
+[info] . . . . . W . .
+[info] Move 22. W on 6x8:
+[info] . . . . . W . .
+[info] . . . . . W . .
+[info] . . B B B W . W
+[info] . . B B W W W .
+[info] . . B W W W . B
+[info] . . B W W W B B
+[info] . . B . . W . .
+[info] . . . . . W . .
+[info] Move 23. B on 7x6:
+[info] . . . . . W . .
+[info] . . . . . W . .
+[info] . . B B B B B W
+[info] . . B B W B W .
+[info] . . B W B W . B
+[info] . . B B W W B B
+[info] . . B . . W . .
+[info] . . . . . W . .
+[info] Move 24. W on 2x6:
+[info] . . . . . W . .
+[info] . . . . . W . .
+[info] . W W W W W W W
+[info] . . W B W B W .
+[info] . . B W B W . B
+[info] . . B B W W B B
+[info] . . B . . W . .
+[info] . . . . . W . .
+[info] Move 25. B on 3x7:
+[info] . . . . . W . .
+[info] . . B . . W . .
+[info] . W B B W W W W
+[info] . . B B B B W .
+[info] . . B W B B . B
+[info] . . B B W W B B
+[info] . . B . . W . .
+[info] . . . . . W . .
+[info] Move 26. W on 2x1:
+[info] . . . . . W . .
+[info] . . B . . W . .
+[info] . W B B W W W W
+[info] . . B B B W W .
+[info] . . B W W B . B
+[info] . . B W W W B B
+[info] . . W . . W . .
+[info] . W . . . W . .
+[info] Move 27. B on 1x6:
+[info] . . . . . W . .
+[info] . . B . . W . .
+[info] B B B B W W W W
+[info] . . B B B W W .
+[info] . . B W W B . B
+[info] . . B W W W B B
+[info] . . W . . W . .
+[info] . W . . . W . .
+[info] Move 28. W on 3x8:
+[info] . . W . . W . .
+[info] . . W . . W . .
+[info] B B W B W W W W
+[info] . . W B B W W .
+[info] . . W W W B . B
+[info] . . W W W W B B
+[info] . . W . . W . .
+[info] . W . . . W . .
+[info] Move 29. B on 5x7:
+[info] . . W . . W . .
+[info] . . W . B W . .
+[info] B B W B B B W W
+[info] . . W B B W B .
+[info] . . W W W B . B
+[info] . . W W W W B B
+[info] . . W . . W . .
+[info] . W . . . W . .
+[info] Move 30. W on 4x7:
+[info] . . W . . W . .
+[info] . . W W W W . .
+[info] B B W W W B W W
+[info] . . W W B W B .
+[info] . . W W W B . B
+[info] . . W W W W B B
+[info] . . W . . W . .
+[info] . W . . . W . .
+[info] Move 31. B on 5x1:
+[info] . . W . . W . .
+[info] . . W W W W . .
+[info] B B W W W B W W
+[info] . . W W B W B .
+[info] . . W W W B . B
+[info] . . W W W W B B
+[info] . . W . . B . .
+[info] . W . . B W . .
+[info] Move 32. W on 7x4:
+[info] . . W . . W . .
+[info] . . W W W W . .
+[info] B B W W W B W W
+[info] . . W W B W W .
+[info] . . W W W W W B
+[info] . . W W W W B B
+[info] . . W . . B . .
+[info] . W . . B W . .
+[info] Move 33. B on 2x5:
+[info] . . W . . W . .
+[info] . . W W W W . .
+[info] B B W W W B W W
+[info] . B B B B W W .
+[info] . . W W W W W B
+[info] . . W W W W B B
+[info] . . W . . B . .
+[info] . W . . B W . .
+[info] Move 34. W on 2x4:
+[info] . . W . . W . .
+[info] . . W W W W . .
+[info] B B W W W B W W
+[info] . B W B B W W .
+[info] . W W W W W W B
+[info] . . W W W W B B
+[info] . . W . . B . .
+[info] . W . . B W . .
+[info] Move 35. B on 1x4:
+[info] . . W . . W . .
+[info] . . W W W W . .
+[info] B B W W W B W W
+[info] . B W B B W W .
+[info] B B B B B B B B
+[info] . . W W W W B B
+[info] . . W . . B . .
+[info] . W . . B W . .
+[info] Move 36. W on 2x3:
+[info] . . W . . W . .
+[info] . . W W W W . .
+[info] B B W W W B W W
+[info] . B W W B W W .
+[info] B B W B B B B B
+[info] . W W W W W B B
+[info] . . W . . B . .
+[info] . W . . B W . .
+[info] Move 37. B on 5x2:
+[info] . . W . . W . .
+[info] . . W W W W . .
+[info] B B W W W B W W
+[info] . B W W B W W .
+[info] B B B B B B B B
+[info] . W W B B B B B
+[info] . . W . B B . .
+[info] . W . . B W . .
+[info] Move 38. W on 4x2:
+[info] . . W . . W . .
+[info] . . W W W W . .
+[info] B B W W W B W W
+[info] . B W W B W W .
+[info] B B B W B W B B
+[info] . W W W W B B B
+[info] . . W W B B . .
+[info] . W . . B W . .
+[info] Move 39. B on 7x1:
+[info] . . W . . W . .
+[info] . . W W W W . .
+[info] B B W W W B W W
+[info] . B W W B W W .
+[info] B B B W B W B B
+[info] . W W W W B B B
+[info] . . W W B B . .
+[info] . W . . B B B .
+[info] Move 40. W on 1x3:
+[info] . . W . . W . .
+[info] . . W W W W . .
+[info] B B W W W B W W
+[info] . B W W B W W .
+[info] B W B W B W B B
+[info] W W W W W B B B
+[info] . . W W B B . .
+[info] . W . . B B B .
+[info] Move 41. B on 3x1:
+[info] . . W . . W . .
+[info] . . W W W W . .
+[info] B B W W W B W W
+[info] . B W W B W W .
+[info] B W B W B W B B
+[info] W W B W W B B B
+[info] . . B W B B . .
+[info] . W B . B B B .
+[info] Move 42. W on 4x1:
+[info] . . W . . W . .
+[info] . . W W W W . .
+[info] B B W W W B W W
+[info] . B W W B W W .
+[info] B W B W B W B B
+[info] W W B W W B B B
+[info] . . W W B B . .
+[info] . W W W B B B .
+[info] Move 43. B on 1x1:
+[info] . . W . . W . .
+[info] . . W W W W . .
+[info] B B W W W B W W
+[info] . B W W B W W .
+[info] B W B W B W B B
+[info] W W B W W B B B
+[info] . . W W B B . .
+[info] B B B B B B B .
+[info] Move 44. W on 2x2:
+[info] . . W . . W . .
+[info] . . W W W W . .
+[info] B B W W W B W W
+[info] . B W W B W W .
+[info] B W B W B W B B
+[info] W W W W W B B B
+[info] . W W W B B . .
+[info] B B B B B B B .
+[info] Move 45. B on 1x2:
+[info] . . W . . W . .
+[info] . . W W W W . .
+[info] B B W W W B W W
+[info] . B W W B W W .
+[info] B W B W B W B B
+[info] B B W W W B B B
+[info] B B B B B B . .
+[info] B B B B B B B .
+[info] Move 46. W on 1x5:
+[info] . . W . . W . .
+[info] . . W W W W . .
+[info] B W W W W B W W
+[info] W W W W B W W .
+[info] B W B W B W B B
+[info] B B W W W B B B
+[info] B B B B B B . .
+[info] B B B B B B B .
+[info] Move 47. B on 4x8:
+[info] . . W B . W . .
+[info] . . W B B W . .
+[info] B W W B W B W W
+[info] W W W B B W W .
+[info] B W B B B W B B
+[info] B B W B W B B B
+[info] B B B B B B . .
+[info] B B B B B B B .
+[info] Move 47. B on 5x8:
+[info] . . W . B W . .
+[info] . . W B B W . .
+[info] B W B W B B W W
+[info] W B W W B W W .
+[info] B W B W B W B B
+[info] B B W W W B B B
+[info] B B B B B B . .
+[info] B B B B B B B .
+[info] Move 48. W on 4x8:
+[info] . . W W W W . .
+[info] . . W W W W . .
+[info] B W B W B W W W
+[info] W B W W B W W .
+[info] B W B W B W B B
+[info] B B W W W B B B
+[info] B B B B B B . .
+[info] B B B B B B B .
+[info] Move 49. B on 8x7:
+[info] . . W W W W . .
+[info] . . W W W W . B
+[info] B W B W B W B W
+[info] W B W W B B W .
+[info] B W B W B W B B
+[info] B B W W W B B B
+[info] B B B B B B . .
+[info] B B B B B B B .
+[info] Move 50. W on 8x5:
+[info] . . W W W W . .
+[info] . . W W W W . B
+[info] B W B W B W W W
+[info] W B W W B B W W
+[info] B W B W B W B B
+[info] B B W W W B B B
+[info] B B B B B B . .
+[info] B B B B B B B .
+[info] Move 51. B on 7x7:
+[info] . . W W W W . .
+[info] . . W W W W B B
+[info] B W B W B B B W
+[info] W B W W B B B W
+[info] B W B W B W B B
+[info] B B W W W B B B
+[info] B B B B B B . .
+[info] B B B B B B B .
+[info] Move 52. W on 8x8:
+[info] . . W W W W . W
+[info] . . W W W W W W
+[info] B W B W B W B W
+[info] W B W W W B B W
+[info] B W B W B W B B
+[info] B B W W W B B B
+[info] B B B B B B . .
+[info] B B B B B B B .
+[info] Move 53. B on 7x8:
+[info] . . W W W W B W
+[info] . . W W W B B W
+[info] B W B W B W B W
+[info] W B W W W B B W
+[info] B W B W B W B B
+[info] B B W W W B B B
+[info] B B B B B B . .
+[info] B B B B B B B .
+[info] Move 54. W on 8x2:
+[info] . . W W W W B W
+[info] . . W W W B B W
+[info] B W B W B W B W
+[info] W B W W W B B W
+[info] B W B W B W B W
+[info] B B W W W B W W
+[info] B B B B B B . W
+[info] B B B B B B B .
+[info] Move 55. B on 2x7:
+[info] . . W W W W B W
+[info] . B B B B B B W
+[info] B B B W B W B W
+[info] W B W W W B B W
+[info] B W B W B W B W
+[info] B B W W W B W W
+[info] B B B B B B . W
+[info] B B B B B B B .
+[info] Move 56. W on 1x7:
+[info] . . W W W W B W
+[info] W W W W W W W W
+[info] W W B W B W B W
+[info] W B W W W B B W
+[info] B W B W B W B W
+[info] B B W W W B W W
+[info] B B B B B B . W
+[info] B B B B B B B .
+[info] Move 57. B on 1x8:
+[info] B . W W W W B W
+[info] B B W W W W W W
+[info] B W B W B W B W
+[info] B B W W W B B W
+[info] B W B W B W B W
+[info] B B W W W B W W
+[info] B B B B B B . W
+[info] B B B B B B B .
+[info] Move 58. W on 2x8:
+[info] B W W W W W B W
+[info] B W W W W W W W
+[info] B W B W B W B W
+[info] B B W W W B B W
+[info] B W B W B W B W
+[info] B B W W W B W W
+[info] B B B B B B . W
+[info] B B B B B B B .
+[info] Move 59. B on 7x2:
+[info] B W W W W W B W
+[info] B W W W W W W W
+[info] B W B W B W B W
+[info] B B W W W B B W
+[info] B W B W B W B W
+[info] B B W W W B B W
+[info] B B B B B B B W
+[info] B B B B B B B .
+[info] Move 60. W on 8x1:
+[info] B W W W W W B W
+[info] B W W W W W W W
+[info] B W B W B W B W
+[info] B B W W W B B W
+[info] B W B W W W B W
+[info] B B W W W W B W
+[info] B B B B B B W W
+[info] B B B B B B B W
+[info] The game is over.
+[info] White: 34
+[info] Black: 30
 * baba v baba (after refactoring and improving the output)
 Wed Apr 14 10:04:02 EDT 2021
 . . . . . . . .
