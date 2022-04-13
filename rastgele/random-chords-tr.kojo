@@ -1,6 +1,6 @@
 // çember üzerinde rastgele kirişler çizelim.
-// herhangi bir rastgele kirişler çemberin üzerindeki bir eşkenar üçgenin kenarından uzun olma
-// olasılığını bulalım
+// Herhangi bir kirişin çemberin üzerindeki eşkenar bir üçgenin kenarından
+// daha uzun olma olasılığını bulalım.
 
 type Açı = Kesir
 type Nokta = (Kesir, Kesir) // noktanın koordinatları (x, y)
