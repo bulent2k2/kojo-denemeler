@@ -1,5 +1,5 @@
 // çember üzerinde rastgele kirişler çizelim.
-// çemberin üzerindeki bir eşkenar üçgenin kenarından uzun olma
+// herhangi bir rastgele kirişler çemberin üzerindeki bir eşkenar üçgenin kenarından uzun olma
 // olasılığını bulalım
 
 type Açı = Kesir
@@ -10,7 +10,7 @@ type Kenar = (Nokta, Nokta) // bir kenar ya da kiriş
 val yç = 100 * karekökü(3) // çemberin yarıçapı bu olsun
 
 val eşkenarÜçgen = Dizin(0, 120, 240)
-val rastgeleAçı = rastgeleDiziden(Aralık(0, 360).dizin)
+def rastgeleAçı() = rastgeleDiziden(Aralık(0, 360).dizin)
 
 def nokta(derece: Açı): Nokta = {
     val radyan = derece * piSayısı / 180.0 // pi radyan 180 dereceye denk gelir
@@ -21,10 +21,9 @@ val noktalar = {
     rastgeleAçılar.map { nokta(_) }
 }
 
-object Açı { // todo to Kojo tr
+object Açı {
     def apply(sayı: Sayı) = { sayı.toDouble }
 }
-
 object Kesir { // todo to Kojo tr
     def apply(sayı: Sayı) = { sayı.toDouble }
 }
@@ -51,26 +50,29 @@ def boy(k: Kenar): Kesir = {
     val (yatayBoy, dikeyBoy) = (k._2._1 - k._1._1, k._2._2 - k._1._2)
     karekökü(yatayBoy * yatayBoy + dikeyBoy * dikeyBoy)
 }
-
 def yuvarla(k: Kesir): Kesir = yakın(k * 100) / 100.0
 
 val kenar = (nokta(eşkenarÜçgen(0)), nokta(eşkenarÜçgen(1)))
-val kiriş = (nokta(rastgeleAçı), nokta(0))
-satıryaz("Eşkenar üçgenin kenar uzunluğu: " + yuvarla(boy(kenar)))
-satıryaz("Rastgele kirişin uzunluğu: " + yuvarla(boy(kiriş)))
+def kiriş() = (nokta(rastgeleAçı()), nokta(rastgeleAçı()))
+
+val örnek = kiriş()
+val doldur = boy(örnek) > boy(kenar)
+val kVeyaB = if (doldur) ">" else "<"
+yaz("Rastgele kirişin uzunluğu: " + yuvarla(boy(örnek)) + "   ")
+yaz(kVeyaB)
+satıryaz("   Eşkenar üçgenin kenar uzunluğu: " + yuvarla(boy(kenar)))
 
 def olasılığıBul(kaçTaneDeneme: Sayı = 3000) = {
     val kaçTanesiDahaUzun = (
         for {
             i <- Aralık(1, kaçTaneDeneme).dizin
-            if boy((nokta(rastgeleDiziden(Aralık(0, 360).dizin)), nokta(0))) > boy(kenar)
+            if boy(kiriş()) > boy(kenar)
         } yield (1)).size
-    def yuvarla(k: Kesir): Kesir = yakın(k * 100) / 100.0
-    satıryaz("Olasılık(kiriş daha uzun)=" + yuvarla(kaçTanesiDahaUzun / Kesir(kaçTaneDeneme)))
+    satıryaz("\nOlasılık(rastgele bir kiriş daha uzun olsun)=" + yuvarla(kaçTanesiDahaUzun / Kesir(kaçTaneDeneme)))
 }
 
-val doldur = boy(kiriş) > boy(kenar)
 çemberVeEşkenarÜçgenÇizimi(doldur)
-kenarÇizimi(kiriş, mavi)
-noktaÇizimi(nokta(rastgeleAçı), mavi, if (doldur) mavi else renksiz)
+kenarÇizimi(örnek, mavi)
+for (nokta <- Dizi(örnek._1, örnek._2))
+    noktaÇizimi(nokta, mavi, if (doldur) mavi else renksiz)
 olasılığıBul()
