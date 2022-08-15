@@ -130,7 +130,6 @@ class UI(
         clearLastMove
         showMoves
         endedTheGame = false
-        refreshScoreBoard
         if (computerInPlay) computerToMove
     }
 
@@ -285,7 +284,7 @@ class UI(
             Seq(s"Move ${board.moveCount()}. ${board.player().cname} to play" +
                 (if (board.skippedTurn) " again" else "")) ++ score
     }
-    def refreshScoreBoard: Unit =
+    def refreshScoreBoard =
         scoreboard.zipWithIndex.foreach {
             case (l, i) => l.setText(scoreBoard(i))
         }

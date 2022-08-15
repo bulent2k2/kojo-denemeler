@@ -1,0 +1,12 @@
+This is now obsolete. Copy over the new code from:
+  /Users/ben/src/kojo/git/kojo/installer/examples/othello
+
+Diff: diff -rq . /Users/ben/src/kojo/git/kojo/installer/examples/othello
+Gives: {
+Files ./history.kojo and /Users/ben/src/kojo/git/kojo/installer/examples/othello/history.kojo differ
+Only in .: menu.kojo
+Only in /Users/ben/src/kojo/git/kojo/installer/examples/othello: menu.kojo.installed
+Only in /Users/ben/src/kojo/git/kojo/installer/examples/othello: menu_tr.kojo.installed
+Only in /Users/ben/src/kojo/git/kojo/installer/examples/othello: tr
+Files ./ui.kojo and /Users/ben/src/kojo/git/kojo/installer/examples/othello/ui.kojo differ
+}
