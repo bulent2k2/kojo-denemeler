@@ -1,4 +1,4 @@
-dez x = 6 // val
+dez x = 6 // İngilizcesi: val
 den y = 6 // var
 y += 1
 tanım örnekYöntem(x: Sayı, y: Sayı): Yazı = { // def
@@ -21,23 +21,26 @@ durum sınıf Uygulama() { // case class
     tanım yazı = { satıryaz("Yazıcıdan") }
 }
 nesne Merhaba yayar Uygulama birlikte Yazıcı { // object foo extends bar with dee
-    satıryaz("Defining with turkish keyword: tanım:..")
-    tanım yaz2 () = {
-        dez msg = "Hello, my dears."
+    satıryaz("bir işlev tanımlayalım:")
+    tanım yaz2 () = {  // def
+        dez msg = "Günaydın!"
         dez mesaj = " Merhaba canlar."
         den foo = " Bu da değişken değer."
         foo = msg + foo + mesaj
         satıryaz(foo)
     }
     eğer(doğru) {
-        satıryaz("In the body of the turkish translation of the if keyword")
+        satıryaz("eğer doğruysa bunu yazalım")
         yaz2()
     } yoksa {
-        satıryaz("NOT HERE!")
+        satıryaz("Burada olmamalıyız!")
     }
     yazı
     bilgiVer
 }
 Merhaba
 silVeSakla
-yazı("  ben bir kaplumbağayım")
+hızıKur(çokHızlı)
+kalemiKaldır(); sol; ileri(200); sağ; kalemiİndir()
+yazı("ben saklambaç oynamayı seven bir kaplumbağayım")
+va

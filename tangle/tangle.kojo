@@ -20,30 +20,30 @@ case class Nokta(var x: Kesir, var y: Kesir) {
     // no/equals/hashCode Küme'nin noktaları birbirinden ayırabilmesi için gerekli
     val no = nkn
     nkn += 1
-    override def equals(nesne: Her) = nesne match { // bu nokta verilen nesneyle aynı mı?
+    override def equals(ne: Her) = ne match { // bu nokta verilen nesneyle aynı mı?
         case o: Nokta => o.no == no
         case _        => yanlış
     }
     override def hashCode = no.hashCode // her nesnenin kendine özgü bir sayıya çevrilmesinde fayda var
     // iki nesnenin bu karışık kodu farklıysa, nesneler de farklıdır. Değilse, o zaman daha yavaş olan equals metodu kullanılır
-    val bu = this
+    val buNokta = this
     var resim: Resim = başla(); seçimiKur(yanlış)
     private def başla() = {
         val res = götür(x, y) -> Resim.daire(yarıçap)
-        çiz(res)
+        res.çiz
         fareyiTanımla(res)
         res
     }
     var komşular = Küme[Nokta]()
     def komşuMu(n: Nokta) = komşular(n)
     def komşu(n: Nokta) =
-        if (n != bu) komşular += n
-        else satıryaz("YANLIŞ! " + bu.yaz)
+        if (n != buNokta) komşular += n
+        else satıryaz("YANLIŞ! " + buNokta.yaz)
     def kim() = komşular
     def yineÇiz() {
         resim.sil
         resim = başla()
-        seçimiKur(seçiliNoktalar(bu))
+        seçimiKur(seçiliNoktalar(buNokta))
     }
     def seçimiKur(s: İkil) = { // seçilmiş Noktalar farklı görünsün
         resim.kalemKalınlığınıKur(if (s) 4 else 2)
@@ -60,7 +60,7 @@ case class Nokta(var x: Kesir, var y: Kesir) {
 
     def fareyiTanımla(r: Resim) = {
         r.fareyeTıklayınca { (mx, my) =>
-            if (seçiliNoktalar(bu)) seçme(bu) else seç(bu)
+            if (seçiliNoktalar(buNokta)) seçme(buNokta) else seç(buNokta)
             satıryaz(s"$yaz. $seçiliKümeyiYaz")
         }
         // çekince bu çalışacak. Yeri değişince ona bağlı çizgileri tekrar çizmemiz gerek
@@ -215,8 +215,8 @@ def seçiliKümeyiYaz() = s"${seçiliNoktalar.size} nokta seçili: " +
 
 def doğruÇiz(x1: Kesir, y1: Kesir, x2: Kesir, y2: Kesir) = {
     val (en, boy) = (x2 - x1, y2 - y1)
-    val r = götür(x1, y1) -> Resim.doğru(en, boy)
-    çiz(r)
+    val r = götür(x1, y1) -> Resim.düz(en, boy)
+    r.çiz
     r
 }
 def serpiştir(hepsi: Küme[Nokta], düğmeler: Düğmeler) {
@@ -224,17 +224,17 @@ def serpiştir(hepsi: Küme[Nokta], düğmeler: Düğmeler) {
     val (mx, my) = (tuvalAlanı.x, tuvalAlanı.y)
     val en = tuvalAlanı.eni - 2 * yarıçap
     val boy = tuvalAlanı.boyu - 2 * yarıçap
-    def dene() = { // düğmelere değmesin!
-        var dene = doğru
+    def deney() = { // düğmelere değmesin!
+        var deney = doğru
         var (x, y) = (0.0, 0.0)
-        while (dene) {
-            x = mx + yarıçap + en * rastgele
-            y = my + yarıçap + boy * rastgele
-            dene = düğmeler.düğmelereDeğdiMi(x, y)
+        while (deney) {
+            x = mx + yarıçap + en * rasgele
+            y = my + yarıçap + boy * rasgele
+            deney = düğmeler.düğmelereDeğdiMi(x, y)
         }
         (x, y)
     }
-    hepsi.foreach(nkt => { val (x, y) = dene(); nkt.yeniKonum(x, y) })
+    hepsi.foreach(nkt => { val (x, y) = deney(); nkt.yeniKonum(x, y) })
     çizelim(çizgiler)  // çizgileri de yeniden çizelim
 }
 def çizelim(hepsi: Küme[Çizgi]) { // Her çizgi iki noktasının çemberine kadar gelsin
@@ -253,7 +253,6 @@ def kaçTane(düzenli: İkil = doğru) = {
 }
 
 class Düğmeler(kns: Sayı) {
-    val bu = this
     def kur() { // düğmeleri bir grid üzerine koyalım
         düğmelerinİlkSırası() // dört sıra düğmemiz var
         düğmelerinİkinciSırası() // nokta/çizgi ekleme komutları
@@ -273,19 +272,19 @@ class Düğmeler(kns: Sayı) {
     val (sütn1, sütn2, sütn3, sütn4) = (kx, kx + dGrid, kx + 2 * dGrid, kx + 3 * dGrid)
     // yeni nokta konumu
     def ynkx = { // rastgele olmazsa seçiliNoktalar küme metodları hata veriyor
-        val yeni = kx + 3 * dGrid + yarıçap
-        rastgeleKesir(yeni, yeni + 2 * dGrid + yarıçap)
+        val yeniZ = kx + 3 * dGrid + yarıçap
+        rastgeleKesir(yeniZ, yeniZ + 2 * dGrid + yarıçap)
     }
     def ynky = {
-        val yeni = ky - yarıçap
-        rastgeleKesir(yeni, yeni + 4 * dGrid + yarıçap)
+        val yeniZ = ky - yarıçap
+        rastgeleKesir(yeniZ, yeniZ + 4 * dGrid + yarıçap)
     }
     var yardım = Resim.arayüz(ay.Tanıt("Yardım"))
     def yardımEt(x: Kesir, y: Kesir, m: Yazı) = {
         yardım = Resim.arayüz(ay.Tanıt(m))
         yardım.konumuKur(sütn1, sıra4 + dGrid)
         yardım.büyütmeyiKur(2.0) // yazıyı büyütelim
-        if (!yardım.çizili) çiz(yardım)
+        if (!yardım.çizili) yardım.çiz
         else yardım.sil()
     }
     def yardımıKapat() = { yardım.sil() }
@@ -299,12 +298,12 @@ class Düğmeler(kns: Sayı) {
     }
     def kare(x: Kesir, y: Kesir, en: Kesir) = {
         val k = götür(x, y) * kalemRengi(renksiz) -> Resim.dikdörtgen(en, en)
-        çiz(k)
+        k.çiz
         k
     }
     def düğmelerinİlkSırası() {
         val (b1, b2) = (kare(sütn1, sıra1, dBoyu), kare(sütn2, sıra1, dBoyu))
-        b1.boyamaRenginiKur(kırmızı); b1.fareyeTıklayınca { (_, _) => serpiştir(noktalar, bu) }
+        b1.boyamaRenginiKur(kırmızı); b1.fareyeTıklayınca { (_, _) => serpiştir(noktalar, this) }
         yardımıKur(b1, "Noktaları rastgele serpiştir")
         b2.boyamaRenginiKur(turuncu); b2.fareyeTıklayınca { (_, _) => { yardımıKapat; toggleFullScreenCanvas } }
         yardımıKur(b2, "Tüm ekrana geç ya da tüm ekrandan çık")
@@ -385,7 +384,7 @@ class Düğmeler(kns: Sayı) {
                 çizelim(çizgiler)
             }
         }
-        def ekle(yeni: Çizgi) = { çizgiler += yeni }
+        def çizgiEkle(çizgi: Çizgi) = { çizgiler += çizgi }
         def d2c() = { // seçili noktaları çizgiyle bağla
             def warn1(n1: Nokta, n2: Nokta) = satıryaz(s"DİKKAT: ${n1.ne} ve ${n2.ne} zaten bağlı")
             val düğme = kare(sütn3, sıra2, dBoyu)
@@ -395,7 +394,7 @@ class Düğmeler(kns: Sayı) {
                 if (seçiliNoktalar.size < 2) satıryaz("Önce en az iki nokta seçmelisin")
                 else {
                     seçiliNoktalar.subsets(2).map(_.toList).foreach {
-                        case Dizin(n1, n2) => if (!n1.komşuMu(n2)) ekle(Çizgi(n1, n2)) else warn1(n1, n2)
+                        case Dizin(n1, n2) => if (!n1.komşuMu(n2)) çizgiEkle(Çizgi(n1, n2)) else warn1(n1, n2)
                         case xs            => satıryaz(s"YANLIŞ! $xs")
                     }
                     çizelim(çizgiler)
