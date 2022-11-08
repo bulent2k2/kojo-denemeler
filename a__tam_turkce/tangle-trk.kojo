@@ -21,7 +21,7 @@ durum sınıf Nokta(den x: Kesir, den y: Kesir) {
     // no (numara) ve equals/hashCode yöntemlerini yeniden tanımlamak Küme'nin noktaları birbirinden ayırabilmesi için gerekli
     dez no = nkn
     nkn += 1
-    // iki nesnenin "kıyma kodu" farklıysa, nesneler de farklıdır. Değilse, o zaman daha yavaş olan equals yöntemi kullanılır
+    // ttodo: iki nesnenin "kıyma kodu" farklıysa, nesneler de farklıdır. Değilse, o zaman daha yavaş olan equals yöntemi kullanılır
     baskın tanım hashCode = no.kıymaKodu // hashCode: kıyma-kodu -- her nesnenin kendine özgü bir sayıya çevrilmesinde fayda var
     baskın tanım equals(ne: Her) = ne eşle { // equals: eşit mi? -- bu nokta verilen nesneyle aynı mı?
         durum o: Nokta => o.no == no
@@ -183,9 +183,7 @@ tanım silmeBilgisi(silinecekNoktalar: Küme[Nokta]) = {
 }
 
 tanım baştan(kns: Sayı) = { // Her nokta (0,0) yani orijine konuyor başta. Merak etme birazdan dağıtacağız
-    tümEkranTuval()
-    eksenleriGöster()
-    gridiGöster()
+    tümEkranTuval() //; eksenleriGöster(); gridiGöster()
     dez düğmeler = yeni Düğmeler(kns) { kur() }
     den s = 0 // yoksa komşu seti yanlış çalışıyor!
     dez bns = kns * kns // başlangıçtaki nokta sayısı
