@@ -17,16 +17,38 @@ durum sınıf Çizgi(n1: Nokta, n2: Nokta) { // iki noktayı bağla
 }
 
 den nkn = 0 // nokta kimlik numarası
-durum sınıf Nokta(den x: Kesir, den y: Kesir) {
+özellik Eşitlik {
+    tanım eşitMi(ne: Her) = scala.runtime.ScalaRunTime.equals(ne)
+    baskın tanım equals(ne: Her) = eşitMi(ne)
+}
+tanım eşitMiDeneme(n1: Nokta, n2: Nokta): İkil = {
+    satıryaz(s"bbx eşitMiDeneme: ${n1.hashCode} ==? ${n2.hashCode} ${
+        n1 == n2 eşle {
+            durum doğru => "Evet!"
+            durum yanlış => "Hayır!"
+        }
+    }")
+    n1 == n2
+}
+durum sınıf Nokta(den x: Kesir, den y: Kesir) yayar Eşitlik {
     // no (numara) ve equals/hashCode yöntemlerini yeniden tanımlamak Küme'nin noktaları birbirinden ayırabilmesi için gerekli
     dez no = nkn
     nkn += 1
     // ttodo: iki nesnenin "kıyma kodu" farklıysa, nesneler de farklıdır. Değilse, o zaman daha yavaş olan equals yöntemi kullanılır
-    baskın tanım hashCode = no.kıymaKodu // hashCode: kıyma-kodu -- her nesnenin kendine özgü bir sayıya çevrilmesinde fayda var
-    baskın tanım equals(ne: Her) = ne eşle { // equals: eşit mi? -- bu nokta verilen nesneyle aynı mı?
+    /* baskın tanım hashCode = { satıryaz(s"bbx: in hashCode! $bu")
+        no.kıymaKodu} */ // hashCode: kıyma-kodu -- her nesnenin kendine özgü bir sayıya çevrilmesinde fayda var
+/*    baskın tanım equals(ne: Her) = { satıryaz(s"bbx: in equals! $bu")
+        ne eşle { // equals: eşit mi? -- bu nokta verilen nesneyle aynı mı?
         durum o: Nokta => o.no == no
         durum _        => yanlış
-    }
+    } } 
+    */
+    baskın tanım eşitMi(ne: Her) = { // satıryaz(s"bbx: bte! $bu")
+        ne eşle { // equals: eşit mi? -- bu nokta verilen nesneyle aynı mı?
+        durum o: Nokta => o.no == no
+        durum _        => yanlış
+    } } 
+    
     dez buNokta = bu
     den resim: Resim = başla(); seçimiKur(yanlış)
     gizli tanım başla() = {
@@ -226,6 +248,9 @@ tanım seçiliKümeyiYaz() = {
       yazıdanÇizgeye(çizgeGI1)  // todo: deneme..
       "Her bir satırda noktanın bilgisi, komşularının sayısı ve bütün komşuları var."
     } yoksa {
+      for (n1 <- seçiliNoktalar; n2 <- seçiliNoktalar) {
+          eşitMiDeneme(n1, n2)
+      }
       s"${seçiliNoktalar.boyu} nokta seçili: " +
       seçiliNoktalar.işle(n => n.ne).yazıYap("{", " ", "}")
     }
