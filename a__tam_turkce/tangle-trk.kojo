@@ -6,7 +6,7 @@ dez KNS = 4 // Karenin bir kenarında kaç tane nokta olsun? kns arttıkça oyun
 den yarıçap = 10 // bu da noktanın yarıçapı
 den çizgiler = Küme[Çizgi]() // boş küme olarak başlarız
 den noktalar = Küme[Nokta]()
-den noktalar2 = Yöney[Nokta]() // dışsal nokta eklemek için gerekli
+den noktalar2 = Yöney[Nokta]() // dışsal (ya da içsel) nokta eklemek için gerekli
 
 durum sınıf Çizgi(n1: Nokta, n2: Nokta) { // iki noktayı bağla
     gerekli(n1 != n2, s"YANLIŞ! döngü ${n1.yaz}")
@@ -20,15 +20,6 @@ den nkn = 0 // nokta kimlik numarası
 özellik Eşitlik {
     tanım eşitMi(ne: Her) = scala.runtime.ScalaRunTime.equals(ne)
     baskın tanım equals(ne: Her) = eşitMi(ne)
-}
-tanım eşitMiDeneme(n1: Nokta, n2: Nokta): İkil = {
-    satıryaz(s"bbx eşitMiDeneme: ${n1.hashCode} ==? ${n2.hashCode} ${
-        n1 == n2 eşle {
-            durum doğru => "Evet!"
-            durum yanlış => "Hayır!"
-        }
-    }")
-    n1 == n2
 }
 durum sınıf Nokta(den x: Kesir, den y: Kesir) yayar Eşitlik {
     // no (numara) ve equals/hashCode yöntemlerini yeniden tanımlamak Küme'nin noktaları birbirinden ayırabilmesi için gerekli
@@ -205,7 +196,7 @@ tanım silmeBilgisi(silinecekNoktalar: Küme[Nokta]) = {
 }
 
 tanım baştan(kns: Sayı) = { // Her nokta (0,0) yani orijine konuyor başta. Merak etme birazdan dağıtacağız
-    tümEkranTuval() //; eksenleriGöster(); gridiGöster()
+    // tümEkranTuval() //; eksenleriGöster(); gridiGöster()
     dez düğmeler = yeni Düğmeler(kns) { kur() }
     den s = 0 // yoksa komşu seti yanlış çalışıyor!
     dez bns = kns * kns // başlangıçtaki nokta sayısı
@@ -248,9 +239,6 @@ tanım seçiliKümeyiYaz() = {
       yazıdanÇizgeye(çizgeGI1)  // todo: deneme..
       "Her bir satırda noktanın bilgisi, komşularının sayısı ve bütün komşuları var."
     } yoksa {
-      for (n1 <- seçiliNoktalar; n2 <- seçiliNoktalar) {
-          eşitMiDeneme(n1, n2)
-      }
       s"${seçiliNoktalar.boyu} nokta seçili: " +
       seçiliNoktalar.işle(n => n.ne).yazıYap("{", " ", "}")
     }
@@ -343,7 +331,7 @@ dez çizgeGI2 = Dizin(
   "N3@143,155    2 N2@-37,155 N4@201,5",
   "N4@201,5      2 N1@61,-102 N3@143,155"
 )
-dez çizgeMaksimal1 = Dizin(  // 2x2'ye 24 dışsal nokta ekledim
+dez çizgeMaksimal1 = Dizin(  // 2x2'ye 24 dışsal/içsel nokta ekledim
   "N0@-1,-399    5 N1@601,2 N2@-601,0 N7@-178,-118 N11@0,-134 N4@178,-117",
   "N1@601,2      5 N0@-1,-399 N5@178,120 N3@0,401 N8@203,1 N4@178,-117",
   "N2@-601,0     5 N0@-1,-399 N10@-203,1 N6@-178,119 N7@-178,-118 N3@0,401",
@@ -503,15 +491,15 @@ sınıf Düğmeler(kns: Sayı) {
             yardımıKur2(düğme, () =>
                 eğer (noktaSilindiMi) "Nokta silmeden önce kullan"
                 yoksa eğer (çizgiEklendiMi) "Çizgi eklemeden önce kullan"
-                yoksa eğer (kümeTükendi) "Başka dışsal nokta ekleyemiyoruz"
-                yoksa "Dışsal nokta ekle (çizge yüzeysel kalır)")
+                yoksa eğer (kümeTükendi) "Başka dışsal/içsel nokta ekleyemiyoruz"
+                yoksa "Dışsal/içsel nokta ekle (çizge yüzeysel kalır)")
             düğme.kalemRenginiKur(mavi)
             düğme.boyamaRenginiKur(mavi)
             den yeniNokta = 0 // kk'nin kaçıncı kümesine bağlanacak bu yeni nokta?
             dez kk = kümeler(kns)
-            satıryaz(kk.boyu + " dışsal nokta ekleyebilirsin")
+            satıryaz(kk.boyu + " dışsal/içsel nokta ekleyebilirsin")
             düğme.fareyeTıklayınca { (x, y) => // bu kareye her basışımızda yeni bir nokta ekleyelim
-                dez msj = (ne: Yazı) => satıryaz(s"$ne var. Dışsal nokta ekleyemiyoruz artık!")
+                dez msj = (ne: Yazı) => satıryaz(s"$ne var. Dışsal/içsel nokta ekleyemiyoruz artık!")
                 eğer (noktaSilindiMi) msj("Silinen noktalar")
                 yoksa eğer (çizgiEklendiMi) msj("Eklenen çizgiler")
                 yoksa eğer (yeniNokta < kk.boyu) {
@@ -526,7 +514,7 @@ sınıf Düğmeler(kns: Sayı) {
                 }
                 yoksa {
                     kümeTükendi = doğru
-                    satıryaz("Başka dışsal nokta ekleyemiyoruz (şimdilik!)")
+                    satıryaz("Başka dışsal/içsel nokta ekleyemiyoruz (şimdilik!)")
                 }
                 eğer (noktaSilindiMi || çizgiEklendiMi || kümeTükendi)
                     düğme.saydamlığıKur(0.2)
