@@ -17,29 +17,25 @@ durum sınıf Çizgi(n1: Nokta, n2: Nokta) { // iki noktayı bağla
 }
 
 den nkn = 0 // nokta kimlik numarası
-özellik Eşitlik {
-    tanım eşitMi(ne: Her) = scala.runtime.ScalaRunTime.equals(ne)
-    baskın tanım equals(ne: Her) = eşitMi(ne)
+özellik Eşsizlik {
+    tanım kıymaKodu: Sayı
+    baskın tanım hashCode = kıymaKodu
+    // iki nesnenin "kıyma kodu" farklıysa, nesneler de farklıdır.
+    // Değilse, o zaman daha yavaş olan equals yöntemi kullanılır.
+    // kıymaKodu/hashCode yöntemini yeniden tanımlamak gerekebiliyor.
+    // Ne zaman? Aynı görünen durum sınıf nesnelerini birbirinden ayırmak gerekince.
+    // O halde çözüm bu özelliği yaymak ve kıymaKodu yöntemini yeniden tanımlamak
+    // github/bulen2k2/kojo-denemeler/a__tam_turkce/tangle-trk.kojo programında kullanıyoruz bunu.
 }
-durum sınıf Nokta(den x: Kesir, den y: Kesir) yayar Eşitlik {
-    // no (numara) ve equals/hashCode yöntemlerini yeniden tanımlamak Küme'nin noktaları birbirinden ayırabilmesi için gerekli
+
+durum sınıf Nokta(den x: Kesir, den y: Kesir) yayar Eşsizlik {
+    // Eşsizlik özelliği aynı koordinatlardaki iki noktanın Küme içinde birbirinden ayırılabilmesi için gerekli
     dez no = nkn
     nkn += 1
-    // ttodo: iki nesnenin "kıyma kodu" farklıysa, nesneler de farklıdır. Değilse, o zaman daha yavaş olan equals yöntemi kullanılır
-    /* baskın tanım hashCode = { satıryaz(s"bbx: in hashCode! $bu")
-        no.kıymaKodu} */ // hashCode: kıyma-kodu -- her nesnenin kendine özgü bir sayıya çevrilmesinde fayda var
-/*    baskın tanım equals(ne: Her) = { satıryaz(s"bbx: in equals! $bu")
-        ne eşle { // equals: eşit mi? -- bu nokta verilen nesneyle aynı mı?
-        durum o: Nokta => o.no == no
-        durum _        => yanlış
-    } } 
-    */
-    baskın tanım eşitMi(ne: Her) = { // satıryaz(s"bbx: bte! $bu")
-        ne eşle { // equals: eşit mi? -- bu nokta verilen nesneyle aynı mı?
-        durum o: Nokta => o.no == no
-        durum _        => yanlış
-    } } 
-    
+    // Eşsizlik özelliğinin soyut yöntemini bizim tanımlamamız gerekli
+    // Anımsatma: iki nesnenin kıymaKodu farklıysa, nesneler de farklı görünür
+    tanım kıymaKodu = no.kıymaKodu
+
     dez buNokta = bu
     den resim: Resim = başla(); seçimiKur(yanlış)
     gizli tanım başla() = {
