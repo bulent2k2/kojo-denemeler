@@ -1,8 +1,9 @@
+// yükle tangle-ornek-cizgeler.kojo  // yazıdanÇizgeye komutu ve örnek çizgeler
+
 // ingilizce anahtar sözcükler kullanan eski yazılım şurada: ~/src/kojo/tangle/tangle.kojo
 silVeSakla(); çıktıyıSil()  // yeni türkçe anahtar sözcüklerle!
 // Kare grid çizgesi kuracağız. düzlemseldir.
-dez KNS = 4 // Karenin bir kenarında kaç tane nokta olsun? kns arttıkça oyun zorlaşır.
-// başlangıçtaki nokta sayısı = kns*kns.
+dez KNS = 4 // Karenin bir kenarında kaç tane nokta olsun? kns arttıkça oyun zorlaşır. Başlangıçtaki nokta sayısı = kns*kns.
 den yarıçap = 10 // bu da noktanın yarıçapı
 den çizgiler = Küme[Çizgi]() // boş küme olarak başlarız
 den noktalar = Küme[Nokta]()
@@ -16,22 +17,11 @@ durum sınıf Çizgi(n1: Nokta, n2: Nokta) { // iki noktayı bağla
     n2.komşu(n1)
 }
 
-den nkn = 0 // nokta kimlik numarası
-özellik Eşsizlik {
-    tanım kıymaKodu: Sayı
-    baskın tanım hashCode = kıymaKodu
-    // iki nesnenin "kıyma kodu" farklıysa, nesneler de farklıdır.
-    // Değilse, o zaman daha yavaş olan equals yöntemi kullanılır.
-    // kıymaKodu/hashCode yöntemini yeniden tanımlamak gerekebiliyor.
-    // Ne zaman? Aynı görünen durum sınıf nesnelerini birbirinden ayırmak gerekince.
-    // O halde çözüm bu özelliği yaymak ve kıymaKodu yöntemini yeniden tanımlamak
-    // github/bulen2k2/kojo-denemeler/a__tam_turkce/tangle-trk.kojo programında kullanıyoruz bunu.
-}
-
+den nkn = 0 // nokta kimlik numarası sayacı, bir sonraki nokta bunu kullanacak
 durum sınıf Nokta(den x: Kesir, den y: Kesir) yayar Eşsizlik {
     // Eşsizlik özelliği aynı koordinatlardaki iki noktanın Küme içinde birbirinden ayırılabilmesi için gerekli
-    dez no = nkn
-    nkn += 1
+    dez no = nkn // bu noktanın kimlik numarası
+    nkn += 1 // bir sonraki noktanın kimlik numarası
     // Eşsizlik özelliğinin soyut yöntemini bizim tanımlamamız gerekli
     // Anımsatma: iki nesnenin kıymaKodu farklıysa, nesneler de farklı görünür
     tanım kıymaKodu = no.kıymaKodu
@@ -107,12 +97,6 @@ durum sınıf Nokta(den x: Kesir, den y: Kesir) yayar Eşsizlik {
         }
     }
 }
-
-/* todo Gelecekte geliştirmek için belki yaparız :-)
-   noktaları bir grid üstüne koysak? Üstüste hiç getirmesek? Ama ya yaklaşınca uzaklaşınca?
-   sahneyi sınırlarız olur biter...
-dez GNS = 100
-dez grid = Dizim.boş[Nokta](GNS, GNS)*/
 
 den noktaSilindiMi = yanlış
 den çizgiEklendiMi = yanlış
@@ -192,7 +176,7 @@ tanım silmeBilgisi(silinecekNoktalar: Küme[Nokta]) = {
 }
 
 tanım baştan(kns: Sayı) = { // Her nokta (0,0) yani orijine konuyor başta. Merak etme birazdan dağıtacağız
-    // tümEkranTuval() //; eksenleriGöster(); gridiGöster()
+    tümEkranTuval() //; eksenleriGöster(); gridiGöster()
     dez düğmeler = yeni Düğmeler(kns) { kur() }
     den s = 0 // yoksa komşu seti yanlış çalışıyor!
     dez bns = kns * kns // başlangıçtaki nokta sayısı
@@ -232,131 +216,13 @@ tanım seçiliKümeyiYaz() = {
         }
       }
       .yazıYap("dez çizge1 = Dizin(\n", ",\n", "\n)"))
-      yazıdanÇizgeye(çizgeGI1)  // todo: deneme..
+      //yazıdanÇizgeye(çizgeGI1)  // todo: deneme..
       "Her bir satırda noktanın bilgisi, komşularının sayısı ve bütün komşuları var."
     } yoksa {
       s"${seçiliNoktalar.boyu} nokta seçili: " +
       seçiliNoktalar.işle(n => n.ne).yazıYap("{", " ", "}")
     }
 }
-tanım yazıdanÇizgeye(girdi: Dizin[Yazı]): Dizin[(Nokta, (Sayı, Sayı))] = {
-    dez deneme = için(satır <- girdi) ver(satır.böl(" ").eleDeğilse(_.boyu == 0))
-    dez bilgi = deneme.yazıYap("", "\n", "")
-    // satıryaz(bilgi)
-    // todo: şimdilik..
-    dez n = eğer (noktalar.boyu == 0) {
-        Nokta(10, 20) // yeni bir nokta oluştur
-    } yoksa noktalar.başı
-    Dizin( (n, (10, 20)), (n, (20, 10)) )
-}
-// ilginç birkaç çizge:
-dez çizge0 = Dizin(
-  "N0@77,123     2 N1@-290,91 N3@10,-74",
-  "N1@-290,91    3 N0@77,123 N2@78,-38 N4@113,126",
-  "N2@78,-38     2 N1@-290,91 N5@-7,-26",
-  "N3@10,-74     3 N0@77,123 N4@113,126 N6@110,95",
-  "N4@113,126    4 N1@-290,91 N3@10,-74 N5@-7,-26 N7@62,79",
-  "N5@-7,-26     3 N2@78,-38 N4@113,126 N8@294,-127",
-  "N6@110,95     2 N3@10,-74 N7@62,79",
-  "N7@62,79      3 N4@113,126 N6@110,95 N8@294,-127",
-  "N8@294,-127   2 N5@-7,-26 N7@62,79"
-)
-dez çizge1 = Dizin(
-  "N0@513,131    4 N1@563,223 N3@461,264 N9@614,171 N12@380,211",
-  "N1@563,223    4 N0@513,131 N2@666,254 N4@506,296 N9@614,171",
-  "N2@666,254    4 N1@563,223 N5@560,332 N9@614,171 N10@608,367",
-  "N3@461,264    4 N0@513,131 N4@506,296 N6@332,316 N12@380,211",
-  "N4@506,296    4 N1@563,223 N3@461,264 N5@560,332 N7@444,353",
-  "N5@560,332    4 N2@666,254 N4@506,296 N8@493,421 N10@608,367",
-  "N6@332,316    4 N3@461,264 N7@444,353 N11@393,392 N12@380,211",
-  "N7@444,353    4 N4@506,296 N6@332,316 N8@493,421 N11@393,392",
-  "N8@493,421    4 N5@560,332 N7@444,353 N10@608,367 N11@393,392",
-  "N9@614,171    3 N0@513,131 N1@563,223 N2@666,254",
-  "N10@608,367   3 N2@666,254 N5@560,332 N8@493,421",
-  "N11@393,392   3 N8@493,421 N7@444,353 N6@332,316",
-  "N12@380,211   3 N6@332,316 N3@461,264 N0@513,131"
-)
-dez çizge1b = Dizin(
-  "N0@513,131    5 N1@563,223 N9@614,171 N12@380,211 N3@450,257 N16@514,81",
-  "N1@563,223    6 N0@513,131 N5@560,332 N9@614,171 N2@666,254 N3@450,257 N4@506,296",
-  "N2@666,254    5 N5@560,332 N10@608,367 N1@563,223 N9@614,171 N13@733,249",
-  "N3@450,257    6 N0@513,131 N1@563,223 N6@332,316 N12@380,211 N7@444,353 N4@506,296",
-  "N4@506,296    4 N1@563,223 N3@450,257 N5@560,332 N7@444,353",
-  "N5@560,332    6 N10@608,367 N1@563,223 N2@666,254 N7@444,353 N8@493,421 N4@506,296",
-  "N6@332,316    5 N12@380,211 N7@444,353 N3@450,257 N11@393,392 N15@272,321",
-  "N7@444,353    6 N5@560,332 N6@332,316 N3@450,257 N11@393,392 N8@493,421 N4@506,296",
-  "N8@493,421    5 N5@560,332 N10@608,367 N14@494,486 N7@444,353 N11@393,392",
-  "N9@614,171    5 N0@513,131 N1@563,223 N13@733,249 N2@666,254 N16@514,81",
-  "N10@608,367   5 N5@560,332 N14@494,486 N13@733,249 N2@666,254 N8@493,421",
-  "N11@393,392   5 N14@494,486 N6@332,316 N7@444,353 N8@493,421 N15@272,321",
-  "N12@380,211   5 N0@513,131 N6@332,316 N3@450,257 N16@514,81 N15@272,321",
-  "N13@733,249   3 N9@614,171 N2@666,254 N10@608,367",
-  "N14@494,486   3 N10@608,367 N8@493,421 N11@393,392",
-  "N15@272,321   3 N11@393,392 N6@332,316 N12@380,211",
-  "N16@514,81    3 N12@380,211 N0@513,131 N9@614,171"
-)
-dez çizge1c = Dizin( // 17 nokta, 44 çizgi. Fotolara bak!
-  "N0@513,131    5 N1@563,223 N9@614,171 N12@380,211 N3@450,257 N16@479,32",
-  "N1@563,223    6 N0@513,131 N5@560,332 N9@614,171 N2@666,254 N3@450,257 N4@506,296",
-  "N2@666,254    5 N5@560,332 N10@608,367 N1@563,223 N9@614,171 N13@784,261",
-  "N3@450,257    6 N0@513,131 N1@563,223 N6@332,316 N12@380,211 N7@444,353 N4@506,296",
-  "N4@506,296    4 N1@563,223 N3@450,257 N5@560,332 N7@444,353",
-  "N5@560,332    6 N10@608,367 N1@563,223 N2@666,254 N7@444,353 N8@493,421 N4@506,296",
-  "N6@332,316    5 N12@380,211 N7@444,353 N3@450,257 N11@393,392 N15@214,319",
-  "N7@444,353    6 N5@560,332 N6@332,316 N3@450,257 N11@393,392 N8@493,421 N4@506,296",
-  "N8@493,421    5 N5@560,332 N10@608,367 N14@513,508 N7@444,353 N11@393,392",
-  "N9@614,171    5 N0@513,131 N1@563,223 N13@784,261 N2@666,254 N16@479,32",
-  "N10@608,367   5 N5@560,332 N14@513,508 N13@784,261 N2@666,254 N8@493,421",
-  "N11@393,392   5 N14@513,508 N6@332,316 N7@444,353 N8@493,421 N15@214,319",
-  "N12@380,211   5 N0@513,131 N6@332,316 N3@450,257 N16@479,32 N15@214,319",
-  "N13@784,261   5 N10@608,367 N14@513,508 N9@614,171 N2@666,254 N16@479,32",
-  "N14@513,508   5 N10@608,367 N13@784,261 N11@393,392 N8@493,421 N15@214,319",
-  "N15@214,319   5 N14@513,508 N6@332,316 N12@380,211 N16@479,32 N11@393,392",
-  "N16@479,32    5 N0@513,131 N9@614,171 N13@784,261 N12@380,211 N15@214,319"
-)
-dez çizgeGI1 = Dizin( // graph iso examples
-  "N0@-48,163    3 N1@137,164 N2@-43,64 N3@138,64",
-  "N1@137,164    2 N0@-48,163 N3@138,64",
-  "N2@-43,64     2 N0@-48,163 N3@138,64",
-  "N3@138,64     3 N1@137,164 N2@-43,64 N0@-48,163"
-)
-dez çizgeGI2 = Dizin(
-  "N0@-69,10     2 N1@61,-102 N2@-37,155",
-  "N1@61,-102    2 N0@-69,10 N4@201,5",
-  "N2@-37,155    2 N0@-69,10 N3@143,155",
-  "N3@143,155    2 N2@-37,155 N4@201,5",
-  "N4@201,5      2 N1@61,-102 N3@143,155"
-)
-dez çizgeMaksimal1 = Dizin(  // 2x2'ye 24 dışsal/içsel nokta ekledim
-  "N0@-1,-399    5 N1@601,2 N2@-601,0 N7@-178,-118 N11@0,-134 N4@178,-117",
-  "N1@601,2      5 N0@-1,-399 N5@178,120 N3@0,401 N8@203,1 N4@178,-117",
-  "N2@-601,0     5 N0@-1,-399 N10@-203,1 N6@-178,119 N7@-178,-118 N3@0,401",
-  "N3@0,401      5 N5@178,120 N1@601,2 N6@-178,119 N9@0,136 N2@-601,0",
-  "N4@178,-117   5 N0@-1,-399 N1@601,2 N11@0,-134 N8@203,1 N15@86,-56",
-  "N5@178,120    5 N1@601,2 N9@0,136 N12@86,58 N3@0,401 N8@203,1",
-  "N6@-178,119   5 N10@-203,1 N9@0,136 N13@-86,58 N2@-601,0 N3@0,401",
-  "N7@-178,-118  5 N0@-1,-399 N10@-203,1 N14@-86,-56 N2@-601,0 N11@0,-134",
-  "N8@203,1      6 N5@178,120 N1@601,2 N12@86,58 N19@88,1 N4@178,-117 N15@86,-56",
-  "N9@0,136      6 N5@178,120 N6@-178,119 N13@-86,58 N12@86,58 N3@0,401 N16@0,60",
-  "N10@-203,1    6 N14@-86,-56 N6@-178,119 N13@-86,58 N2@-601,0 N17@-89,1 N7@-178,-118",
-  "N11@0,-134    6 N0@-1,-399 N14@-86,-56 N7@-178,-118 N18@0,-58 N4@178,-117 N15@86,-56",
-  "N12@86,58     6 N5@178,120 N9@0,136 N16@0,60 N23@47,32 N8@203,1 N19@88,1",
-  "N13@-86,58    6 N10@-203,1 N20@-47,32 N6@-178,119 N9@0,136 N17@-89,1 N16@0,60",
-  "N14@-86,-56   6 N10@-203,1 N21@-47,-30 N17@-89,1 N7@-178,-118 N18@0,-58 N11@0,-134",
-  "N15@86,-56    6 N22@47,-30 N18@0,-58 N11@0,-134 N8@203,1 N19@88,1 N4@178,-117",
-  "N16@0,60      6 N20@-47,32 N9@0,136 N13@-86,58 N27@0,42 N12@86,58 N23@47,32",
-  "N17@-89,1     6 N10@-203,1 N24@-61,1 N14@-86,-56 N20@-47,32 N21@-47,-30 N13@-86,58",
-  "N18@0,-58     6 N25@0,-39 N14@-86,-56 N21@-47,-30 N22@47,-30 N11@0,-134 N15@86,-56",
-  "N19@88,1      6 N22@47,-30 N12@86,58 N8@203,1 N15@86,-56 N26@61,1 N23@47,32",
-  "N20@-47,32    5 N24@-61,1 N13@-86,58 N17@-89,1 N27@0,42 N16@0,60",
-  "N21@-47,-30   5 N14@-86,-56 N17@-89,1 N18@0,-58 N24@-61,1 N25@0,-39",
-  "N22@47,-30    5 N25@0,-39 N18@0,-58 N26@61,1 N19@88,1 N15@86,-56",
-  "N23@47,32     5 N27@0,42 N12@86,58 N16@0,60 N26@61,1 N19@88,1",
-  "N24@-61,1     3 N20@-47,32 N17@-89,1 N21@-47,-30",
-  "N25@0,-39     3 N21@-47,-30 N18@0,-58 N22@47,-30",
-  "N26@61,1      3 N22@47,-30 N19@88,1 N23@47,32",
-  "N27@0,42      3 N23@47,32 N16@0,60 N20@-47,32"
-)
 
 tanım doğruÇiz(x1: Kesir, y1: Kesir, x2: Kesir, y2: Kesir) = {
     dez (en, boy) = (x2 - x1, y2 - y1)
