@@ -3,7 +3,7 @@
 //#yükle arayuz.kojo
 
 // yazıdanÇizgeye komutu ve örnek çizgeler:
-//#yükle tangle-ornek-cizgeler.kojo  
+//#yükle tangle-ornek-cizgeler.kojo
 
 // ingilizce anahtar sözcükler kullanan eski yazılım şurada: ~/src/kojo/tangle/tangle.kojo
 silVeSakla(); çıktıyıSil()  // yeni türkçe anahtar sözcüklerle!
