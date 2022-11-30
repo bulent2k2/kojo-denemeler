@@ -1,3 +1,23 @@
+// Bu altdosya arayüzün tümü değil. Ama bütün düğmeler burada.
+// nokta.kojo ve anadosyada da arayüz işlevleri var.
+
+//#yükle temel.kojo
+//#yükle bellek.kojo
+
+/* template (ttodo)
+ // d: düğme
+ // N: satır numarası
+ // X: sütun (a, b, c, d, e)
+        tanım dNX() = {
+            dez düğme = kare(sütnX, sıraN, dBoyu)
+            yardımıKur(düğme, "<Bu düğme ne yapsın?>")
+            düğme.boyamaRenginiKur(renkler.coral)
+            düğme.fareyeTıklayınca { (x, y) =>
+                satıryaz("dNX'e tıklandı")
+            }
+        }
+ */
+
 sınıf Düğmeler(kns: Sayı) {
     tanım kur() { // düğmeleri bir grid üzerine koyalım
         düğmelerinİlkSırası() // dört sıra düğmemiz var
@@ -15,16 +35,16 @@ sınıf Düğmeler(kns: Sayı) {
     dez dGrid = 40 // düğmeleri sol alt köşede bir gride yerleştirelim
     dez (kx, ky) = (0.9 * tuvalAlanı.x, 0.9 * tuvalAlanı.y) // sol alt köşe
     dez dBoyu = dGrid - 5
-    dez (sıra1, sıra2, sıra3, sıra4) = (ky, ky + dGrid, ky + 2 * dGrid, ky + 3 * dGrid)
+    dez (sıra1, sıra2, sıra3, sıra4, sıra5) = (ky, ky + dGrid, ky + 2 * dGrid, ky + 3 * dGrid, ky + 4 * dGrid)
     dez (sütn1, sütn2, sütn3, sütn4, sütn5) = (kx, kx + dGrid, kx + 2 * dGrid, kx + 3 * dGrid, kx + 4 * dGrid)
     // yeni nokta konumu
-    tanım ynkx = { // rastgele olmazsa seçiliNoktalar küme metodları hata veriyor
-        dez yeniZ = kx + 3 * dGrid + yarıçap
-        rastgeleKesir(yeniZ, yeniZ + 2 * dGrid + yarıçap)
+    tanım ynkx = { // rastgele olmazsa seçiliNoktalar küme metodları hata veriyordu. Eşsizlik özelliğini ekleyerek bu sorunu çözdük.
+        dez yeniZ = sütn5 + yarıçap
+        yuvarla(rastgeleKesir(yeniZ, yeniZ + 2 * dGrid + yarıçap), 1) // todo: DRY nokta oluşturma ve kaydırma
     }
     tanım ynky = {
         dez yeniZ = ky - yarıçap
-        rastgeleKesir(yeniZ, yeniZ + 4 * dGrid + yarıçap)
+        yuvarla(rastgeleKesir(yeniZ, yeniZ + 4 * dGrid + yarıçap), 1) // todo: DRY nokta oluşturma ve kaydırma
     }
     den yardım = Resim.arayüz(ay.Tanıt("Yardım"))
     tanım yardımEt(x: Kesir, y: Kesir, m: Yazı) = {
@@ -61,6 +81,15 @@ sınıf Düğmeler(kns: Sayı) {
             eğer (seçiliNoktalar.boşMu) "Seçili çizgiyi ya da noktaları sil"
             yoksa silmeBilgisi(seçiliNoktalar)
         )
+        tanım d1d() = {
+            dez düğme = kare(sütn4, sıra1, dBoyu)
+            yardımıKur(düğme, "<Bu düğme ne yapsın?>")
+            düğme.boyamaRenginiKur(renkler.coral)
+            düğme.fareyeTıklayınca { (x, y) =>
+                satıryaz("d1d'ye tıklandı")
+            }
+        }
+        d1d()
     }
     tanım düğmelerinİkinciSırası() { // otomatik dış kenara (dışsal), d2b/c: seçili noktalara
         tanım d2a() = {
@@ -149,7 +178,15 @@ sınıf Düğmeler(kns: Sayı) {
                 }
             }
         }
-        d2a(); d2b(); d2c()
+        tanım d2d() = {
+            dez düğme = kare(sütn4, sıra2, dBoyu)
+            yardımıKur(düğme, "<Bu düğme ne yapsın?>")
+            düğme.boyamaRenginiKur(renkler.coral)
+            düğme.fareyeTıklayınca { (x, y) =>
+                satıryaz("d2d'ye tıklandı")
+            }
+        }
+        d2a(); d2b(); d2c(); d2d()
     }
     tanım düğmelerinÜçüncüSırası() {
         tanım d3a() = { // seçim kümesini sil, ya da hepsini seç
@@ -200,8 +237,8 @@ sınıf Düğmeler(kns: Sayı) {
             yardımıKur(düğme, "Belleğe yaz")
             düğme.boyamaRenginiKur(morumsu)
             düğme.fareyeTıklayınca { (_, _) =>
-                bellekGeri.koy(noktalar)
-                println(bellekGeri.boyu())  // todo
+                bellekGeri.koy(noktalar, çizgiler)
+                satıryaz(s"Anı ${bellekGeri.boyu()}: ${noktalar.boyu} nokta ve ${çizgiler.boyu} çizgi var.")
             }
         }
         d3a(); d3b(); d3c(); d3d()

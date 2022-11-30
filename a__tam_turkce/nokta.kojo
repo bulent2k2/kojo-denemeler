@@ -46,7 +46,7 @@ durum sınıf Nokta(den x: Kesir, den y: Kesir) yayar Eşsizlik {
             satıryaz(s"$yaz. $seçiliKümeyiYaz")
         }
         // çekince bu çalışacak. Yeri değişince ona bağlı çizgileri tekrar çizmemiz gerek
-        r.fareyiSürükleyince { (mx, my) => { yeniKonum(mx, my); çizelim(çizgiler) } }
+        r.fareyiSürükleyince { (mx, my) => { yeniKonum(yuvarla(mx), yuvarla(my)); çizelim(çizgiler) } }
     }
     tanım merkezeGit() = { // komşuların ağırlık merkezine gidelim
         dez s = komşular.boyu

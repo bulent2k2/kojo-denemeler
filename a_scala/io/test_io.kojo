@@ -1,4 +1,4 @@
-// #include io
+// #yükle io
 
 val lines = input.fromFile("/Users/ben/.zshrc")
 lines.size
@@ -9,4 +9,7 @@ lines.drop(19)
 //   Writing to /Applications/Kojo Learning Environment.app/fooBar.txt
 // or for my local build:
 //   /Users/ben/src/kojo/git/kojo/fooBar.txt
-output.toFile(lines)("fooBar.txt")
+// output.toFile(lines)("fooBar.txt")
+output.toFile(
+    lines.map(_ take 10).map("|" + _ + "|")
+    )("/Users/ben/fooBar.txt")

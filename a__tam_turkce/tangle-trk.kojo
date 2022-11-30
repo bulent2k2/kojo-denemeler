@@ -1,18 +1,12 @@
-// yazıdanÇizgeye komutu ve örnek çizgeler:
-//#yükle tangle-ornek-cizgeler.kojo
-// bellekGeri ve bellekİleri nesneleri:
-//#yükle bellek.kojo
+//#yükle temel.kojo
 //#yükle nokta.kojo
-//#yükle dugmeler.kojo
+//#yükle arayuz.kojo
+
+// yazıdanÇizgeye komutu ve örnek çizgeler:
+//#yükle tangle-ornek-cizgeler.kojo  
 
 // ingilizce anahtar sözcükler kullanan eski yazılım şurada: ~/src/kojo/tangle/tangle.kojo
 silVeSakla(); çıktıyıSil()  // yeni türkçe anahtar sözcüklerle!
-// Kare grid çizgesi kuracağız. düzlemseldir.
-dez KNS = 1 // Karenin bir kenarında kaç tane nokta olsun? kns arttıkça oyun zorlaşır. Başlangıçtaki nokta sayısı = kns*kns.
-den yarıçap = 10 // bu da noktanın yarıçapı
-den çizgiler = Küme[Çizgi]() // boş küme olarak başlarız
-den noktalar = Küme[Nokta]()
-den noktalar2 = Yöney[Nokta]() // dışsal (ya da içsel) nokta eklemek için gerekli
 
 durum sınıf Çizgi(n1: Nokta, n2: Nokta) { // iki noktayı bağla
     gerekli(n1 != n2, s"YANLIŞ! döngü ${n1.yaz}")
@@ -163,8 +157,8 @@ tanım serpiştir(hepsi: Küme[Nokta], düğmeler: Düğmeler) {
         den deney = doğru
         den (x, y) = (0.0, 0.0)
         yineleDoğruKaldıkça (deney) {
-            x = mx + yarıçap + en * rasgele
-            y = my + yarıçap + boy * rasgele
+            x = mx + yarıçap + yuvarla(en * rasgele, 1)
+            y = my + yarıçap + yuvarla(boy * rasgele, 1)
             deney = düğmeler.düğmelereDeğdiMi(x, y)
         }
         (x, y)
