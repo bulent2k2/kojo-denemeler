@@ -3,7 +3,7 @@
 //#yükle arayuz.kojo
 
 // yazıdanÇizgeye komutu ve örnek çizgeler:
-//#yükle tangle-ornek-cizgeler.kojo
+//#yükle dugum-ornek-cizgeler.kojo
 
 // ingilizce anahtar sözcükler kullanan eski yazılım şurada: ~/src/kojo/tangle/tangle.kojo
 silVeSakla(); çıktıyıSil()  // yeni türkçe anahtar sözcüklerle!
@@ -96,9 +96,8 @@ tanım silmeBilgisi(silinecekNoktalar: Küme[Nokta]) = {
 tanım baştan(kns: Sayı) = { // Her nokta (0,0) yani orijine konuyor başta. Merak etme birazdan dağıtacağız
     // tümEkranTuval() //; eksenleriGöster(); gridiGöster()
     dez düğmeler = yeni Düğmeler(kns) { kur() }
-    den s = 0 // yoksa komşu seti yanlış çalışıyor!
     dez bns = kns * kns // başlangıçtaki nokta sayısı
-    dez noktalar3 = (0 |- bns).soldanKatla(Yöney[Nokta]())((v, i) => { s += 1; v :+ Nokta(s, 0); })
+    dez noktalar3 = (0 |- bns).soldanKatla(Yöney[Nokta]())((v, i) => { v :+ Nokta(0, 0) })
     // her bir çizgiyi tanımlar ve iki noktasına bağlarız. Bir balık ağı gibi. kns * kns düğümlü
     dez çizgiler2 = (0 |- bns).soldanKatla(Yöney[Çizgi]())(
         (çv, i) => {
