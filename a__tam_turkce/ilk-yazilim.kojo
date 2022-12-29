@@ -42,5 +42,4 @@ Merhaba
 silVeSakla
 hızıKur(çokHızlı)
 kalemiKaldır(); sol; ileri(200); sağ; kalemiİndir()
-yazı("ben saklambaç oynamayı seven bir kaplumbağayım")
-va
+yazı("ben saklambaç oynamayı seven bir kaplumbağayım ☺")
