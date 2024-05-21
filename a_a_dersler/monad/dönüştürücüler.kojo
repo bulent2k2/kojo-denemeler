@@ -2,7 +2,7 @@
   tanım arı[A](a: A): F[A] // pure
 }
 örtük nesne GelecekKapsar yayar Kapsar[Gelecek] {
-  tanım arı[A](a: A): Gelecek[A] = Gelecek.başarılı(a)
+  tanım arı[A](a: A): Gelecek[A] = Gelecek.başarılı(a) // ??
 }
 
 özellik İşler[F[_]] { // Functor
@@ -30,6 +30,7 @@ sınıf GelecekMonadı1(örtük dez i: İşletimBağlamı) yayar Monad1[Gelecek]
 
 özellik Monad[F[_]] {
   tanım arı[A](a: A): F[A] // pure
+  // işle olmasa da olur. arı ve düzİşle kullanarak yazılabilir
   tanım işle[A, B](fa: F[A])(f: A => B): F[B]
   tanım düzİşle[A, B](fa: F[A])(f: A => F[B]): F[B]
 }

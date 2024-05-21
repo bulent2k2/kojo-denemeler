@@ -18,6 +18,14 @@
         }
  */
 
+nesne arayüz_temel {
+    dez dGrid = 40 // düğmeleri sol alt köşede bir gride yerleştirelim
+    dez (kx, ky) = (0.9 * tuvalAlanı.x, 0.9 * tuvalAlanı.y) // sol alt köşe
+    dez dBoyu = dGrid - 5
+    dez (sıra1, sıra2, sıra3, sıra4, sıra5) = (ky, ky + dGrid, ky + 2 * dGrid, ky + 3 * dGrid, ky + 4 * dGrid)
+    dez (sütn1, sütn2, sütn3, sütn4, sütn5) = (kx, kx + dGrid, kx + 2 * dGrid, kx + 3 * dGrid, kx + 4 * dGrid)
+}
+
 sınıf Düğmeler(kns: Sayı) {
     tanım kur() { // düğmeleri bir grid üzerine koyalım
         düğmelerinİlkSırası() // dört sıra düğmemiz var
@@ -32,11 +40,9 @@ sınıf Düğmeler(kns: Sayı) {
         dez (x2, y2) = (kx + 3 * dGrid + yarıçap, ky + 4 * dGrid + yarıçap)
         x1 < x && x < x2 && y1 < y && y < y2
     }
-    dez dGrid = 40 // düğmeleri sol alt köşede bir gride yerleştirelim
-    dez (kx, ky) = (0.9 * tuvalAlanı.x, 0.9 * tuvalAlanı.y) // sol alt köşe
-    dez dBoyu = dGrid - 5
-    dez (sıra1, sıra2, sıra3, sıra4, sıra5) = (ky, ky + dGrid, ky + 2 * dGrid, ky + 3 * dGrid, ky + 4 * dGrid)
-    dez (sütn1, sütn2, sütn3, sütn4, sütn5) = (kx, kx + dGrid, kx + 2 * dGrid, kx + 3 * dGrid, kx + 4 * dGrid)
+    getir arayüz_temel._
+  dez (kx, ky) = (arayüz_temel.kx, arayüz_temel.ky)
+  dez dGrid = arayüz_temel.dGrid
     // yeni nokta konumu
     tanım ynkx = { // rastgele olmazsa seçiliNoktalar küme metodları hata veriyordu. Eşsizlik özelliğini ekleyerek bu sorunu çözdük.
         dez yeniZ = sütn5 + yarıçap
@@ -49,7 +55,7 @@ sınıf Düğmeler(kns: Sayı) {
     den yardım = Resim.arayüz(ay.Tanıt("Yardım"))
     tanım yardımEt(x: Kesir, y: Kesir, m: Yazı) = {
         yardım = Resim.arayüz(ay.Tanıt(m))
-        yardım.konumuKur(sütn1, sıra4 + dGrid)
+        yardım.konumuKur(sütn1, sıra1 - dGrid/2)
         yardım.büyütmeyiKur(1.1) // yazıyı büyütelim
         eğer (!yardım.çizili) yardım.çiz
         yoksa yardım.sil()

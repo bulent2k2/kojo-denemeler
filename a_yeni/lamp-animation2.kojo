@@ -1,0 +1,1 @@
+tr/lamp-animation2.kojo

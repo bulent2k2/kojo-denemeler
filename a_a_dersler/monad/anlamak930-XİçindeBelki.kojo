@@ -1,9 +1,9 @@
-
+// üç kasıtlı hata var -- üç tanımsız tür var
 durum sınıf Kişi(no: Uzun, adı: Yazı, soyadı: Yazı)
 durum sınıf Kurum(no: Uzun, adı: Yazı)
 
 sınıf enBaştan {
-  tür Etki[T] = XİçindeBelki[T, Gelecek]
+  tür Etki[T] = XİçindeBelki[T, Gelecek] // Gelecek[Belki[T]]
 
   gizli tanım kişiAra(kimlik: Uzun): Etki[Kişi] = ???
   gizli tanım kurumAra(kim: Kişi): Etki[Kurum] = ???

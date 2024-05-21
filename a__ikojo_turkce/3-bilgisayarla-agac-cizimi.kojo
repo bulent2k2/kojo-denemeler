@@ -1,0 +1,16 @@
+tanım ağaç(boy: Kesir): Birim = eğer (boy > 4) {
+    kalemKalınlığınıKur(boy / 3)
+    kalemRenginiKur(Renk(boy.sayıya, mutlakDeğer(255 - boy * 3).sayıya, 125))
+    ileri(boy)
+    sağ(25)
+    ağaç(boy * 0.8 - 2)
+    sol(45)
+    ağaç(boy - 10)
+    sağ(20)
+    geri(boy)
+}
+silVeSakla()
+hızıKur(çokHızlı)
+zıpla(-200)
+yaklaşXY(0.5,0.6,-50,0)
+ağaç(95)

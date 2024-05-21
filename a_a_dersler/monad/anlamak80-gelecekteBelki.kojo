@@ -1,4 +1,4 @@
-
+// çalıştı ama İngilizce yöntem eklemek gerekti!
 durum sınıf Kişi(no: Uzun, adı: Yazı, soyadı: Yazı)
 durum sınıf Kurum(no: Uzun, adı: Yazı)
 
@@ -16,6 +16,7 @@ sınıf enBaştan {
 }
 
 durum sınıf GelecekteBelki[T](ne: Gelecek[Belki[T]]) {
-    tanım map[S](f: T => S): GelecekteBelki[S] = ???
-    tanım flatMap[S](f: T => GelecekteBelki[S]): GelecekteBelki[S] = ???
+    tür A[B] = GelecekteBelki[B]
+    tanım map[S](f: T => S): A[S] = ???
+    tanım flatMap[S](f: T => A[S]): A[S] = ???
 }

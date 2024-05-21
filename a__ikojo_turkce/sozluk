@@ -1,0 +1,30 @@
+* anahtar sözcükler
+dez val
+def tanım
+* komutlar
+sil clear
+silVeSakla cleari
+çiz draw
+* resim
+Resim Picture
+daire circle
+boyaRengi fillColor
+kalemRengi penColor
+Renk Color
+çiz draw
+götür trans
+** renkler
+renksiz noColor
+kırmızı red
+mavi blue
+yeşil green
+sarı yellow
+siyah black
+* türler
+Lokma Byte
+* genel
+parçacık bit
+kesif opaque
+kesiflikOranı opacity -- saydamlık - ışık geçirmeme oranı
+yarıçap radius
+* son

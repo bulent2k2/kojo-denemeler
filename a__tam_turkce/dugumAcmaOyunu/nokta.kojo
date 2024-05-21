@@ -47,6 +47,8 @@ durum sınıf Nokta(den x: Kesir, den y: Kesir) yayar Eşsizlik {
         }
         // çekince bu çalışacak. Yeri değişince ona bağlı çizgileri tekrar çizmemiz gerek
         r.fareyiSürükleyince { (mx, my) => { yeniKonum(yuvarla(mx), yuvarla(my)); çizelim(çizgiler) } }
+        r.fareGirince { (x, y) => /* satıryaz(yaz) */ }
+        r.fareÇıkınca { (x, y) => }
     }
     tanım merkezeGit() = { // komşuların ağırlık merkezine gidelim
         dez s = komşular.boyu
@@ -77,5 +79,30 @@ durum sınıf Nokta(den x: Kesir, den y: Kesir) yayar Eşsizlik {
                 k.düşür(2 * ikik).al(ikik).ikile(e2).işle { durum (k, (nx, ny)) => k.yeniKonum(x + nx, y + ny) }
             çizelim(çizgiler)
         }
+    }
+}
+
+// todo: not complete yet.. not used either
+// fareyle bir noktaya dokununca hakkında bilgi verelim. Adı ve yeri ne. Derecesi ne.
+sınıf Yardım(r: Resim) {
+    getir arayüz_temel._
+
+    // todo: duplicate in arayuz.kojo
+    den yardım = Resim.arayüz(ay.Tanıt("Yardım"))
+    tanım yardımEt(x: Kesir, y: Kesir, m: Yazı) = {
+        yardım = Resim.arayüz(ay.Tanıt(m))
+        yardım.konumuKur(sütn1, sıra4 + dGrid)
+        yardım.büyütmeyiKur(1.1) // yazıyı büyütelim
+        eğer (!yardım.çizili) yardım.çiz
+        yoksa yardım.sil()
+    }
+    tanım yardımıKapat() = { yardım.sil() }
+    tanım yardımıKur(r: Resim, mesaj: Yazı) = {
+        r.fareGirince { (x, y) => yardımEt(x, y, mesaj) }
+        r.fareÇıkınca { (_, _) => yardımıKapat }
+    }
+    tanım yardımıKur2(r: Resim, işlev: () => Yazı) {
+        r.fareGirince { (x, y) => yardımEt(x, y, işlev()) }
+        r.fareÇıkınca { (_, _) => yardımıKapat }
     }
 }

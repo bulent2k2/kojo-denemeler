@@ -1,4 +1,4 @@
-
+// #yükle işle-yöntemli
 durum sınıf Kişi(no: Uzun, adı: Yazı, soyadı: Yazı)
 durum sınıf Kurum(no: Uzun, adı: Yazı)
 
@@ -14,11 +14,10 @@ sınıf enBaştan {
   ) ver kurum
 }
 
-durum sınıf GelecekteBelki[T](ne: Gelecek[Belki[T]]) {
-  tanım map[S](f: T => S)(örtük çç: İşletimBağlamı): GelecekteBelki[S] =
-    GelecekteBelki(ne.işle(_.işle(f)))
-  
-  tanım flatMap[S](f: T => GelecekteBelki[S])(örtük çç: İşletimBağlamı): GelecekteBelki[S] =
+durum sınıf GelecekteBelki[T](ne: Gelecek[Belki[T]]) yayar İşleYöntemleri[T, GelecekteBelki] {
+  örtük dez ib: İşletimBağlamı = İşletimBağlamı.küresel
+  tanım işle[S](f: T => S): GelecekteBelki[S] = GelecekteBelki(ne.işle(_.işle(f)))
+  tanım düzİşle[S](f: T => GelecekteBelki[S]): GelecekteBelki[S] = 
     GelecekteBelki(
       ne.düzİşle {
         durum Biri(a) => f(a).ne

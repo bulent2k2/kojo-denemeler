@@ -1,4 +1,4 @@
-
+// #yükle işle-yöntemli
 durum sınıf Kişi(no: Uzun, adı: Yazı, soyadı: Yazı)
 durum sınıf Kurum(no: Uzun, adı: Yazı)
 
@@ -14,10 +14,9 @@ sınıf enBaştan {
   ) ver kurum
 }
 
-durum sınıf DizinİçindeBelki[T](ne: Dizin[Belki[T]]) {
-  tanım map[S](f: T => S): DizinİçindeBelki[S] = DizinİçindeBelki(ne.işle(_.işle(f)))
-  
-  tanım flatMap[S](f: T => DizinİçindeBelki[S]): DizinİçindeBelki[S] = DizinİçindeBelki(
+durum sınıf DizinİçindeBelki[T](ne: Dizin[Belki[T]]) yayar İşleYöntemleri[T, DizinİçindeBelki] {
+  tanım işle[S](f: T => S): DizinİçindeBelki[S] = DizinİçindeBelki(ne.işle(_.işle(f)))
+  tanım düzİşle[S](f: T => DizinİçindeBelki[S]): DizinİçindeBelki[S] = DizinİçindeBelki(
     ne.düzİşle {
       durum Biri(a) => f(a).ne
       durum Hiçbiri => Dizin(Hiçbiri)
