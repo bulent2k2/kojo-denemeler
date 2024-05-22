@@ -1,8 +1,6 @@
 type Nums = List[Int]
 type Digits = List[Byte]
 
-val primes: Stream[Int] = 2 #:: Stream.from(3, 2).filter {isPrime}
-def isPrime(n: Int) = if (n < 2) false else primeFactors(n) == List(n)
 def primeFactors(x: Int): Nums = {
   // see: https://stackoverflow.com/questions/30280524/scala-way-to-generate-prime-factors-of-a-number
   @annotation.tailrec
@@ -13,6 +11,8 @@ def primeFactors(x: Int): Nums = {
   }
   pf(x, 2, Nil)
 }
+def isPrime(n: Int) = if (n < 2) false else primeFactors(n) == List(n)
+val primes: Stream[Int] = 2 #:: Stream.from(3, 2).filter {isPrime}
 
 def digits(n: Int): Digits =
   if (n < 10) List(n.toByte)
