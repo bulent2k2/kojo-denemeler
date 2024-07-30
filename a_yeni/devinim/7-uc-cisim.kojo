@@ -2,7 +2,7 @@
 // Fizikteki gerçek üç cisim problemi: https://www.youtube.com/watch?v=l2wnqlcOL9A
 // Görünüşe göre, üçlü yıldız sistemleri var, ama çoğunlukla yakın dönen ikiz etrafında uzaktan dönen üçüncü olarak. 
 // Yoksa işler çok karmaşıklaşıyor burada göreceğimiz gibi:
-dez (yer, boy, ilkHız, kçKatsayısı, örnekleme) = (50, 5, 1.0, 100, 4)
+dez (yer, boy, ilkHız, kçKatsayısı, örnekleme) = (50, 5, 1.0, 100, 9)
 dez fırçaBoyu = 0.6 // yörüngeyi çizer. Çizmemek için 0 yapın
 dez (r1, r2, r3) = (kalemRengi(kırmızı) * boyaRengi(kırmızı), kalemRengi(mavi) * boyaRengi(mavi), kalemRengi(yeşil) * boyaRengi(yeşil))
 dez (c1, c2, c3) = (r1 -> Resim.daire(boy), r2 -> Resim.daire(boy), r3 -> Resim.daire(boy))

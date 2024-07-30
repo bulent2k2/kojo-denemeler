@@ -1,0 +1,24 @@
+Kodun evrimleşme tarihçesi 
+==========================
+1- En önce bir topu canlandır döngüsüyle hareket ettirdik
+2- Sonra yansıtma becerisi ekledik
+3- Sonra bilardo masasını da çizdik
+4- Sonra zıplayan bir top olsun diye yerçekimi ekledik
+5- Sonra sürtünme ve zıpladıkça enerji kaybı ekledik
+6- Sonra uzayda ikiz cisim arasındaki kütle çekimini ekledik
+7- Sonra üç cisim
+
+Gerisi en/ altında:
+
+sonra four body ve five color kodlandı.
+
+sonra one-planet kütle ekledi.
+
+sonra two-planets force yerine dv işleviyle hızın yönü ve eklenmesi ortak paydalarını sadeleştirdi.
+
+three-planets add metoduyla vektör sınıfı ekledi. animate döngüsü çok sadeleşti. Ama, dv işlevi hala trigonometri kullanıyor.
+
+three-planets-v2 vektör'e scale, len, len2, len3 yöntemlerini ekleyerek dv'yi hem p1.x > p2.x gibi koşullardan hem de trigonometriden kurtardı!
+
+four-planets sadece dördüncü gezegeni ekledi
+
