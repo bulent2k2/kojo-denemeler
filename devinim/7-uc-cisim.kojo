@@ -9,6 +9,7 @@ dez (c1, c2, c3) = (r1 -> Resim.daire(boy), r2 -> Resim.daire(boy), r3 -> Resim.
 silVeSakla()
 tanım dürt = { dez r = rastgele(10); yaz(s"$r "); r } // başlangıç yerlerini biraz dürtelim ki farklı yörüngeler ortaya çıksın
 çiz(götür(yer + dürt, yer + dürt) -> c1, götür(-yer + dürt, -yer + dürt) -> c2, götür(-yer + dürt, yer + dürt) -> c3)
+satıryaz(s"Cisim 1: ${c1.konum} Cisim 2: ${c2.konum} Cisim 3: ${c3.konum}")
 den (dx1, dy1, dx2, dy2, dx3, dy3) = (ilkHız, 0.0, -ilkHız, 0.0, 0.0, 0.0)
 tanım açı(p1: Nokta, p2: Nokta): Kesir = tanjantınAçısı(mutlakDeğer((p1.y - p2.y) / (p1.x - p2.x)))
 tanım uzaklık(p1: Nokta, p2: Nokta): Kesir = karekökü(karesi(p1.x - p2.x) + karesi(p1.y - p2.y))

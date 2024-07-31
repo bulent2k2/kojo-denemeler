@@ -8,17 +8,17 @@ Kodun evrimleşme tarihçesi
 6- Sonra uzayda ikiz cisim arasındaki kütle çekimini ekledik
 7- Sonra üç cisim
 
-Gerisi en/ altında:
+Bunları henüz Türkçeleştirmedim:
 
-sonra four body ve five color kodlandı.
+8- sonra four body
+9- sonra five color
+10- sonra one-planet kütle ekledi.
+11- sonra two-planets yeni türler ekledi (Obj, Vec, Pic); force yerine dv işleviyle hızın yönü ve eklenmesi ortak paydalarını sadeleştirdi.
+12- three-planets vektör sınıfına add yöntemi ekledi. animate döngüsü çok sadeleşti. Ama, dv işlevi hala trigonometri kullanıyor.
+13- three-planets-v2 vektör'e scale, len, len2, len3 yöntemlerini ekleyerek dv'yi hem p1.x > p2.x gibi koşullardan hem de trigonometriden kurtardı!
 
-sonra one-planet kütle ekledi.
+En son da:
+14- four-planets.kojo sadece dördüncü gezegeni ekledi
 
-sonra two-planets force yerine dv işleviyle hızın yönü ve eklenmesi ortak paydalarını sadeleştirdi.
-
-three-planets add metoduyla vektör sınıfı ekledi. animate döngüsü çok sadeleşti. Ama, dv işlevi hala trigonometri kullanıyor.
-
-three-planets-v2 vektör'e scale, len, len2, len3 yöntemlerini ekleyerek dv'yi hem p1.x > p2.x gibi koşullardan hem de trigonometriden kurtardı!
-
-four-planets sadece dördüncü gezegeni ekledi
-
+Türkçesi:
+111-dort-gezegen-bir-yildiz.kojo
