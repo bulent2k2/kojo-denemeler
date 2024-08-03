@@ -31,16 +31,21 @@ tanım dHız(k1: Nokta, k2: Nokta, kütle2: Kesir) = { // k2 konumunda bulunan v
 }
 dez bilgi = götür(tuvalAlanı.x + 80, tuvalAlanı.y + 120) -> Resim.yazı("0000", Yazıyüzü("JetBrains Mono", 100), siyah)
 bilgi.çiz
+den girdi = ""
+dez adımSayısı = 500 // bu kadar adımdan sonra dur ve girdi oku
 den adım = 0; // döngünün her bir turuna bir adım diyelim ve adımları sayalım
-canlandır {
-  eğer (girdi == "1" && fırçaBoyu > 0 && adım % örnekleme == 0)
-  için (c <- cisimler)
-    (götür(c.konum.x, c.konum.y) * c.res.rengi -> Resim.daire(fırçaBoyu)).çiz
-  adım += 1
-  bilgi.güncelle(adım)
-  için (c <- cisimler) {
-    için (öbürü <- cisimler eğer öbürü != c)
-    c.hızlandır(dHız(c.konum, öbürü.konum, öbürü.kütle))
-    c.kaydır
-  }
-}
+yap { // canlandır {
+  zamanTut(s"$adımSayısı adım atmak")(yinele(adımSayısı) {
+    eğer (girdi == "1" && fırçaBoyu > 0 && adım % örnekleme == 0)
+    için (c <- cisimler)
+      (götür(c.konum.x, c.konum.y) * c.res.rengi -> Resim.daire(fırçaBoyu)).çiz
+    adım += 1
+    bilgi.güncelle(adım)
+    için (c <- cisimler) {
+      için (öbürü <- cisimler eğer öbürü != c)
+      c.hızlandır(dHız(c.konum, öbürü.konum, öbürü.kütle))
+      c.kaydır
+    }
+  })(f"tuttu. $adım%5d")
+  girdi = satıroku("Devam etmek için return tuşuna basın (yörüngeleri çizmek için 1 girin)")
+} yineleDoğruKaldıkça (doğru)
