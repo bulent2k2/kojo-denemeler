@@ -25,4 +25,3 @@ sınıf Bellek {
 dez bellekGeri = yeni Bellek
 // geri gittikten sonra ileri gidebilmek için bellek:
 dez bellekİleri = yeni Bellek
-

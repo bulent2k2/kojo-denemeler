@@ -287,8 +287,11 @@ sınıf Düğmeler(kns: Sayı) {
             yardımıKur(düğme, "Bir önceki anıya dön")
             düğme.boyamaRenginiKur(pembe)
             düğme.fareyeTıklayınca { (_, _) =>
+              eğer (bellekGeri.boşMu()) println("Bellek boş")
+              yoksa {
                 dez geçmiş = bellekGeri.al()
                 println(geçmiş)
+              }
             }
         }
         d4a(); d4b(); d4c(); d4d()
