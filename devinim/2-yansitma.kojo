@@ -5,12 +5,12 @@ dez yç = 10
 dez top = Resim.daire(yç)
 top.çiz
 top.kondur(-150, -100)
-den dx = 2
-den dy = 1
-canlandır { 
+den dx = 2 // yatay hız yani x koordinatındaki değişim 
+den dy = 1 // dikey hız
+canlandır {
     top.kondur(top.konum.x + dx, top.konum.y + dy)
-    eğer(top.konum.x >= 200 || top.konum.x <= -200)
+    eğer (top.konum.x >= 200 || top.konum.x <= -200)
         dx = -dx
-    eğer(top.konum.y >= 100 || top.konum.y <= -100)
+    eğer (top.konum.y >= 100 || top.konum.y <= -100)
         dy = -dy
 }
